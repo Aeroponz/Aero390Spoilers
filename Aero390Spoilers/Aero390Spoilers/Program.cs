@@ -16,7 +16,7 @@ namespace Aero390Spoilers
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new AircraftGUI());
         }
     }
 }
