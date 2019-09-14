@@ -93,9 +93,9 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_Down {
+        internal static System.Drawing.Bitmap LgIcon_Transit {
             get {
-                object obj = ResourceManager.GetObject("LgIcon_Down", resourceCulture);
+                object obj = ResourceManager.GetObject("LgIcon_Transit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,19 +103,9 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_DWow {
+        internal static System.Drawing.Bitmap LgIcon_Wow {
             get {
-                object obj = ResourceManager.GetObject("LgIcon_DWow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_TWow {
-            get {
-                object obj = ResourceManager.GetObject("LgIcon_TWow", resourceCulture);
+                object obj = ResourceManager.GetObject("LgIcon_Wow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

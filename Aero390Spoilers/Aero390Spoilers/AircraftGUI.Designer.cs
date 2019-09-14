@@ -34,9 +34,7 @@
             this.IASButton = new System.Windows.Forms.Button();
             this.GearPos = new System.Windows.Forms.Button();
             this.WowButton = new System.Windows.Forms.Button();
-            this.WowPB = new System.Windows.Forms.PictureBox();
-            this.LgDownPB = new System.Windows.Forms.PictureBox();
-            this.LgUpPB = new System.Windows.Forms.PictureBox();
+            this.ACSchemPB = new System.Windows.Forms.PictureBox();
             this.GWButton = new System.Windows.Forms.Button();
             this.Spoiler1PGB = new System.Windows.Forms.ProgressBar();
             this.Spoiler2PGB = new System.Windows.Forms.ProgressBar();
@@ -51,11 +49,15 @@
             this.AltUnitTB = new System.Windows.Forms.TextBox();
             this.GWUnitTB = new System.Windows.Forms.TextBox();
             this.IASUnitTB = new System.Windows.Forms.TextBox();
-            this.DownWowPB = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.WowPB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LgDownPB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LgUpPB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DownWowPB)).BeginInit();
+            this.GwPrintOut = new System.Windows.Forms.TextBox();
+            this.BaroPrintOut = new System.Windows.Forms.TextBox();
+            this.AltPrintOut = new System.Windows.Forms.TextBox();
+            this.IASPrintOut = new System.Windows.Forms.TextBox();
+            this.GearStatusIconPB = new System.Windows.Forms.PictureBox();
+            this.WoWIconPB = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.ACSchemPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).BeginInit();
             this.SuspendLayout();
             // 
             // Barometer
@@ -129,6 +131,7 @@
             this.GearPos.TabIndex = 3;
             this.GearPos.Text = "Gear";
             this.GearPos.UseVisualStyleBackColor = false;
+            this.GearPos.Click += new System.EventHandler(this.GearPos_Click);
             // 
             // WowButton
             // 
@@ -148,32 +151,14 @@
             this.WowButton.Text = "WOW";
             this.WowButton.UseVisualStyleBackColor = false;
             // 
-            // WowPB
+            // ACSchemPB
             // 
-            this.WowPB.Image = ((System.Drawing.Image)(resources.GetObject("WowPB.Image")));
-            this.WowPB.Location = new System.Drawing.Point(688, 47);
-            this.WowPB.Name = "WowPB";
-            this.WowPB.Size = new System.Drawing.Size(452, 140);
-            this.WowPB.TabIndex = 5;
-            this.WowPB.TabStop = false;
-            // 
-            // LgDownPB
-            // 
-            this.LgDownPB.Image = ((System.Drawing.Image)(resources.GetObject("LgDownPB.Image")));
-            this.LgDownPB.Location = new System.Drawing.Point(688, 47);
-            this.LgDownPB.Name = "LgDownPB";
-            this.LgDownPB.Size = new System.Drawing.Size(452, 140);
-            this.LgDownPB.TabIndex = 6;
-            this.LgDownPB.TabStop = false;
-            // 
-            // LgUpPB
-            // 
-            this.LgUpPB.Image = global::Aero390Spoilers.Properties.Resources.LgUpSchem;
-            this.LgUpPB.Location = new System.Drawing.Point(688, 47);
-            this.LgUpPB.Name = "LgUpPB";
-            this.LgUpPB.Size = new System.Drawing.Size(452, 140);
-            this.LgUpPB.TabIndex = 7;
-            this.LgUpPB.TabStop = false;
+            this.ACSchemPB.Image = ((System.Drawing.Image)(resources.GetObject("ACSchemPB.Image")));
+            this.ACSchemPB.Location = new System.Drawing.Point(688, 47);
+            this.ACSchemPB.Name = "ACSchemPB";
+            this.ACSchemPB.Size = new System.Drawing.Size(452, 140);
+            this.ACSchemPB.TabIndex = 5;
+            this.ACSchemPB.TabStop = false;
             // 
             // GWButton
             // 
@@ -320,15 +305,81 @@
             this.IASUnitTB.Text = "kts";
             this.IASUnitTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // DownWowPB
+            // GwPrintOut
             // 
-            this.DownWowPB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.DownWowPB.Image = global::Aero390Spoilers.Properties.Resources.LgIcon_DWow;
-            this.DownWowPB.Location = new System.Drawing.Point(922, 502);
-            this.DownWowPB.Name = "DownWowPB";
-            this.DownWowPB.Size = new System.Drawing.Size(101, 40);
-            this.DownWowPB.TabIndex = 23;
-            this.DownWowPB.TabStop = false;
+            this.GwPrintOut.BackColor = System.Drawing.Color.Black;
+            this.GwPrintOut.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GwPrintOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GwPrintOut.ForeColor = System.Drawing.Color.White;
+            this.GwPrintOut.Location = new System.Drawing.Point(896, 330);
+            this.GwPrintOut.Name = "GwPrintOut";
+            this.GwPrintOut.ReadOnly = true;
+            this.GwPrintOut.Size = new System.Drawing.Size(80, 16);
+            this.GwPrintOut.TabIndex = 26;
+            this.GwPrintOut.Text = "38500";
+            this.GwPrintOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // BaroPrintOut
+            // 
+            this.BaroPrintOut.BackColor = System.Drawing.Color.Black;
+            this.BaroPrintOut.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.BaroPrintOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BaroPrintOut.ForeColor = System.Drawing.Color.White;
+            this.BaroPrintOut.Location = new System.Drawing.Point(896, 377);
+            this.BaroPrintOut.Name = "BaroPrintOut";
+            this.BaroPrintOut.ReadOnly = true;
+            this.BaroPrintOut.Size = new System.Drawing.Size(80, 16);
+            this.BaroPrintOut.TabIndex = 27;
+            this.BaroPrintOut.Text = "29.92";
+            this.BaroPrintOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // AltPrintOut
+            // 
+            this.AltPrintOut.BackColor = System.Drawing.Color.Black;
+            this.AltPrintOut.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AltPrintOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AltPrintOut.ForeColor = System.Drawing.Color.White;
+            this.AltPrintOut.Location = new System.Drawing.Point(896, 423);
+            this.AltPrintOut.Name = "AltPrintOut";
+            this.AltPrintOut.ReadOnly = true;
+            this.AltPrintOut.Size = new System.Drawing.Size(80, 16);
+            this.AltPrintOut.TabIndex = 28;
+            this.AltPrintOut.Text = "10000";
+            this.AltPrintOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // IASPrintOut
+            // 
+            this.IASPrintOut.BackColor = System.Drawing.Color.Black;
+            this.IASPrintOut.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.IASPrintOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IASPrintOut.ForeColor = System.Drawing.Color.White;
+            this.IASPrintOut.Location = new System.Drawing.Point(896, 469);
+            this.IASPrintOut.Name = "IASPrintOut";
+            this.IASPrintOut.ReadOnly = true;
+            this.IASPrintOut.Size = new System.Drawing.Size(80, 16);
+            this.IASPrintOut.TabIndex = 29;
+            this.IASPrintOut.Text = "250";
+            this.IASPrintOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // GearStatusIconPB
+            // 
+            this.GearStatusIconPB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.GearStatusIconPB.Image = global::Aero390Spoilers.Properties.Resources.LgIcon_Transit;
+            this.GearStatusIconPB.Location = new System.Drawing.Point(896, 506);
+            this.GearStatusIconPB.Name = "GearStatusIconPB";
+            this.GearStatusIconPB.Size = new System.Drawing.Size(60, 40);
+            this.GearStatusIconPB.TabIndex = 24;
+            this.GearStatusIconPB.TabStop = false;
+            // 
+            // WoWIconPB
+            // 
+            this.WoWIconPB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.WoWIconPB.Image = global::Aero390Spoilers.Properties.Resources.LgIcon_Wow;
+            this.WoWIconPB.Location = new System.Drawing.Point(965, 502);
+            this.WoWIconPB.Name = "WoWIconPB";
+            this.WoWIconPB.Size = new System.Drawing.Size(60, 40);
+            this.WoWIconPB.TabIndex = 25;
+            this.WoWIconPB.TabStop = false;
             // 
             // AircraftGUI
             // 
@@ -339,7 +390,12 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1184, 635);
-            this.Controls.Add(this.DownWowPB);
+            this.Controls.Add(this.IASPrintOut);
+            this.Controls.Add(this.AltPrintOut);
+            this.Controls.Add(this.BaroPrintOut);
+            this.Controls.Add(this.GwPrintOut);
+            this.Controls.Add(this.WoWIconPB);
+            this.Controls.Add(this.GearStatusIconPB);
             this.Controls.Add(this.IASUnitTB);
             this.Controls.Add(this.GWUnitTB);
             this.Controls.Add(this.AltUnitTB);
@@ -354,9 +410,7 @@
             this.Controls.Add(this.Spoiler2PGB);
             this.Controls.Add(this.Spoiler1PGB);
             this.Controls.Add(this.GWButton);
-            this.Controls.Add(this.LgUpPB);
-            this.Controls.Add(this.LgDownPB);
-            this.Controls.Add(this.WowPB);
+            this.Controls.Add(this.ACSchemPB);
             this.Controls.Add(this.WowButton);
             this.Controls.Add(this.GearPos);
             this.Controls.Add(this.IASButton);
@@ -365,10 +419,9 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AircraftGUI";
             this.Text = "AircraftGUI";
-            ((System.ComponentModel.ISupportInitialize)(this.WowPB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LgDownPB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LgUpPB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DownWowPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ACSchemPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -381,9 +434,7 @@
         private System.Windows.Forms.Button IASButton;
         private System.Windows.Forms.Button GearPos;
         private System.Windows.Forms.Button WowButton;
-        private System.Windows.Forms.PictureBox WowPB;
-        private System.Windows.Forms.PictureBox LgDownPB;
-        private System.Windows.Forms.PictureBox LgUpPB;
+        private System.Windows.Forms.PictureBox ACSchemPB;
         private System.Windows.Forms.Button GWButton;
         private System.Windows.Forms.ProgressBar Spoiler1PGB;
         private System.Windows.Forms.ProgressBar Spoiler2PGB;
@@ -398,7 +449,12 @@
         private System.Windows.Forms.TextBox AltUnitTB;
         private System.Windows.Forms.TextBox GWUnitTB;
         private System.Windows.Forms.TextBox IASUnitTB;
-        private System.Windows.Forms.PictureBox DownWowPB;
+        private System.Windows.Forms.TextBox GwPrintOut;
+        private System.Windows.Forms.TextBox BaroPrintOut;
+        private System.Windows.Forms.TextBox AltPrintOut;
+        private System.Windows.Forms.TextBox IASPrintOut;
+        private System.Windows.Forms.PictureBox GearStatusIconPB;
+        private System.Windows.Forms.PictureBox WoWIconPB;
     }
 }
 

@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -101,7 +104,16 @@
     <None Include="Resources\LgIcon_DWow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LgIcon_Down.png" />
+    <ProjectReference Include="..\Ownship\Ownship.csproj">
+      <Project>{7c9f84ca-bc59-4758-b62e-d361ba58f400}</Project>
+      <Name>Ownship</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LgIcon_Transit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LgIcon_Wow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
