@@ -19,7 +19,7 @@ namespace Aero390Spoilers.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -63,6 +63,26 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Background {
+            get {
+                object obj = ResourceManager.GetObject("Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GreyButton {
+            get {
+                object obj = ResourceManager.GetObject("GreyButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LgDownSchem {
             get {
                 object obj = ResourceManager.GetObject("LgDownSchem", resourceCulture);
@@ -73,9 +93,9 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LgUpSchem {
+        internal static System.Drawing.Bitmap LgIcon_Down {
             get {
-                object obj = ResourceManager.GetObject("LgUpSchem", resourceCulture);
+                object obj = ResourceManager.GetObject("LgIcon_Down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +103,29 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap WingSchemSmall {
+        internal static System.Drawing.Bitmap LgIcon_DWow {
             get {
-                object obj = ResourceManager.GetObject("WingSchemSmall", resourceCulture);
+                object obj = ResourceManager.GetObject("LgIcon_DWow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LgIcon_TWow {
+            get {
+                object obj = ResourceManager.GetObject("LgIcon_TWow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LgUpSchem {
+            get {
+                object obj = ResourceManager.GetObject("LgUpSchem", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

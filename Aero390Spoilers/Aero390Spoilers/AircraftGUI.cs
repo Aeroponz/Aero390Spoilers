@@ -21,5 +21,10 @@ namespace Aero390Spoilers
         {
 
         }
+
+        private void AcParamTable_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
