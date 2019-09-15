@@ -93,6 +93,16 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LgIcon_Down {
+            get {
+                object obj = ResourceManager.GetObject("LgIcon_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LgIcon_Transit {
             get {
                 object obj = ResourceManager.GetObject("LgIcon_Transit", resourceCulture);
@@ -103,9 +113,39 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LgIcon_Unknown {
+            get {
+                object obj = ResourceManager.GetObject("LgIcon_Unknown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LgIcon_Up {
+            get {
+                object obj = ResourceManager.GetObject("LgIcon_Up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LgIcon_Wow {
             get {
                 object obj = ResourceManager.GetObject("LgIcon_Wow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LgIcon_Wow1 {
+            get {
+                object obj = ResourceManager.GetObject("LgIcon_Wow1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

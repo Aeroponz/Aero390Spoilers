@@ -21,10 +21,20 @@ namespace Ownship
                 LandingGears[i] = new LandingGear.LandingGear();
             }
 
+            //Parameter Initialisation
+            WeightOnWheels = true;
+            IasKts = 0;
+            IasNES = 350;
+            IasOverspeed = 320;
+            IasStall = 100;
+            AltitudeASL = 118;
+            BaroSettingmmHg = 29.92;
+            GrossWeightLbs = 35000;
+
         }
         public void GearPositionChange()
         {
-            if(HydSys[0].GetAvailPress() < G32_RequiredPressure)
+            if (HydSys[0].GetAvailPress() < G32_RequiredPressure)
             {
                 G32_LowGearPressure = true;
                 return;
@@ -41,7 +51,7 @@ namespace Ownship
         {
             int Sum = 0;
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 if (LandingGears[i].GearStatus() == "IN TRANSIT")
                 {
@@ -57,10 +67,10 @@ namespace Ownship
                     return "UP";
                 case 15:
                     return "DOWN";
-                default :
+                default:
                     return "GEAR MISMATCH";
             }
-            
+
         }
 
         //Aircraft Systems
@@ -68,7 +78,23 @@ namespace Ownship
         LandingGear.LandingGear[] LandingGears;
 
         //Aircraft Parameters
-        float G32_RequiredPressure = 500;//psi
+
+        //STATIC PARAMETERS
+        public double MTOW = 40000.0;
+        public double ZFW = 15000.0;
+
+        //VARIABLE PARAMETERS
+        double G32_RequiredPressure = 500;//psi
         bool G32_LowGearPressure = false;
+
+        public bool WeightOnWheels { get; set; }
+        public double GrossWeightLbs { get; set; }
+        public double BaroSettingmmHg { get; set; }
+        public double AltitudeASL { get; set; }
+        public double IasKts { get; set; }
+        public double IasOverspeed { get; set; }
+        public double IasNES { get; set; }
+        public double IasStall { get; set; }
+
     }
 }

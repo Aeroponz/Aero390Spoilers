@@ -77,6 +77,7 @@
             this.Barometer.TabIndex = 0;
             this.Barometer.Text = "Barometer";
             this.Barometer.UseVisualStyleBackColor = false;
+            this.Barometer.Click += new System.EventHandler(this.Barometer_Click);
             // 
             // Altitude
             // 
@@ -95,6 +96,7 @@
             this.Altitude.TabIndex = 1;
             this.Altitude.Text = "Altitude";
             this.Altitude.UseVisualStyleBackColor = false;
+            this.Altitude.Click += new System.EventHandler(this.Altitude_Click);
             // 
             // IASButton
             // 
@@ -113,6 +115,7 @@
             this.IASButton.TabIndex = 2;
             this.IASButton.Text = "Indicated Air Speed";
             this.IASButton.UseVisualStyleBackColor = false;
+            this.IASButton.Click += new System.EventHandler(this.IASButton_Click);
             // 
             // GearPos
             // 
@@ -150,6 +153,7 @@
             this.WowButton.TabIndex = 4;
             this.WowButton.Text = "WOW";
             this.WowButton.UseVisualStyleBackColor = false;
+            this.WowButton.Click += new System.EventHandler(this.WowButton_Click);
             // 
             // ACSchemPB
             // 
@@ -177,6 +181,7 @@
             this.GWButton.TabIndex = 8;
             this.GWButton.Text = "Gross Weight";
             this.GWButton.UseVisualStyleBackColor = false;
+            this.GWButton.Click += new System.EventHandler(this.GWButton_Click);
             // 
             // Spoiler1PGB
             // 
@@ -251,6 +256,7 @@
             this.IntegerInput.Name = "IntegerInput";
             this.IntegerInput.Size = new System.Drawing.Size(284, 23);
             this.IntegerInput.TabIndex = 17;
+            this.IntegerInput.Text = "Enter Value Here";
             this.IntegerInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BaroUnitTB

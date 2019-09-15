@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace LandingGear
 {
@@ -9,17 +8,13 @@ namespace LandingGear
         {
             GearInTransit = false;
             GearDown = true;
-            GearTransitTime = 10;
+            GearTransitTime = 2;
         }
-        public async void GearLeverPositionChanged()
+        public void GearLeverPositionChanged()
         {
             GearInTransit = true;
             GearDown = !GearDown;
-
-            await Task.Delay((int)GearTransitTime * 1000);
-
             GearInTransit = false;
-            GearDown = !GearDown;
         }
 
         public string GearStatus()
@@ -46,6 +41,6 @@ namespace LandingGear
 
         public bool GearInTransit { get; set; }
         public bool GearDown { get; set; }
-        public float GearTransitTime { get; set; }
+        public double GearTransitTime { get; set; }
     }
 }

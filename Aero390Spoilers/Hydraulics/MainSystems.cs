@@ -17,10 +17,10 @@ namespace Hydraulics
         {
             AvailPressure = 3000;
         }
-        public float GetAvailPress()
+        public double GetAvailPress()
         {
             return AvailPressure;
         }
-        float AvailPressure; //psi
+        double AvailPressure; //psi
     }
 }

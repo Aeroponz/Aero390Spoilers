@@ -115,5 +115,14 @@
   <ItemGroup>
     <None Include="Resources\LgIcon_Wow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LgIcon_Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LgIcon_Unknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LgIcon_Up.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
