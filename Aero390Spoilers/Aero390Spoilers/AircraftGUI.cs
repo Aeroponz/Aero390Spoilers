@@ -18,7 +18,14 @@ namespace Aero390Spoilers
     {
 
         Ownship.Aircraft Ownship = new Ownship.Aircraft();
+        //Constructor
+        public AircraftGUI()
+        {
+            InitializeComponent();
+            AircraftGUI_Tick();
+        }
 
+        #region GUI Tick
         public void AircraftGUI_Tick()
         {
             Timer timer = new Timer();
@@ -26,20 +33,10 @@ namespace Aero390Spoilers
             timer.Tick += new EventHandler(GUI_TickJobs);
             timer.Start();
         }
-
         private void GUI_TickJobs(object sender, EventArgs e)
         {
             RefreshGearPict();
             RefreshPrintOuts();
-        }
-        public AircraftGUI()
-        {
-            InitializeComponent();
-            AircraftGUI_Tick();
-        }
-        private void GearPos_Click(object sender, EventArgs e)
-        {
-            Ownship.GearPositionChange();
         }
         private void RefreshGearPict()
         {
@@ -83,7 +80,6 @@ namespace Aero390Spoilers
             }
 
         }
-
         private void RefreshPrintOuts()
         {
             GwPrintOut.Text = Ownship.GrossWeightLbs.ToString();
@@ -91,12 +87,13 @@ namespace Aero390Spoilers
             AltPrintOut.Text = Ownship.AltitudeASL.ToString();
             IASPrintOut.Text = Ownship.IasKts.ToString();
         }
+        #endregion
 
+        #region GUI Elements
         private void WowButton_Click(object sender, EventArgs e)
         {
             Ownship.WeightOnWheels = !(Ownship.WeightOnWheels);
         }
-
         private void GWButton_Click(object sender, EventArgs e)
         {
             if(IntegerInput.Text == "Enter Value Here")
@@ -118,7 +115,6 @@ namespace Aero390Spoilers
                 
             }
         }
-
         private void Barometer_Click(object sender, EventArgs e)
         {
             if (IntegerInput.Text == "Enter Value Here")
@@ -140,7 +136,6 @@ namespace Aero390Spoilers
 
             }
         }
-
         private void Altitude_Click(object sender, EventArgs e)
         {
             if (IntegerInput.Text == "Enter Value Here")
@@ -162,7 +157,6 @@ namespace Aero390Spoilers
 
             }
         }
-
         private void IASButton_Click(object sender, EventArgs e)
         {
             if (IntegerInput.Text == "Enter Value Here")
@@ -184,5 +178,10 @@ namespace Aero390Spoilers
 
             }
         }
+        private void GearPos_Click(object sender, EventArgs e)
+        {
+            Ownship.GearPositionChange();
+        }
+        #endregion
     }
 }

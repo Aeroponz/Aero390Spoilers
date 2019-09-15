@@ -6,6 +6,7 @@ namespace Ownship
 {
     public class Aircraft
     {
+        //Constructor
         public Aircraft()
         {
 
@@ -32,6 +33,9 @@ namespace Ownship
             GrossWeightLbs = 35000;
 
         }
+
+        #region Landing Gear
+        //Landing Gear Lever Position Change
         public void GearPositionChange()
         {
             if (HydSys[0].GetAvailPress() < G32_RequiredPressure)
@@ -47,6 +51,7 @@ namespace Ownship
             }
         }
 
+        //Returns a common gear status calculated from the individual gear status
         public string GlobalGearStatus()
         {
             int Sum = 0;
@@ -72,21 +77,23 @@ namespace Ownship
             }
 
         }
+        #endregion
 
-        //Aircraft Systems
+        #region Aircraft Systems Declarations
+        //Aircraft Systems Declarations
         HydraulicSys[] HydSys;
         LandingGear.LandingGear[] LandingGears;
+        #endregion
 
-        //Aircraft Parameters
-
-        //STATIC PARAMETERS
+        #region Aircraft Specs Declarations
         public double MTOW = 40000.0;
         public double ZFW = 15000.0;
+        #endregion
 
-        //VARIABLE PARAMETERS
+        #region Aircraft Parameters
+
         double G32_RequiredPressure = 500;//psi
         bool G32_LowGearPressure = false;
-
         public bool WeightOnWheels { get; set; }
         public double GrossWeightLbs { get; set; }
         public double BaroSettingmmHg { get; set; }
@@ -95,6 +102,6 @@ namespace Ownship
         public double IasOverspeed { get; set; }
         public double IasNES { get; set; }
         public double IasStall { get; set; }
-
+        #endregion
     }
 }
