@@ -55,9 +55,16 @@
             this.IASPrintOut = new System.Windows.Forms.TextBox();
             this.GearStatusIconPB = new System.Windows.Forms.PictureBox();
             this.WoWIconPB = new System.Windows.Forms.PictureBox();
+            this.ControlWheelBar = new System.Windows.Forms.TrackBar();
+            this.SpoilerLever = new System.Windows.Forms.TrackBar();
+            this.SpoilerUPLabel = new System.Windows.Forms.TextBox();
+            this.SpoilersARMLabel = new System.Windows.Forms.TextBox();
+            this.SpoilersDOWNLabel = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ACSchemPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
             this.SuspendLayout();
             // 
             // Barometer
@@ -387,6 +394,61 @@
             this.WoWIconPB.TabIndex = 25;
             this.WoWIconPB.TabStop = false;
             // 
+            // ControlWheelBar
+            // 
+            this.ControlWheelBar.Location = new System.Drawing.Point(125, 267);
+            this.ControlWheelBar.Minimum = -10;
+            this.ControlWheelBar.Name = "ControlWheelBar";
+            this.ControlWheelBar.Size = new System.Drawing.Size(362, 45);
+            this.ControlWheelBar.TabIndex = 30;
+            // 
+            // SpoilerLever
+            // 
+            this.SpoilerLever.LargeChange = 2;
+            this.SpoilerLever.Location = new System.Drawing.Point(42, 330);
+            this.SpoilerLever.Maximum = 0;
+            this.SpoilerLever.Minimum = -12;
+            this.SpoilerLever.Name = "SpoilerLever";
+            this.SpoilerLever.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.SpoilerLever.Size = new System.Drawing.Size(45, 227);
+            this.SpoilerLever.TabIndex = 31;
+            // 
+            // SpoilerUPLabel
+            // 
+            this.SpoilerUPLabel.BackColor = System.Drawing.Color.Black;
+            this.SpoilerUPLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SpoilerUPLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SpoilerUPLabel.ForeColor = System.Drawing.Color.White;
+            this.SpoilerUPLabel.Location = new System.Drawing.Point(74, 336);
+            this.SpoilerUPLabel.Name = "SpoilerUPLabel";
+            this.SpoilerUPLabel.Size = new System.Drawing.Size(25, 16);
+            this.SpoilerUPLabel.TabIndex = 32;
+            this.SpoilerUPLabel.Text = "UP";
+            // 
+            // SpoilersARMLabel
+            // 
+            this.SpoilersARMLabel.BackColor = System.Drawing.Color.Black;
+            this.SpoilersARMLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SpoilersARMLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SpoilersARMLabel.ForeColor = System.Drawing.Color.White;
+            this.SpoilersARMLabel.Location = new System.Drawing.Point(74, 368);
+            this.SpoilersARMLabel.Name = "SpoilersARMLabel";
+            this.SpoilersARMLabel.Size = new System.Drawing.Size(40, 16);
+            this.SpoilersARMLabel.TabIndex = 33;
+            this.SpoilersARMLabel.Text = "ARM";
+            // 
+            // SpoilersDOWNLabel
+            // 
+            this.SpoilersDOWNLabel.BackColor = System.Drawing.Color.Black;
+            this.SpoilersDOWNLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SpoilersDOWNLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SpoilersDOWNLabel.ForeColor = System.Drawing.Color.White;
+            this.SpoilersDOWNLabel.Location = new System.Drawing.Point(74, 536);
+            this.SpoilersDOWNLabel.Name = "SpoilersDOWNLabel";
+            this.SpoilersDOWNLabel.Size = new System.Drawing.Size(55, 16);
+            this.SpoilersDOWNLabel.TabIndex = 34;
+            this.SpoilersDOWNLabel.Text = "DOWN";
+            // 
             // AircraftGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,6 +458,11 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1184, 635);
+            this.Controls.Add(this.SpoilersDOWNLabel);
+            this.Controls.Add(this.SpoilersARMLabel);
+            this.Controls.Add(this.SpoilerUPLabel);
+            this.Controls.Add(this.SpoilerLever);
+            this.Controls.Add(this.ControlWheelBar);
             this.Controls.Add(this.IASPrintOut);
             this.Controls.Add(this.AltPrintOut);
             this.Controls.Add(this.BaroPrintOut);
@@ -428,6 +495,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ACSchemPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -461,6 +530,11 @@
         private System.Windows.Forms.TextBox IASPrintOut;
         private System.Windows.Forms.PictureBox GearStatusIconPB;
         private System.Windows.Forms.PictureBox WoWIconPB;
+        private System.Windows.Forms.TrackBar ControlWheelBar;
+        private System.Windows.Forms.TrackBar SpoilerLever;
+        private System.Windows.Forms.TextBox SpoilerUPLabel;
+        private System.Windows.Forms.TextBox SpoilersARMLabel;
+        private System.Windows.Forms.TextBox SpoilersDOWNLabel;
     }
 }
 
