@@ -269,7 +269,7 @@
             this.BaroUnitTB.Name = "BaroUnitTB";
             this.BaroUnitTB.Size = new System.Drawing.Size(45, 16);
             this.BaroUnitTB.TabIndex = 19;
-            this.BaroUnitTB.Text = "mmHg";
+            this.BaroUnitTB.Text = "\"Hg";
             this.BaroUnitTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // AltUnitTB

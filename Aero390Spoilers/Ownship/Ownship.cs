@@ -45,6 +45,11 @@ namespace Ownship
             }
             else
             {
+                //Transition from wheels down to up (Takeoff) -> WoW should be false.
+                if (GlobalGearStatus() == "DOWN")
+                {
+                    WeightOnWheels = false;
+                }
                 LandingGears[0].GearLeverPositionChanged();
                 LandingGears[1].GearLeverPositionChanged();
                 LandingGears[2].GearLeverPositionChanged();
