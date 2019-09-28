@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94132E65-2BB1-483A-AA03-6EB6355582A3}</ProjectGuid>
+    <ProjectGuid>{8C913E93-C239-4BA6-ACB3-92D64223CDD9}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Aero390Spoilers</RootNamespace>
-    <AssemblyName>Aero390Spoilers</AssemblyName>
+    <RootNamespace>CSSimulationNode</RootNamespace>
+    <AssemblyName>CSSimulationNode</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,9 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>
@@ -50,88 +47,29 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AircraftGUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AircraftGUI.Designer.cs">
-      <DependentUpon>AircraftGUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AircraftGUI.resx">
-      <DependentUpon>AircraftGUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LgDownSchem.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LgUpSchem.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WowSchem.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Background.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GreyButton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LgIcon_TWow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LgIcon_DWow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LgIcon_Transit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LgIcon_Wow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LgIcon_Down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LgIcon_Unknown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LgIcon_Up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSSimulationNode\CSSimulationNode.csproj">
-      <Project>{8c913e93-c239-4ba6-acb3-92d64223cdd9}</Project>
-      <Name>CSSimulationNode</Name>
+    <ProjectReference Include="..\Electrics\Electrics.csproj">
+      <Project>{d42a40f3-b4b7-4c75-9df5-e2b65714b803}</Project>
+      <Name>Electrics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hydraulics\Hydraulics.csproj">
+      <Project>{1cf9052f-c8c4-46f2-9506-94e4b31cccfb}</Project>
+      <Name>Hydraulics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LandingGear\LandingGear.csproj">
+      <Project>{c87760ad-ed3a-4baa-b8fc-c5d22b323233}</Project>
+      <Name>LandingGear</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ownship\Ownship.csproj">
       <Project>{7c9f84ca-bc59-4758-b62e-d361ba58f400}</Project>
