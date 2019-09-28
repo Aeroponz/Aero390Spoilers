@@ -34,6 +34,14 @@ namespace Ownship
 
         }
 
+
+        //Aircraft Tick and Returns Updated Aircraft Status
+        public int[] AircraftTick()
+        {
+            int[] wACStatus = { 1, 2, 3 };
+            return wACStatus;  
+        }
+
         #region Landing Gear
         //Landing Gear Lever Position Change
         public void GearPositionChange()
