@@ -16,6 +16,9 @@ namespace CSSimulationNode
         public static int TotalTicks = 0;
         public static Ownship.Aircraft Ownship;
 
+        private static NamedPipeServerStream pipeServer = new NamedPipeServerStream("ToGUI", PipeDirection.Out);
+        private static StreamWriter swToGUI = new StreamWriter(pipeServer);
+
         static void Main(string[] args)
         {
             mutex = new Mutex(true, "Global\\CSSimulation", out isNewMutexCreated);
@@ -25,64 +28,48 @@ namespace CSSimulationNode
             //Console.ReadLine();
 
             //Initialise NamedPipe and send test string to clients
-            using (NamedPipeServerStream pipeServer =
-            new NamedPipeServerStream("ToGUI", PipeDirection.Out))
+            Console.WriteLine("ToGUI NamedPipeServerStream object created.");
+
+            // Wait for a client to connect
+            Console.Write("Waiting for client connection...");
+            pipeServer.WaitForConnection();
+            Console.WriteLine("Client connected.");
+
+            //Try to send connection status to Client and set AutoFlush
+            try
             {
-                Console.WriteLine("ToGUI NamedPipeServerStream object created.");
-
-                // Wait for a client to connect
-                Console.Write("Waiting for client connection...");
-                pipeServer.WaitForConnection();
-
-                Console.WriteLine("Client connected.");
-                try
-                {
-                    // Read user input and send that to the client process.
-                    using (StreamWriter sw = new StreamWriter(pipeServer))
-                    {
-                        sw.AutoFlush = true;
-                        //Console.Write("Enter text: ");
-                        //sw.WriteLine(Console.ReadLine());
-                        sw.WriteLine("Connection Test... 1... 2...");
-                    }
-                }
-                // Catch the IOException that is raised if the pipe is broken
-                // or disconnected.
-                catch (IOException e)
-                {
-                    Console.WriteLine("ERROR: {0}", e.Message);
-                }
-
+                swToGUI.AutoFlush = true;
+                swToGUI.WriteLine("Connection Successful!");
+            }
+            // Catch the IOException that is raised if the pipe is broken
+            // or disconnected.
+            catch (IOException e)
+            {
+                Console.WriteLine("ERROR: {0}", e.Message);
             }
 
             //Pipe created successfully, instantiate aircraft
-            Console.Write("Manufacturing Aircraft (Object Creation)... " );
+            Console.Write("Manufacturing Aircraft (Object Creation)... ");
             Ownship = new Ownship.Aircraft();
             Console.WriteLine("Aircraft Ready!\n");
 
             //Aircraft Instantiated, start simulation (Tick Clock)
             SetTimer();
+            Console.WriteLine("Simulation Loaded at {0:HH:mm:ss.fff}", DateTime.Now);
+
+
 
             //Stop Simulation and Clean Solution
-            Console.WriteLine("Simulation Loaded at {0:HH:mm:ss.fff}", DateTime.Now);
             Console.WriteLine("\nPress the Enter key to exit the application...\n");
             Console.ReadLine();
             aTimer.Stop();
             aTimer.Dispose();
             Console.WriteLine("Simulation unloaded...");
-            Console.WriteLine("Load Time: " + SimulationTicks.ToString() + " Ticks ~= " + (SimulationTicks/4).ToString() + " seconds\n");
+            Console.WriteLine("Load Time: " + SimulationTicks.ToString() + " Ticks ~= " + (SimulationTicks / 4).ToString() + " seconds\n");
             Console.WriteLine("End of Main(), time to selfdestruct!");
             Console.ReadLine();
         }
-
-        //Sends exception if Server goes down before clients
-        static void CurrentDomain_ProcessExit(Object sender, EventArgs e)
-        {
-            if (isNewMutexCreated)
-            {
-                Console.WriteLine("Mutex Released");
-            }
-        }
+        
 
         //This method is called at every second interval.
         public static void Simulation_Tick()
@@ -94,6 +81,25 @@ namespace CSSimulationNode
         {
             //TO DO: ARINC ENCODER
             //TO DO: SEND ENCODED DATA USING ToGUI NamedPipe
+        }
+
+        private static void AddMessageToBuffer(String imessage)
+        {
+            if (!pipeServer.CanWrite) throw new Exception("Writing Request Denied by NamedPipe");
+            else
+            {
+                try
+                {
+                    //Send Message
+                    swToGUI.WriteLine(imessage);
+                }
+                // Catch the IOException that is raised if the pipe is broken
+                // or disconnected.
+                catch (IOException e)
+                {
+                    Console.WriteLine("ERROR: {0}", e.Message);
+                }
+            }
         }
         //Instantiate Simulation Timer
         private static void SetTimer()
@@ -124,5 +130,15 @@ namespace CSSimulationNode
                 TotalTicks++;
             }
         }
+
+        //Sends exception if Server goes down before clients
+        static void CurrentDomain_ProcessExit(Object sender, EventArgs e)
+        {
+            if (isNewMutexCreated)
+            {
+                Console.WriteLine("Mutex Released");
+            }
+        }
+
     }
 }

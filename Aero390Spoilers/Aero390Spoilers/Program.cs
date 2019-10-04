@@ -16,6 +16,9 @@ namespace Aero390Spoilers
     {
         private static System.Timers.Timer aTimer;
         private static ConsoleSpiner Spin = new ConsoleSpiner();
+
+        public static NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "ToGUI", PipeDirection.In);
+        public static StreamReader srToGUI = new StreamReader(pipeClient);
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -47,28 +50,12 @@ namespace Aero390Spoilers
 
             Console.WriteLine("\n\n----- STARTING AIRCRAFT CLIENT -----\n\n");
 
+            // Connect to the pipe or wait until the pipe is available.
+            Console.Write("Attempting to connect to pipe...");
+            pipeClient.Connect();
 
-            using (NamedPipeClientStream pipeClient =
-            new NamedPipeClientStream(".", "ToGUI", PipeDirection.In))
-            {
-
-                // Connect to the pipe or wait until the pipe is available.
-                Console.Write("Attempting to connect to pipe...");
-                pipeClient.Connect();
-
-                Console.WriteLine("Connected to pipe.");
-                Console.WriteLine("There are currently {0} pipe server instances open.",
-                   pipeClient.NumberOfServerInstances);
-                using (StreamReader sr = new StreamReader(pipeClient))
-                {
-                    // Display the read text to the console
-                    string temp;
-                    while ((temp = sr.ReadLine()) != null)
-                    {
-                        Console.WriteLine("Received from server: {0}", temp);
-                    }
-                }
-            }
+            Console.WriteLine("Connected to pipe.");
+            Console.WriteLine("There are currently {0} pipe server instances open.", pipeClient.NumberOfServerInstances);
 
             Console.WriteLine("\n\n----- STARTING AIRCRAFT GUI -----\n");
             System.Threading.Thread AircraftGUIThread = new System.Threading.Thread(new System.Threading.ThreadStart(Program.RunGUI));
@@ -126,7 +113,14 @@ namespace Aero390Spoilers
         //Tells timer what to do when delay is met
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Spin.Turn();
+            //Spin.Turn();
+            // Display the read text to the console
+            string temp;
+            if((temp = srToGUI.ReadLine()) != null)
+            {
+                Console.WriteLine("Received from server: {0}", temp);
+            }
+
         }
     }
 }
