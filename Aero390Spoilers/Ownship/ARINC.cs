@@ -20,9 +20,11 @@ namespace Ownship
 
         // BIT 32
         //Parity
-        public int GetP()
+        public BitArray GetP()
         {
-            return Convert.ToInt32(A429Message.Get(0));
+            BitArray oParity = new BitArray(1);
+            oParity[0] = A429Message[0];
+            return oParity;
         }
         public void SetP()//Recheck Parity
         {
@@ -83,11 +85,37 @@ namespace Ownship
 
         //BITS 10 and 9 (2 Bits)
         // Source-Destination Identifier (Transmiting system ID)
-        string SDI { get; set; }
+        public BitArray GetSDI()
+        {
+            BitArray oSDI = new BitArray(2);
+            oSDI[0] = A429Message[22];
+            oSDI[1] = A429Message[23];
+            return oSDI;
+        }
+        public void SetSDI(BitArray iSDI)
+        {
+            A429Message[22] = iSDI[0];
+            A429Message[23] = iSDI[1];
+        }
 
         //BITS 8 to 1 (8 Bits)
         //Label
-        string Label { get; set; }
+        public BitArray GetLabel()
+        {
+            BitArray oLabel = new BitArray(19);
+            for (int i = 24; i < 32; i++)
+            {
+                oLabel[i - 24] = A429Message[i];
+            }
+            return oLabel;
+        }
+        public void SetLabel(BitArray iLabel)
+        {
+            for (int i = 24; i < 32; i++)
+            {
+                A429Message[i] = iLabel[i - 24];
+            }
+        }
 
         //FULL ARINC MESSAGE (32 Bits)
         BitArray A429Message { get; set; }
