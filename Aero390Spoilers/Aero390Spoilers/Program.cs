@@ -5,6 +5,8 @@ using System.Timers;
 using System.IO.Pipes;
 using System.IO;
 
+using ARINC;
+
 #if NET40Plus
 using System.Threading.Tasks;
 #endif
@@ -119,6 +121,12 @@ namespace Aero390Spoilers
             if((temp = srToGUI.ReadLine()) != null)
             {
                 Console.WriteLine("Received from server: {0}", temp);
+                if(temp != "Connection Successful!")
+                {
+                    ARINCMessage received = new ARINCMessage();
+                    received.ToBitArray(temp);
+                    Console.WriteLine(received.ToString());
+                }
             }
 
         }

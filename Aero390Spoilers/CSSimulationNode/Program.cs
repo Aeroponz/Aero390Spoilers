@@ -3,6 +3,10 @@ using System.IO;
 using System.IO.Pipes;
 using System.Threading;
 using System.Timers;
+using System.Collections;
+using System.Text;
+
+using ARINC;
 
 namespace CSSimulationNode
 {
@@ -14,7 +18,7 @@ namespace CSSimulationNode
         public static int SimulationTicks = 0;
         public static int UpdateTicks = 0;
         public static int TotalTicks = 0;
-        public static Ownship.Aircraft Ownship;
+        public static Ownship.Aircraft MyOwnship;
 
         private static NamedPipeServerStream pipeServer = new NamedPipeServerStream("ToGUI", PipeDirection.Out);
         private static StreamWriter swToGUI = new StreamWriter(pipeServer);
@@ -50,7 +54,7 @@ namespace CSSimulationNode
 
             //Pipe created successfully, instantiate aircraft
             Console.Write("Manufacturing Aircraft (Object Creation)... ");
-            Ownship = new Ownship.Aircraft();
+            MyOwnship = new Ownship.Aircraft();
             Console.WriteLine("Aircraft Ready!\n");
 
             //Aircraft Instantiated, start simulation (Tick Clock)
@@ -61,6 +65,13 @@ namespace CSSimulationNode
 
             //Stop Simulation and Clean Solution
             Console.WriteLine("\nPress the Enter key to exit the application...\n");
+            ARINCMessage NewMessage = new ARINCMessage();
+            BitArray Test = new BitArray(32, true);
+            Console.WriteLine(NewMessage.ToString());
+            NewMessage.SetData(Test);
+            NewMessage.SetLabel(Test);
+            Console.WriteLine(NewMessage.ToString());
+            AddMessageToBuffer(NewMessage.ToString());
             Console.ReadLine();
             aTimer.Stop();
             aTimer.Dispose();

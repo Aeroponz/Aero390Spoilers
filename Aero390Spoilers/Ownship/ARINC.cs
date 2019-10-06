@@ -2,14 +2,35 @@
 using System.Collections;
 using System.Text;
 
-namespace Ownship
+namespace ARINC
 {
-    class ARINC
+    public class ARINCMessage
     {
-        public ARINC()
+        public ARINCMessage()
         {
             A429Message = new BitArray(32);
+        }
 
+        public override string ToString()
+        {
+            var oOutput = new StringBuilder();
+
+            for(int i=0; i<32; i++)
+            {
+                oOutput.Append(A429Message[i] ? '1' : '0');
+            }
+
+            return oOutput.ToString();
+        }
+
+        public void ToBitArray(string stringMessage)
+        {
+            BitArray temp = new BitArray(32);
+            for( int i = 0; i<32; i++)
+            {
+                temp[i] = (stringMessage[i] == '1');
+            }
+            A429Message = temp;
         }
 
         #region Parameters
