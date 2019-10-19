@@ -1,21 +1,103 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ARINC
 {
     public class ARINCMessage
     {
+        #region ARINC Dictionaries
+        public static IDictionary<string, BitArray> A429LabelLookup = new Dictionary<string, BitArray>()
+        {
+            {"LandingGear_Status", ToBitArray("00010000") },//DISCRETE
+        };
+        public static IDictionary<string, BitArray> A429DiscSSM = new Dictionary<string, BitArray>()
+        {
+            {"NO", ToBitArray("00") },//Normal Operation
+            {"NCD", ToBitArray("01") },//No computed data
+            {"FT", ToBitArray("10") },//Functional Test
+            {"FW", ToBitArray("11") },//Failure Warning
+        };
+        public static IDictionary<string, BitArray> A429BcdSSM = new Dictionary<string, BitArray>()
+        {
+            {"Plus", ToBitArray("00") },//Plus, North, East, Right, To, Above
+            {"NCD", ToBitArray("01") },//No computed data
+            {"FT", ToBitArray("10") },//Functional Test
+            {"Minus", ToBitArray("11") },//Minus, South, West, Left, From, Below
+        };
+        public static IDictionary<string, BitArray> A429SDI = new Dictionary<string, BitArray>()
+        {
+            {"FCC", ToBitArray("00") },//Plus, North, East, Right, To, Above
+            {"GUI", ToBitArray("01") },//No computed data
+            //{"FT", ToBitArray("10") },
+            //{"Minus", ToBitArray("11") },
+        };
+
+        #endregion ARINC Dictionaries
+
         public ARINCMessage()
         {
             A429Message = new BitArray(32);
+        }
+
+        public ARINCMessage(string SSM, string Data, string SDI, string label, bool isDiscrete)
+        {
+            A429Message = new BitArray(32);
+            //SSM
+            BitArray iSSM = new BitArray(2);
+            if (isDiscrete)
+            {
+                if (A429DiscSSM.TryGetValue(SSM, out iSSM))
+                {
+                    SetSSM(iSSM);
+                }
+                else
+                {
+                    throw new Exception("SSM Key not found!");
+                }
+            }
+            else
+            {
+                if (A429BcdSSM.TryGetValue(SSM, out iSSM))
+                {
+                    SetSSM(iSSM);
+                }
+                else
+                {
+                    throw new Exception("SSM Key not found!");
+                }
+            }
+            //DATA
+            SetData(ToBitArray(Data));
+            //SDI
+            BitArray iSDI = new BitArray(2);
+            if (A429SDI.TryGetValue(SDI, out iSDI))
+            {
+                SetSDI(iSDI);
+            }
+            else
+            {
+                throw new Exception("SDI Key not found!");
+            }
+            //LABEL
+            BitArray iLabel = new BitArray(8);
+            if (A429LabelLookup.TryGetValue(label, out iLabel))
+            {
+                SetLabel(iLabel);
+            }
+            else
+            {
+                throw new Exception("Label Key not found!");
+            }
+            SetP();
         }
 
         public override string ToString()
         {
             var oOutput = new StringBuilder();
 
-            for(int i=0; i<32; i++)
+            for (int i = 0; i < 32; i++)
             {
                 oOutput.Append(A429Message[i] ? '1' : '0');
             }
@@ -23,14 +105,15 @@ namespace ARINC
             return oOutput.ToString();
         }
 
-        public void ToBitArray(string stringMessage)
+        public static BitArray ToBitArray(string stringMessage)
         {
-            BitArray temp = new BitArray(32);
-            for( int i = 0; i<32; i++)
+            int aLength = stringMessage.Length;
+            BitArray temp = new BitArray(aLength);
+            for (int i = 0; i < aLength; i++)
             {
                 temp[i] = (stringMessage[i] == '1');
             }
-            A429Message = temp;
+            return temp;
         }
 
         #region Parameters
@@ -50,9 +133,9 @@ namespace ARINC
         public void SetP()//Recheck Parity
         {
             int bitSum = 0;
-            for(int i = 1;i<32;i++)
+            for (int i = 1; i < 32; i++)
             {
-                if(A429Message[i])
+                if (A429Message[i])
                 {
                     bitSum++;
                 }
@@ -90,7 +173,7 @@ namespace ARINC
         public BitArray GetData()
         {
             BitArray oData = new BitArray(19);
-            for(int i = 3; i<22; i++)
+            for (int i = 3; i < 22; i++)
             {
                 oData[i - 3] = A429Message[i];
             }

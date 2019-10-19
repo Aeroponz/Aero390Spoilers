@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Hydraulics;
 using LandingGear;
+using ARINC;
 
 namespace Ownship
 {
@@ -31,18 +33,35 @@ namespace Ownship
             AltitudeASL = 118;
             BaroSettingmmHg = 29.92;
             GrossWeightLbs = 35000;
+            for (int i = 0; i < wArincMessages.Length; i++)
+            {
+                wArincMessages[i] = "";
+            }
 
         }
 
 
         //Aircraft Tick and Returns Updated Aircraft Status
-        public int[] AircraftTick()
+        public string[] AircraftTick()
         {
-            int[] wACStatus = { 1, 2, 3 };
-            return wACStatus;  
+            //Landing Gear Update
+            string GearUpdate = ArincGearStatus();
+            if(GearUpdate != wArincMessages[0]) wArincMessages[0] = ArincGearStatus();
+
+
+            return wArincMessages;  
         }
 
         #region Landing Gear
+
+        public static IDictionary<string, string> A429GearStatus = new Dictionary<string, string>()
+        {
+            {"UP","0000000000000000001" },
+            {"DOWN", "0000000000000000010" },
+            {"IN TRANSIT", "0000000000000000011" },
+            {"GEAR MISMATCH", "0000000000000000011" },
+        };
+
         //Landing Gear Lever Position Change
         public void GearPositionChange()
         {
@@ -90,6 +109,24 @@ namespace Ownship
             }
 
         }
+
+        public string ArincGearStatus()
+        {
+            string LGStatusData = "";
+            A429GearStatus.TryGetValue(GlobalGearStatus(), out LGStatusData);
+            ARINCMessage NewMessage;
+            if (GlobalGearStatus() != "GEAR MISMATCH")
+            {
+                NewMessage = new ARINCMessage("NO", LGStatusData, "FCC", "LandingGear_Status", true);
+            }
+            else
+            {
+                NewMessage = new ARINCMessage("FW", LGStatusData, "FCC", "LandingGear_Status", true);
+            }
+            return NewMessage.ToString();
+        }
+
+
         #endregion
 
         #region Aircraft Systems Declarations
@@ -115,6 +152,7 @@ namespace Ownship
         public double IasOverspeed { get; set; }
         public double IasNES { get; set; }
         public double IasStall { get; set; }
+        string[] wArincMessages = new string[1];
         #endregion
     }
 }

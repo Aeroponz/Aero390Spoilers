@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LandingGear
 {
@@ -16,7 +17,6 @@ namespace LandingGear
             GearDown = !GearDown;
             GearInTransit = false;
         }
-
         public string GearStatus()
         {
             string oStatus = "";

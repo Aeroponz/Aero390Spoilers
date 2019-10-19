@@ -59,6 +59,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ARINC\ARINC.csproj">
+      <Project>{6a0a4869-233d-4df0-be80-c1344a9e0e89}</Project>
+      <Name>ARINC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Electrics\Electrics.csproj">
       <Project>{d42a40f3-b4b7-4c75-9df5-e2b65714b803}</Project>
       <Name>Electrics</Name>

@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ARINC.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ARINC\ARINC.csproj" />
     <ProjectReference Include="..\Electrics\Electrics.csproj" />
     <ProjectReference Include="..\Hydraulics\Hydraulics.csproj" />
     <ProjectReference Include="..\LandingGear\LandingGear.csproj" />

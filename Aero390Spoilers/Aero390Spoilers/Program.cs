@@ -124,8 +124,8 @@ namespace Aero390Spoilers
                 if(temp != "Connection Successful!")
                 {
                     ARINCMessage received = new ARINCMessage();
-                    received.ToBitArray(temp);
-                    Console.WriteLine(received.ToString());
+                    //received.ToBitArray(temp);
+                    Console.WriteLine(temp);
                 }
             }
 

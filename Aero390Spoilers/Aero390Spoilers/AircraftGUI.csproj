@@ -129,6 +129,10 @@
     <None Include="Resources\LgIcon_Up.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ARINC\ARINC.csproj">
+      <Project>{6a0a4869-233d-4df0-be80-c1344a9e0e89}</Project>
+      <Name>ARINC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CSSimulationNode\CSSimulationNode.csproj">
       <Project>{8c913e93-c239-4ba6-acb3-92d64223cdd9}</Project>
       <Name>CSSimulationNode</Name>

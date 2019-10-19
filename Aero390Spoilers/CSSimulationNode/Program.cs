@@ -65,13 +65,6 @@ namespace CSSimulationNode
 
             //Stop Simulation and Clean Solution
             Console.WriteLine("\nPress the Enter key to exit the application...\n");
-            ARINCMessage NewMessage = new ARINCMessage();
-            BitArray Test = new BitArray(32, true);
-            Console.WriteLine(NewMessage.ToString());
-            NewMessage.SetData(Test);
-            NewMessage.SetLabel(Test);
-            Console.WriteLine(NewMessage.ToString());
-            AddMessageToBuffer(NewMessage.ToString());
             Console.ReadLine();
             aTimer.Stop();
             aTimer.Dispose();
@@ -90,8 +83,14 @@ namespace CSSimulationNode
         //This method is called at every second interval.
         public static void SendUpdateToGUI_Tick()
         {
-            //TO DO: ARINC ENCODER
-            //TO DO: SEND ENCODED DATA USING ToGUI NamedPipe
+            string[] MessageQueue = MyOwnship.AircraftTick();
+            for (int i = 0; i < MessageQueue.Length; i++)
+            {
+                if(MessageQueue[i] != "")
+                {
+                    AddMessageToBuffer(MessageQueue[i]);
+                }
+            }
         }
 
         private static void AddMessageToBuffer(String imessage)
