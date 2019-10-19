@@ -1,5 +1,7 @@
 ﻿using Aero390Spoilers.Properties;
+using Ownship;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 
@@ -22,14 +24,16 @@ namespace Aero390Spoilers
         public void AircraftGUI_Tick()
         {
             Timer timer = new Timer();
-            timer.Interval = (500); // 0.5 secs
+            timer.Interval = (100); // 0.5 secs
             timer.Tick += new EventHandler(GUI_TickJobs);
             timer.Start();
         }
         //To add an operation to be executed every tick, and the function in GUI_TickJobs()
         private void GUI_TickJobs(object sender, EventArgs e)
         {
+            ReadCockpitControls();
             RefreshGearPict();
+            RefreshCockpitInstruments();
             RefreshPrintOuts();
         }
         private void RefreshGearPict()
@@ -85,6 +89,26 @@ namespace Aero390Spoilers
         {
 
         }
+        private void RefreshCockpitInstruments()
+        {
+            airSpeedIndicatorInstrumentControl1.SetAirSpeedIndicatorParameters(GUIOwnship.IasKts);
+            attitudeIndicatorInstrumentControl1.SetAttitudeIndicatorParameters(GUIOwnship.AoA, GUIOwnship.BankAngle);
+            altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
+            verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters(GUIOwnship.VS);
+        }
+        private void ReadCockpitControls()
+        {
+            int temp = GUIOwnship.SpoilerLeverPosition;
+            GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
+            if (temp != GUIOwnship.SpoilerLeverPosition) RefreshSpoilerActuation();
+            GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
+            GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
+            GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
+        }
+        private void RefreshSpoilerActuation()
+        {
+
+        }
         #endregion
 
         #region GUI Elements
@@ -101,7 +125,7 @@ namespace Aero390Spoilers
             else
             {
                 double Input_double = double.Parse(IntegerInput.Text, System.Globalization.CultureInfo.InvariantCulture);
-                if (Input_double<= GUIOwnship.MTOW && Input_double >= GUIOwnship.ZFW)
+                if (Input_double <= GUIOwnship.MTOW && Input_double >= GUIOwnship.ZFW)
                 {
                     GUIOwnship.GrossWeightLbs = Input_double;
                     IntegerInput.Text = "Enter Value Here";
@@ -163,10 +187,10 @@ namespace Aero390Spoilers
             }
             else
             {
-                double Input_double = double.Parse(IntegerInput.Text, System.Globalization.CultureInfo.InvariantCulture);
-                if (Input_double <= 300/*Ownship.IasNES*/ && Input_double >= 0)
+                int Input_int = int.Parse(IntegerInput.Text, System.Globalization.CultureInfo.InvariantCulture);
+                if (Input_int <= GUIOwnship.IasNES && Input_int >= 0)
                 {
-                    GUIOwnship.IasKts = Input_double;
+                    GUIOwnship.IasKts = Input_int;
                     IntegerInput.Text = "Enter Value Here";
                 }
                 else
@@ -181,5 +205,7 @@ namespace Aero390Spoilers
             GUIOwnship.GearPositionChange();
         }
         #endregion
+
+
     }
 }

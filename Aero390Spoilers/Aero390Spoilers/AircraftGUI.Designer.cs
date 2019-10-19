@@ -36,14 +36,6 @@
             this.WowButton = new System.Windows.Forms.Button();
             this.ACSchemPB = new System.Windows.Forms.PictureBox();
             this.GWButton = new System.Windows.Forms.Button();
-            this.Spoiler1PGB = new System.Windows.Forms.ProgressBar();
-            this.Spoiler2PGB = new System.Windows.Forms.ProgressBar();
-            this.Spoiler3PGB = new System.Windows.Forms.ProgressBar();
-            this.Spoiler4PGB = new System.Windows.Forms.ProgressBar();
-            this.Spoiler5PGB = new System.Windows.Forms.ProgressBar();
-            this.Spoiler6PGB = new System.Windows.Forms.ProgressBar();
-            this.Spoiler7PGB = new System.Windows.Forms.ProgressBar();
-            this.Spoiler8PGB = new System.Windows.Forms.ProgressBar();
             this.IntegerInput = new System.Windows.Forms.TextBox();
             this.BaroUnitTB = new System.Windows.Forms.TextBox();
             this.AltUnitTB = new System.Windows.Forms.TextBox();
@@ -60,11 +52,29 @@
             this.SpoilerUPLabel = new System.Windows.Forms.TextBox();
             this.SpoilersARMLabel = new System.Windows.Forms.TextBox();
             this.SpoilersDOWNLabel = new System.Windows.Forms.TextBox();
+            this.FlapLever = new System.Windows.Forms.TrackBar();
+            this.FlapsUPtext = new System.Windows.Forms.TextBox();
+            this.Flaps10text = new System.Windows.Forms.TextBox();
+            this.Flaps20text = new System.Windows.Forms.TextBox();
+            this.Flaps30text = new System.Windows.Forms.TextBox();
+            this.Spoiler8PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.Spoiler7PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.Spoiler6PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.Spoiler5PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.Spoiler4PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.Spoiler3PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.Spoiler2PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.Spoiler1PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.verticalSpeedIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.VerticalSpeedIndicatorInstrumentControl();
+            this.altimeterInstrumentControl1 = new AvionicsInstrumentControlDemo.AltimeterInstrumentControl();
+            this.airSpeedIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AirSpeedIndicatorInstrumentControl();
+            this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
             ((System.ComponentModel.ISupportInitialize)(this.ACSchemPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).BeginInit();
             this.SuspendLayout();
             // 
             // Barometer
@@ -189,70 +199,6 @@
             this.GWButton.Text = "Gross Weight";
             this.GWButton.UseVisualStyleBackColor = false;
             this.GWButton.Click += new System.EventHandler(this.GWButton_Click);
-            // 
-            // Spoiler1PGB
-            // 
-            this.Spoiler1PGB.ForeColor = System.Drawing.Color.White;
-            this.Spoiler1PGB.Location = new System.Drawing.Point(125, 117);
-            this.Spoiler1PGB.Name = "Spoiler1PGB";
-            this.Spoiler1PGB.Size = new System.Drawing.Size(10, 50);
-            this.Spoiler1PGB.TabIndex = 9;
-            // 
-            // Spoiler2PGB
-            // 
-            this.Spoiler2PGB.ForeColor = System.Drawing.Color.White;
-            this.Spoiler2PGB.Location = new System.Drawing.Point(156, 107);
-            this.Spoiler2PGB.Name = "Spoiler2PGB";
-            this.Spoiler2PGB.Size = new System.Drawing.Size(10, 50);
-            this.Spoiler2PGB.TabIndex = 10;
-            // 
-            // Spoiler3PGB
-            // 
-            this.Spoiler3PGB.ForeColor = System.Drawing.Color.White;
-            this.Spoiler3PGB.Location = new System.Drawing.Point(189, 96);
-            this.Spoiler3PGB.Name = "Spoiler3PGB";
-            this.Spoiler3PGB.Size = new System.Drawing.Size(10, 50);
-            this.Spoiler3PGB.TabIndex = 11;
-            // 
-            // Spoiler4PGB
-            // 
-            this.Spoiler4PGB.ForeColor = System.Drawing.Color.White;
-            this.Spoiler4PGB.Location = new System.Drawing.Point(221, 86);
-            this.Spoiler4PGB.Name = "Spoiler4PGB";
-            this.Spoiler4PGB.Size = new System.Drawing.Size(10, 50);
-            this.Spoiler4PGB.TabIndex = 12;
-            // 
-            // Spoiler5PGB
-            // 
-            this.Spoiler5PGB.ForeColor = System.Drawing.Color.White;
-            this.Spoiler5PGB.Location = new System.Drawing.Point(383, 86);
-            this.Spoiler5PGB.Name = "Spoiler5PGB";
-            this.Spoiler5PGB.Size = new System.Drawing.Size(10, 50);
-            this.Spoiler5PGB.TabIndex = 13;
-            // 
-            // Spoiler6PGB
-            // 
-            this.Spoiler6PGB.ForeColor = System.Drawing.Color.White;
-            this.Spoiler6PGB.Location = new System.Drawing.Point(415, 96);
-            this.Spoiler6PGB.Name = "Spoiler6PGB";
-            this.Spoiler6PGB.Size = new System.Drawing.Size(10, 50);
-            this.Spoiler6PGB.TabIndex = 14;
-            // 
-            // Spoiler7PGB
-            // 
-            this.Spoiler7PGB.ForeColor = System.Drawing.Color.White;
-            this.Spoiler7PGB.Location = new System.Drawing.Point(447, 107);
-            this.Spoiler7PGB.Name = "Spoiler7PGB";
-            this.Spoiler7PGB.Size = new System.Drawing.Size(10, 50);
-            this.Spoiler7PGB.TabIndex = 15;
-            // 
-            // Spoiler8PGB
-            // 
-            this.Spoiler8PGB.ForeColor = System.Drawing.Color.White;
-            this.Spoiler8PGB.Location = new System.Drawing.Point(478, 117);
-            this.Spoiler8PGB.Name = "Spoiler8PGB";
-            this.Spoiler8PGB.Size = new System.Drawing.Size(10, 50);
-            this.Spoiler8PGB.TabIndex = 16;
             // 
             // IntegerInput
             // 
@@ -449,6 +395,166 @@
             this.SpoilersDOWNLabel.TabIndex = 34;
             this.SpoilersDOWNLabel.Text = "DOWN";
             // 
+            // FlapLever
+            // 
+            this.FlapLever.LargeChange = 2;
+            this.FlapLever.Location = new System.Drawing.Point(205, 330);
+            this.FlapLever.Maximum = 0;
+            this.FlapLever.Minimum = -3;
+            this.FlapLever.Name = "FlapLever";
+            this.FlapLever.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.FlapLever.Size = new System.Drawing.Size(45, 227);
+            this.FlapLever.TabIndex = 35;
+            // 
+            // FlapsUPtext
+            // 
+            this.FlapsUPtext.BackColor = System.Drawing.Color.Black;
+            this.FlapsUPtext.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.FlapsUPtext.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FlapsUPtext.ForeColor = System.Drawing.Color.White;
+            this.FlapsUPtext.Location = new System.Drawing.Point(238, 336);
+            this.FlapsUPtext.Name = "FlapsUPtext";
+            this.FlapsUPtext.Size = new System.Drawing.Size(25, 16);
+            this.FlapsUPtext.TabIndex = 36;
+            this.FlapsUPtext.Text = "UP";
+            // 
+            // Flaps10text
+            // 
+            this.Flaps10text.BackColor = System.Drawing.Color.Black;
+            this.Flaps10text.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Flaps10text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Flaps10text.ForeColor = System.Drawing.Color.White;
+            this.Flaps10text.Location = new System.Drawing.Point(238, 402);
+            this.Flaps10text.Name = "Flaps10text";
+            this.Flaps10text.Size = new System.Drawing.Size(25, 16);
+            this.Flaps10text.TabIndex = 37;
+            this.Flaps10text.Text = "10";
+            // 
+            // Flaps20text
+            // 
+            this.Flaps20text.BackColor = System.Drawing.Color.Black;
+            this.Flaps20text.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Flaps20text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Flaps20text.ForeColor = System.Drawing.Color.White;
+            this.Flaps20text.Location = new System.Drawing.Point(238, 468);
+            this.Flaps20text.Name = "Flaps20text";
+            this.Flaps20text.Size = new System.Drawing.Size(25, 16);
+            this.Flaps20text.TabIndex = 38;
+            this.Flaps20text.Text = "20";
+            // 
+            // Flaps30text
+            // 
+            this.Flaps30text.BackColor = System.Drawing.Color.Black;
+            this.Flaps30text.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Flaps30text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Flaps30text.ForeColor = System.Drawing.Color.White;
+            this.Flaps30text.Location = new System.Drawing.Point(238, 535);
+            this.Flaps30text.Name = "Flaps30text";
+            this.Flaps30text.Size = new System.Drawing.Size(25, 16);
+            this.Flaps30text.TabIndex = 39;
+            this.Flaps30text.Text = "30";
+            // 
+            // Spoiler8PGB
+            // 
+            this.Spoiler8PGB.BackColor = System.Drawing.Color.Black;
+            this.Spoiler8PGB.ForeColor = System.Drawing.Color.Black;
+            this.Spoiler8PGB.Location = new System.Drawing.Point(478, 117);
+            this.Spoiler8PGB.Name = "Spoiler8PGB";
+            this.Spoiler8PGB.Size = new System.Drawing.Size(10, 50);
+            this.Spoiler8PGB.TabIndex = 16;
+            // 
+            // Spoiler7PGB
+            // 
+            this.Spoiler7PGB.ForeColor = System.Drawing.Color.Black;
+            this.Spoiler7PGB.Location = new System.Drawing.Point(447, 107);
+            this.Spoiler7PGB.Name = "Spoiler7PGB";
+            this.Spoiler7PGB.Size = new System.Drawing.Size(10, 50);
+            this.Spoiler7PGB.TabIndex = 15;
+            // 
+            // Spoiler6PGB
+            // 
+            this.Spoiler6PGB.ForeColor = System.Drawing.Color.Black;
+            this.Spoiler6PGB.Location = new System.Drawing.Point(415, 96);
+            this.Spoiler6PGB.Name = "Spoiler6PGB";
+            this.Spoiler6PGB.Size = new System.Drawing.Size(10, 50);
+            this.Spoiler6PGB.TabIndex = 14;
+            // 
+            // Spoiler5PGB
+            // 
+            this.Spoiler5PGB.ForeColor = System.Drawing.Color.Black;
+            this.Spoiler5PGB.Location = new System.Drawing.Point(383, 86);
+            this.Spoiler5PGB.Name = "Spoiler5PGB";
+            this.Spoiler5PGB.Size = new System.Drawing.Size(10, 50);
+            this.Spoiler5PGB.TabIndex = 13;
+            // 
+            // Spoiler4PGB
+            // 
+            this.Spoiler4PGB.ForeColor = System.Drawing.Color.Black;
+            this.Spoiler4PGB.Location = new System.Drawing.Point(221, 86);
+            this.Spoiler4PGB.Name = "Spoiler4PGB";
+            this.Spoiler4PGB.Size = new System.Drawing.Size(10, 50);
+            this.Spoiler4PGB.TabIndex = 12;
+            this.Spoiler4PGB.Value = 60;
+            // 
+            // Spoiler3PGB
+            // 
+            this.Spoiler3PGB.ForeColor = System.Drawing.Color.Black;
+            this.Spoiler3PGB.Location = new System.Drawing.Point(189, 96);
+            this.Spoiler3PGB.Name = "Spoiler3PGB";
+            this.Spoiler3PGB.Size = new System.Drawing.Size(10, 50);
+            this.Spoiler3PGB.TabIndex = 11;
+            this.Spoiler3PGB.Value = 60;
+            // 
+            // Spoiler2PGB
+            // 
+            this.Spoiler2PGB.ForeColor = System.Drawing.Color.Black;
+            this.Spoiler2PGB.Location = new System.Drawing.Point(156, 107);
+            this.Spoiler2PGB.Name = "Spoiler2PGB";
+            this.Spoiler2PGB.Size = new System.Drawing.Size(10, 50);
+            this.Spoiler2PGB.TabIndex = 10;
+            this.Spoiler2PGB.Value = 60;
+            // 
+            // Spoiler1PGB
+            // 
+            this.Spoiler1PGB.ForeColor = System.Drawing.Color.Black;
+            this.Spoiler1PGB.Location = new System.Drawing.Point(125, 117);
+            this.Spoiler1PGB.Name = "Spoiler1PGB";
+            this.Spoiler1PGB.Size = new System.Drawing.Size(10, 50);
+            this.Spoiler1PGB.TabIndex = 9;
+            this.Spoiler1PGB.Value = 60;
+            // 
+            // verticalSpeedIndicatorInstrumentControl1
+            // 
+            this.verticalSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(688, 424);
+            this.verticalSpeedIndicatorInstrumentControl1.Name = "verticalSpeedIndicatorInstrumentControl1";
+            this.verticalSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
+            this.verticalSpeedIndicatorInstrumentControl1.TabIndex = 40;
+            this.verticalSpeedIndicatorInstrumentControl1.Text = "verticalSpeedIndicatorInstrumentControl1";
+            // 
+            // altimeterInstrumentControl1
+            // 
+            this.altimeterInstrumentControl1.Location = new System.Drawing.Point(688, 279);
+            this.altimeterInstrumentControl1.Name = "altimeterInstrumentControl1";
+            this.altimeterInstrumentControl1.Size = new System.Drawing.Size(150, 150);
+            this.altimeterInstrumentControl1.TabIndex = 41;
+            this.altimeterInstrumentControl1.Text = "altimeterInstrumentControl1";
+            // 
+            // airSpeedIndicatorInstrumentControl1
+            // 
+            this.airSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(541, 424);
+            this.airSpeedIndicatorInstrumentControl1.Name = "airSpeedIndicatorInstrumentControl1";
+            this.airSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
+            this.airSpeedIndicatorInstrumentControl1.TabIndex = 42;
+            this.airSpeedIndicatorInstrumentControl1.Text = "airSpeedIndicatorInstrumentControl1";
+            // 
+            // attitudeIndicatorInstrumentControl1
+            // 
+            this.attitudeIndicatorInstrumentControl1.Location = new System.Drawing.Point(541, 279);
+            this.attitudeIndicatorInstrumentControl1.Name = "attitudeIndicatorInstrumentControl1";
+            this.attitudeIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
+            this.attitudeIndicatorInstrumentControl1.TabIndex = 43;
+            this.attitudeIndicatorInstrumentControl1.Text = "attitudeIndicatorInstrumentControl1";
+            // 
             // AircraftGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -458,6 +564,15 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1184, 635);
+            this.Controls.Add(this.attitudeIndicatorInstrumentControl1);
+            this.Controls.Add(this.airSpeedIndicatorInstrumentControl1);
+            this.Controls.Add(this.altimeterInstrumentControl1);
+            this.Controls.Add(this.verticalSpeedIndicatorInstrumentControl1);
+            this.Controls.Add(this.Flaps30text);
+            this.Controls.Add(this.Flaps20text);
+            this.Controls.Add(this.Flaps10text);
+            this.Controls.Add(this.FlapsUPtext);
+            this.Controls.Add(this.FlapLever);
             this.Controls.Add(this.SpoilersDOWNLabel);
             this.Controls.Add(this.SpoilersARMLabel);
             this.Controls.Add(this.SpoilerUPLabel);
@@ -497,6 +612,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -511,14 +627,6 @@
         private System.Windows.Forms.Button WowButton;
         private System.Windows.Forms.PictureBox ACSchemPB;
         private System.Windows.Forms.Button GWButton;
-        private System.Windows.Forms.ProgressBar Spoiler1PGB;
-        private System.Windows.Forms.ProgressBar Spoiler2PGB;
-        private System.Windows.Forms.ProgressBar Spoiler3PGB;
-        private System.Windows.Forms.ProgressBar Spoiler4PGB;
-        private System.Windows.Forms.ProgressBar Spoiler5PGB;
-        private System.Windows.Forms.ProgressBar Spoiler6PGB;
-        private System.Windows.Forms.ProgressBar Spoiler7PGB;
-        private System.Windows.Forms.ProgressBar Spoiler8PGB;
         private System.Windows.Forms.TextBox IntegerInput;
         private System.Windows.Forms.TextBox BaroUnitTB;
         private System.Windows.Forms.TextBox AltUnitTB;
@@ -535,6 +643,23 @@
         private System.Windows.Forms.TextBox SpoilerUPLabel;
         private System.Windows.Forms.TextBox SpoilersARMLabel;
         private System.Windows.Forms.TextBox SpoilersDOWNLabel;
+        private System.Windows.Forms.TrackBar FlapLever;
+        private System.Windows.Forms.TextBox FlapsUPtext;
+        private System.Windows.Forms.TextBox Flaps10text;
+        private System.Windows.Forms.TextBox Flaps20text;
+        private System.Windows.Forms.TextBox Flaps30text;
+        private QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar Spoiler1PGB;
+        private QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar Spoiler2PGB;
+        private QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar Spoiler3PGB;
+        private QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar Spoiler4PGB;
+        private QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar Spoiler5PGB;
+        private QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar Spoiler6PGB;
+        private QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar Spoiler7PGB;
+        private QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar Spoiler8PGB;
+        private AvionicsInstrumentControlDemo.VerticalSpeedIndicatorInstrumentControl verticalSpeedIndicatorInstrumentControl1;
+        private AvionicsInstrumentControlDemo.AltimeterInstrumentControl altimeterInstrumentControl1;
+        private AvionicsInstrumentControlDemo.AirSpeedIndicatorInstrumentControl airSpeedIndicatorInstrumentControl1;
+        private AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl attitudeIndicatorInstrumentControl1;
     }
 }
 

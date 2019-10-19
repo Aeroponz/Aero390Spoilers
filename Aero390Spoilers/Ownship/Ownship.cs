@@ -33,9 +33,20 @@ namespace Ownship
             AltitudeASL = 118;
             BaroSettingmmHg = 29.92;
             GrossWeightLbs = 35000;
+            VS = 1000;
+            BankAngle = 5;
+            AoA = 10;
+            SpoilerLeverPosition = 0;
+            FlapLeverPosition = 0;
+
             for (int i = 0; i < wArincMessages.Length; i++)
             {
                 wArincMessages[i] = "";
+            }
+
+            for (int i = 0; i < NbofSpoilers; i++)
+            {
+                SpoilerDeflectionPercentage[i] = 0;
             }
 
         }
@@ -138,6 +149,7 @@ namespace Ownship
         #region Aircraft Specs Declarations
         public double MTOW = 40000.0;
         public double ZFW = 15000.0;
+        public int NbofSpoilers = 8;
         #endregion
 
         #region Aircraft Parameters
@@ -148,10 +160,17 @@ namespace Ownship
         public double GrossWeightLbs { get; set; }
         public double BaroSettingmmHg { get; set; }
         public double AltitudeASL { get; set; }
-        public double IasKts { get; set; }
-        public double IasOverspeed { get; set; }
-        public double IasNES { get; set; }
-        public double IasStall { get; set; }
+        public int IasKts { get; set; }
+        public int IasOverspeed { get; set; }
+        public int IasNES { get; set; }
+        public int IasStall { get; set; }
+        public int BankAngle { get; set; }
+        public int AoA { get; set; }
+        public int VS { get; set; }
+        public int SpoilerLeverPosition { get; set; }
+        public int FlapLeverPosition { get; set; }
+        public int SWControlWheelPosition { get; set; }
+        public int[] SpoilerDeflectionPercentage = new int[8];
         string[] wArincMessages = new string[1];
         #endregion
     }

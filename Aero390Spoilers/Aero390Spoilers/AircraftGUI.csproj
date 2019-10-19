@@ -63,10 +63,38 @@
     <Compile Include="AircraftGUI.Designer.cs">
       <DependentUpon>AircraftGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="AirSpeedIndicatorInstrumentControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AltimeterInstrumentControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AttitudeIndicatorInstrumentControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AvionicsInstrumentsControlsRessources.Designer.cs" />
+    <Compile Include="HeadingIndicatorInstrumentControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstrumentControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="NewProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TurnCoordinatorInstrumentControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VerticalSpeedIndicatorInstrumentControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="AircraftGUI.resx">
       <DependentUpon>AircraftGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvionicsInstrumentsControlsRessources.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -100,9 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WowSchem.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Background.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GreyButton.png" />
@@ -141,6 +166,27 @@
       <Project>{7c9f84ca-bc59-4758-b62e-d361ba58f400}</Project>
       <Name>Ownship</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\AirSpeedIndicator_Background.bmp" />
+    <Content Include="Resources\AirSpeedNeedle.bmp" />
+    <Content Include="Resources\Altimeter_Background.bmp" />
+    <Content Include="Resources\Bandeau_Dérouleur.bmp" />
+    <Content Include="Resources\HeadingIndicator_Aircraft.bmp" />
+    <Content Include="Resources\HeadingIndicator_Background.bmp" />
+    <Content Include="Resources\HeadingWeel.bmp" />
+    <Content Include="Resources\Horizon_Background.bmp" />
+    <Content Include="Resources\Horizon_GroundSky.bmp" />
+    <Content Include="Resources\Indicator_Background.bmp" />
+    <Content Include="Resources\LongNeedleAltimeter.bmp" />
+    <Content Include="Resources\Maquette_Avion.bmp" />
+    <Content Include="Resources\SmallNeedleAltimeter.bmp" />
+    <Content Include="Resources\TurnCoordinatorAircraft.bmp" />
+    <Content Include="Resources\TurnCoordinatorBall.bmp" />
+    <Content Include="Resources\TurnCoordinatorMarks.bmp" />
+    <Content Include="Resources\TurnCoordinator_Background.bmp" />
+    <Content Include="Resources\VerticalSpeedIndicator_Background.bmp" />
+    <Content Include="Resources\VerticalSpeedNeedle.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
