@@ -57,6 +57,10 @@
             this.Flaps10text = new System.Windows.Forms.TextBox();
             this.Flaps20text = new System.Windows.Forms.TextBox();
             this.Flaps30text = new System.Windows.Forms.TextBox();
+            this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
+            this.airSpeedIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AirSpeedIndicatorInstrumentControl();
+            this.altimeterInstrumentControl1 = new AvionicsInstrumentControlDemo.AltimeterInstrumentControl();
+            this.verticalSpeedIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.VerticalSpeedIndicatorInstrumentControl();
             this.Spoiler8PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler7PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler6PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
@@ -65,10 +69,6 @@
             this.Spoiler3PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler2PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler1PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
-            this.verticalSpeedIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.VerticalSpeedIndicatorInstrumentControl();
-            this.altimeterInstrumentControl1 = new AvionicsInstrumentControlDemo.AltimeterInstrumentControl();
-            this.airSpeedIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AirSpeedIndicatorInstrumentControl();
-            this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
             ((System.ComponentModel.ISupportInitialize)(this.ACSchemPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).BeginInit();
@@ -352,12 +352,14 @@
             // 
             this.SpoilerLever.LargeChange = 2;
             this.SpoilerLever.Location = new System.Drawing.Point(42, 330);
-            this.SpoilerLever.Maximum = 0;
-            this.SpoilerLever.Minimum = -12;
+            this.SpoilerLever.Maximum = 2;
+            this.SpoilerLever.Minimum = -10;
             this.SpoilerLever.Name = "SpoilerLever";
             this.SpoilerLever.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.SpoilerLever.Size = new System.Drawing.Size(45, 227);
             this.SpoilerLever.TabIndex = 31;
+            this.SpoilerLever.TickFrequency = 2;
+            this.SpoilerLever.Value = 2;
             // 
             // SpoilerUPLabel
             // 
@@ -454,6 +456,38 @@
             this.Flaps30text.TabIndex = 39;
             this.Flaps30text.Text = "30";
             // 
+            // attitudeIndicatorInstrumentControl1
+            // 
+            this.attitudeIndicatorInstrumentControl1.Location = new System.Drawing.Point(541, 279);
+            this.attitudeIndicatorInstrumentControl1.Name = "attitudeIndicatorInstrumentControl1";
+            this.attitudeIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
+            this.attitudeIndicatorInstrumentControl1.TabIndex = 43;
+            this.attitudeIndicatorInstrumentControl1.Text = "attitudeIndicatorInstrumentControl1";
+            // 
+            // airSpeedIndicatorInstrumentControl1
+            // 
+            this.airSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(541, 424);
+            this.airSpeedIndicatorInstrumentControl1.Name = "airSpeedIndicatorInstrumentControl1";
+            this.airSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
+            this.airSpeedIndicatorInstrumentControl1.TabIndex = 42;
+            this.airSpeedIndicatorInstrumentControl1.Text = "airSpeedIndicatorInstrumentControl1";
+            // 
+            // altimeterInstrumentControl1
+            // 
+            this.altimeterInstrumentControl1.Location = new System.Drawing.Point(688, 279);
+            this.altimeterInstrumentControl1.Name = "altimeterInstrumentControl1";
+            this.altimeterInstrumentControl1.Size = new System.Drawing.Size(150, 150);
+            this.altimeterInstrumentControl1.TabIndex = 41;
+            this.altimeterInstrumentControl1.Text = "altimeterInstrumentControl1";
+            // 
+            // verticalSpeedIndicatorInstrumentControl1
+            // 
+            this.verticalSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(688, 424);
+            this.verticalSpeedIndicatorInstrumentControl1.Name = "verticalSpeedIndicatorInstrumentControl1";
+            this.verticalSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
+            this.verticalSpeedIndicatorInstrumentControl1.TabIndex = 40;
+            this.verticalSpeedIndicatorInstrumentControl1.Text = "verticalSpeedIndicatorInstrumentControl1";
+            // 
             // Spoiler8PGB
             // 
             this.Spoiler8PGB.BackColor = System.Drawing.Color.Black;
@@ -462,6 +496,7 @@
             this.Spoiler8PGB.Name = "Spoiler8PGB";
             this.Spoiler8PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler8PGB.TabIndex = 16;
+            this.Spoiler8PGB.Value = 100;
             // 
             // Spoiler7PGB
             // 
@@ -522,38 +557,6 @@
             this.Spoiler1PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler1PGB.TabIndex = 9;
             this.Spoiler1PGB.Value = 60;
-            // 
-            // verticalSpeedIndicatorInstrumentControl1
-            // 
-            this.verticalSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(688, 424);
-            this.verticalSpeedIndicatorInstrumentControl1.Name = "verticalSpeedIndicatorInstrumentControl1";
-            this.verticalSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
-            this.verticalSpeedIndicatorInstrumentControl1.TabIndex = 40;
-            this.verticalSpeedIndicatorInstrumentControl1.Text = "verticalSpeedIndicatorInstrumentControl1";
-            // 
-            // altimeterInstrumentControl1
-            // 
-            this.altimeterInstrumentControl1.Location = new System.Drawing.Point(688, 279);
-            this.altimeterInstrumentControl1.Name = "altimeterInstrumentControl1";
-            this.altimeterInstrumentControl1.Size = new System.Drawing.Size(150, 150);
-            this.altimeterInstrumentControl1.TabIndex = 41;
-            this.altimeterInstrumentControl1.Text = "altimeterInstrumentControl1";
-            // 
-            // airSpeedIndicatorInstrumentControl1
-            // 
-            this.airSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(541, 424);
-            this.airSpeedIndicatorInstrumentControl1.Name = "airSpeedIndicatorInstrumentControl1";
-            this.airSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
-            this.airSpeedIndicatorInstrumentControl1.TabIndex = 42;
-            this.airSpeedIndicatorInstrumentControl1.Text = "airSpeedIndicatorInstrumentControl1";
-            // 
-            // attitudeIndicatorInstrumentControl1
-            // 
-            this.attitudeIndicatorInstrumentControl1.Location = new System.Drawing.Point(541, 279);
-            this.attitudeIndicatorInstrumentControl1.Name = "attitudeIndicatorInstrumentControl1";
-            this.attitudeIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
-            this.attitudeIndicatorInstrumentControl1.TabIndex = 43;
-            this.attitudeIndicatorInstrumentControl1.Text = "attitudeIndicatorInstrumentControl1";
             // 
             // AircraftGUI
             // 

@@ -2,6 +2,7 @@
 using Ownship;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 
@@ -12,6 +13,7 @@ namespace Aero390Spoilers
     {
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
+        bool SpoilerThreadRunning = false;
         //Constructor
         public AircraftGUI()
         {
@@ -23,7 +25,7 @@ namespace Aero390Spoilers
         //This function will be called every 0.5 seconds and will point to GUI_TickJobs(), where you can find the functions that will run every tick.
         public void AircraftGUI_Tick()
         {
-            Timer timer = new Timer();
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
             timer.Interval = (100); // 0.5 secs
             timer.Tick += new EventHandler(GUI_TickJobs);
             timer.Start();
@@ -34,6 +36,7 @@ namespace Aero390Spoilers
             ReadCockpitControls();
             RefreshGearPict();
             RefreshCockpitInstruments();
+            RefreshFCSynoptic();
             RefreshPrintOuts();
         }
         private void RefreshGearPict()
@@ -96,18 +99,115 @@ namespace Aero390Spoilers
             altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
             verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters(GUIOwnship.VS);
         }
+        private void RefreshFCSynoptic()
+        {
+            Spoiler1PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[0];
+            Spoiler1PGB.Refresh();
+            Spoiler2PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[1];
+            Spoiler2PGB.Refresh();
+            Spoiler3PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[2];
+            Spoiler3PGB.Refresh();
+            Spoiler4PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[3];
+            Spoiler4PGB.Refresh();
+            Spoiler5PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[4];
+            Spoiler5PGB.Refresh();
+            Spoiler6PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[5];
+            Spoiler6PGB.Refresh();
+            Spoiler7PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[6];
+            Spoiler7PGB.Refresh();
+            Spoiler8PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[7];
+            Spoiler8PGB.Refresh();
+        }
         private void ReadCockpitControls()
         {
             int temp = GUIOwnship.SpoilerLeverPosition;
             GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
-            if (temp != GUIOwnship.SpoilerLeverPosition) RefreshSpoilerActuation();
+            if (temp != GUIOwnship.SpoilerLeverPosition || (GUIOwnship.SpoilerDeflectionPercentage[0] != GUIOwnship.SpoilerLeverPosition*10 && GUIOwnship.SpoilerLeverPosition >=0))//Temporary Workaround. TO DO: Send Spoiler Lever to FCC and read new Spoiler angle in incoming NamedPipe
+            {
+                if (!SpoilerThreadRunning)
+                {
+                    if (GUIOwnship.SpoilerLeverPosition == -1)
+                    {
+                        SpoilerLever.Value = 0;
+                        GUIOwnship.SpoilerLeverPosition = 0;
+                    }
+                    double DeflectionPercent = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
+                    double FromDeflection = GUIOwnship.SpoilerDeflectionPercentage[0];
+                    if (GUIOwnship.SpoilerLeverPosition <= 0) DeflectionPercent = 0;
+                    if (temp <= 0) FromDeflection = 0;
+                    Thread IncrementSpoilers = new Thread(() => RefreshSpoilerActuation((int)FromDeflection, (int)DeflectionPercent, !GUIOwnship.WeightOnWheels));
+                    SpoilerThreadRunning = true;
+                    IncrementSpoilers.Start();
+                }
+            }
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
             GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
         }
-        private void RefreshSpoilerActuation()
+        private void RefreshSpoilerActuation(int CurrentDeflection, int TargetDeflection,  bool InFlight = true, bool SymDeploy = true)
         {
+            if (InFlight)
+            {
+                if (SymDeploy)
+                {
+                    TargetDeflection = (int)((double)TargetDeflection * GUIOwnship.SpoilerSBrakeDeflection);
+                    CurrentDeflection = (int)((double)CurrentDeflection * GUIOwnship.SpoilerSBrakeDeflection);
+                }
+                else
+                {
+                    TargetDeflection = (int)((double)TargetDeflection * GUIOwnship.SpoilerFlightDeflection);
+                    CurrentDeflection = (int)((double)CurrentDeflection * GUIOwnship.SpoilerFlightDeflection);
+                }
+            }
+            
+            while (CurrentDeflection != TargetDeflection)
+            {
+               //double newTarget = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
+               // if (InFlight)
+               // {
+               //     if (SymDeploy)
+               //     {
+               //         newTarget *= GUIOwnship.SpoilerSBrakeDeflection;
+               //     }
+               //     else
+               //     {
+               //         newTarget *= GUIOwnship.SpoilerFlightDeflection;
+               //     }
+               //     if ((int)newTarget != TargetDeflection)
+               //     {
+               //         TargetDeflection = (int)newTarget;
+               //     }
+               // }
+                int increment = TargetDeflection >= CurrentDeflection ? 1 : -1;
+                if (SymDeploy)
+                {
+                    for(int j = 0; j < GUIOwnship.NbofSpoilers; j++)
+                    {
+                        GUIOwnship.SpoilerDeflectionPercentage[j] += increment;
+                    }
+                }
+                else
+                {
+                    if (GUIOwnship.BankAngle > 0)
+                    {
+                        for (int j = 4; j < GUIOwnship.NbofSpoilers; j++)
+                        {
+                            GUIOwnship.SpoilerDeflectionPercentage[j] += increment;
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < (GUIOwnship.NbofSpoilers / 2); j++)
+                        {
+                            GUIOwnship.SpoilerDeflectionPercentage[j] += increment;
+                        }
+                    }
 
+                }
+                CurrentDeflection += increment;
+                Thread.Sleep(30);
+            }
+            SpoilerThreadRunning = false;
         }
         #endregion
 

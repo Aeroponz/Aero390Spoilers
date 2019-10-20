@@ -33,9 +33,9 @@ namespace Ownship
             AltitudeASL = 118;
             BaroSettingmmHg = 29.92;
             GrossWeightLbs = 35000;
-            VS = 1000;
-            BankAngle = 5;
-            AoA = 10;
+            VS = 0;
+            BankAngle = 0;
+            AoA = 0;
             SpoilerLeverPosition = 0;
             FlapLeverPosition = 0;
 
@@ -150,6 +150,8 @@ namespace Ownship
         public double MTOW = 40000.0;
         public double ZFW = 15000.0;
         public int NbofSpoilers = 8;
+        public double SpoilerSBrakeDeflection = 0.5;
+        public double SpoilerFlightDeflection = 0.2;
         #endregion
 
         #region Aircraft Parameters
