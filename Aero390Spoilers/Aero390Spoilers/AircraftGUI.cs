@@ -122,8 +122,9 @@ namespace Aero390Spoilers
         {
             int temp = GUIOwnship.SpoilerLeverPosition;
             GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
-            if (temp != GUIOwnship.SpoilerLeverPosition || (GUIOwnship.SpoilerDeflectionPercentage[0] != GUIOwnship.SpoilerLeverPosition*10 && GUIOwnship.SpoilerLeverPosition >=0))//Temporary Workaround. TO DO: Send Spoiler Lever to FCC and read new Spoiler angle in incoming NamedPipe
+            if (temp != GUIOwnship.SpoilerLeverPosition)//Spoiler Lever Position has changed.
             {
+                //TEMP WORK-AROUND
                 if (!SpoilerThreadRunning)
                 {
                     if (GUIOwnship.SpoilerLeverPosition == -1)
@@ -162,22 +163,23 @@ namespace Aero390Spoilers
             
             while (CurrentDeflection != TargetDeflection)
             {
-               //double newTarget = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
-               // if (InFlight)
-               // {
-               //     if (SymDeploy)
-               //     {
-               //         newTarget *= GUIOwnship.SpoilerSBrakeDeflection;
-               //     }
-               //     else
-               //     {
-               //         newTarget *= GUIOwnship.SpoilerFlightDeflection;
-               //     }
-               //     if ((int)newTarget != TargetDeflection)
-               //     {
-               //         TargetDeflection = (int)newTarget;
-               //     }
-               // }
+                //double newTarget = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
+                // if (InFlight)
+                // {
+                //     if (SymDeploy)
+                //     {
+                //         newTarget *= GUIOwnship.SpoilerSBrakeDeflection;
+                //     }
+                //     else
+                //     {
+                //         newTarget *= GUIOwnship.SpoilerFlightDeflection;
+                //     }
+                //     if ((int)newTarget != TargetDeflection)
+                //     {
+                //         TargetDeflection = (int)newTarget;
+                //     }
+                // }
+
                 int increment = TargetDeflection >= CurrentDeflection ? 1 : -1;
                 if (SymDeploy)
                 {

@@ -73,6 +73,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AvionicsInstrumentsControlsRessources.Designer.cs" />
+    <Compile Include="AvionicsInstrumentsControlsRessources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AvionicsInstrumentsControlsRessources.resx</DependentUpon>
+    </Compile>
     <Compile Include="HeadingIndicatorInstrumentControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -95,6 +100,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AvionicsInstrumentsControlsRessources.resx">
       <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AvionicsInstrumentsControlsRessources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -171,6 +178,7 @@
     <Content Include="Resources\AirSpeedIndicator_Background.bmp" />
     <Content Include="Resources\AirSpeedNeedle.bmp" />
     <Content Include="Resources\Altimeter_Background.bmp" />
+    <None Include="Resources\Background_EICAS_LDG.png" />
     <Content Include="Resources\Bandeau_Dérouleur.bmp" />
     <Content Include="Resources\HeadingIndicator_Aircraft.bmp" />
     <Content Include="Resources\HeadingIndicator_Background.bmp" />
@@ -178,8 +186,11 @@
     <Content Include="Resources\Horizon_Background.bmp" />
     <Content Include="Resources\Horizon_GroundSky.bmp" />
     <Content Include="Resources\Indicator_Background.bmp" />
+    <None Include="Resources\LDG_UP.png" />
+    <None Include="Resources\LDG_Down.png" />
     <Content Include="Resources\LongNeedleAltimeter.bmp" />
     <Content Include="Resources\Maquette_Avion.bmp" />
+    <None Include="Resources\NewCockpit.png" />
     <Content Include="Resources\SmallNeedleAltimeter.bmp" />
     <Content Include="Resources\TurnCoordinatorAircraft.bmp" />
     <Content Include="Resources\TurnCoordinatorBall.bmp" />

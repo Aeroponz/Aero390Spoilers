@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Aero390Spoilers.Properties {
+namespace Aero390Spoilers {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Aero390Spoilers.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class AvionicsInstrumentsControlsRessources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal AvionicsInstrumentsControlsRessources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Aero390Spoilers.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Aero390Spoilers.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Aero390Spoilers.AvionicsInstrumentsControlsRessources", typeof(AvionicsInstrumentsControlsRessources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -93,39 +93,9 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Background {
-            get {
-                object obj = ResourceManager.GetObject("Background", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Background_EICAS_LDG {
-            get {
-                object obj = ResourceManager.GetObject("Background_EICAS_LDG", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Bandeau_Dérouleur {
             get {
                 object obj = ResourceManager.GetObject("Bandeau_Dérouleur", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap GreyButton {
-            get {
-                object obj = ResourceManager.GetObject("GreyButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,106 +163,6 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LDG_Down {
-            get {
-                object obj = ResourceManager.GetObject("LDG_Down", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LDG_UP {
-            get {
-                object obj = ResourceManager.GetObject("LDG_UP", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgDownSchem {
-            get {
-                object obj = ResourceManager.GetObject("LgDownSchem", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_Down {
-            get {
-                object obj = ResourceManager.GetObject("LgIcon_Down", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_Transit {
-            get {
-                object obj = ResourceManager.GetObject("LgIcon_Transit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_Unknown {
-            get {
-                object obj = ResourceManager.GetObject("LgIcon_Unknown", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_Up {
-            get {
-                object obj = ResourceManager.GetObject("LgIcon_Up", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_Wow {
-            get {
-                object obj = ResourceManager.GetObject("LgIcon_Wow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgIcon_Wow1 {
-            get {
-                object obj = ResourceManager.GetObject("LgIcon_Wow1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LgUpSchem {
-            get {
-                object obj = ResourceManager.GetObject("LgUpSchem", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap LongNeedleAltimeter {
             get {
                 object obj = ResourceManager.GetObject("LongNeedleAltimeter", resourceCulture);
@@ -306,16 +176,6 @@ namespace Aero390Spoilers.Properties {
         internal static System.Drawing.Bitmap Maquette_Avion {
             get {
                 object obj = ResourceManager.GetObject("Maquette_Avion", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap NewCockpit1 {
-            get {
-                object obj = ResourceManager.GetObject("NewCockpit1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -386,16 +246,6 @@ namespace Aero390Spoilers.Properties {
         internal static System.Drawing.Bitmap VerticalSpeedNeedle {
             get {
                 object obj = ResourceManager.GetObject("VerticalSpeedNeedle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WowSchem {
-            get {
-                object obj = ResourceManager.GetObject("WowSchem", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
