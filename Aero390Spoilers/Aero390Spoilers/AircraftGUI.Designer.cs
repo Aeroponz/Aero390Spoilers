@@ -32,9 +32,7 @@
             this.Barometer = new System.Windows.Forms.Button();
             this.Altitude = new System.Windows.Forms.Button();
             this.IASButton = new System.Windows.Forms.Button();
-            this.GearPos = new System.Windows.Forms.Button();
             this.WowButton = new System.Windows.Forms.Button();
-            this.ACSchemPB = new System.Windows.Forms.PictureBox();
             this.GWButton = new System.Windows.Forms.Button();
             this.IntegerInput = new System.Windows.Forms.TextBox();
             this.BaroUnitTB = new System.Windows.Forms.TextBox();
@@ -45,8 +43,6 @@
             this.BaroPrintOut = new System.Windows.Forms.TextBox();
             this.AltPrintOut = new System.Windows.Forms.TextBox();
             this.IASPrintOut = new System.Windows.Forms.TextBox();
-            this.GearStatusIconPB = new System.Windows.Forms.PictureBox();
-            this.WoWIconPB = new System.Windows.Forms.PictureBox();
             this.ControlWheelBar = new System.Windows.Forms.TrackBar();
             this.SpoilerLever = new System.Windows.Forms.TrackBar();
             this.SpoilerUPLabel = new System.Windows.Forms.TextBox();
@@ -57,6 +53,8 @@
             this.Flaps10text = new System.Windows.Forms.TextBox();
             this.Flaps20text = new System.Windows.Forms.TextBox();
             this.Flaps30text = new System.Windows.Forms.TextBox();
+            this.GearStatusIconPB = new System.Windows.Forms.PictureBox();
+            this.WoWPBLight = new System.Windows.Forms.PictureBox();
             this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
             this.airSpeedIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AirSpeedIndicatorInstrumentControl();
             this.altimeterInstrumentControl1 = new AvionicsInstrumentControlDemo.AltimeterInstrumentControl();
@@ -69,12 +67,36 @@
             this.Spoiler3PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler2PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler1PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
-            ((System.ComponentModel.ISupportInitialize)(this.ACSchemPB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).BeginInit();
+            this.ABSelectorPB = new System.Windows.Forms.PictureBox();
+            this.AutobrakeTB = new System.Windows.Forms.TextBox();
+            this.ABMaxTB = new System.Windows.Forms.TextBox();
+            this.ABOffTB = new System.Windows.Forms.TextBox();
+            this.ABRtoTB = new System.Windows.Forms.TextBox();
+            this.AB1TB = new System.Windows.Forms.TextBox();
+            this.AB2TB = new System.Windows.Forms.TextBox();
+            this.EicasSMTitle = new System.Windows.Forms.TextBox();
+            this.EicasSMLine1 = new System.Windows.Forms.TextBox();
+            this.EicasGearMessage = new System.Windows.Forms.TextBox();
+            this.EicasFlapsMessage = new System.Windows.Forms.TextBox();
+            this.EicasSpoilerMessage = new System.Windows.Forms.TextBox();
+            this.EicasCWLine1 = new System.Windows.Forms.TextBox();
+            this.EicasCWLine2 = new System.Windows.Forms.TextBox();
+            this.EicasCWLine3 = new System.Windows.Forms.TextBox();
+            this.EicasSMLine2 = new System.Windows.Forms.TextBox();
+            this.EicasSMLine3 = new System.Windows.Forms.TextBox();
+            this.EicasCWLine4 = new System.Windows.Forms.TextBox();
+            this.EicasCWLine5 = new System.Windows.Forms.TextBox();
+            this.EicasCWLine6 = new System.Windows.Forms.TextBox();
+            this.EicasCWLine7 = new System.Windows.Forms.TextBox();
+            this.EicasCWLine8 = new System.Windows.Forms.TextBox();
+            this.MSMCPB = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WoWPBLight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ABSelectorPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MSMCPB)).BeginInit();
             this.SuspendLayout();
             // 
             // Barometer
@@ -86,7 +108,7 @@
             this.Barometer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.Barometer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.Barometer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Barometer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Barometer.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Barometer.ForeColor = System.Drawing.Color.Transparent;
             this.Barometer.Location = new System.Drawing.Point(1109, 462);
             this.Barometer.Name = "Barometer";
@@ -105,7 +127,7 @@
             this.Altitude.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.Altitude.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.Altitude.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Altitude.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Altitude.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Altitude.ForeColor = System.Drawing.Color.Transparent;
             this.Altitude.Location = new System.Drawing.Point(1109, 508);
             this.Altitude.Name = "Altitude";
@@ -124,7 +146,7 @@
             this.IASButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.IASButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.IASButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IASButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IASButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IASButton.ForeColor = System.Drawing.Color.Transparent;
             this.IASButton.Location = new System.Drawing.Point(1109, 554);
             this.IASButton.Name = "IASButton";
@@ -134,52 +156,24 @@
             this.IASButton.UseVisualStyleBackColor = false;
             this.IASButton.Click += new System.EventHandler(this.IASButton_Click);
             // 
-            // GearPos
-            // 
-            this.GearPos.BackColor = System.Drawing.Color.Transparent;
-            this.GearPos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GearPos.FlatAppearance.BorderSize = 0;
-            this.GearPos.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.GearPos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.GearPos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.GearPos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GearPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GearPos.ForeColor = System.Drawing.Color.Transparent;
-            this.GearPos.Location = new System.Drawing.Point(1114, 600);
-            this.GearPos.Name = "GearPos";
-            this.GearPos.Size = new System.Drawing.Size(63, 43);
-            this.GearPos.TabIndex = 3;
-            this.GearPos.Text = "Gear";
-            this.GearPos.UseVisualStyleBackColor = false;
-            this.GearPos.Click += new System.EventHandler(this.GearPos_Click);
-            // 
             // WowButton
             // 
             this.WowButton.BackColor = System.Drawing.Color.Transparent;
+            this.WowButton.BackgroundImage = global::Aero390Spoilers.Properties.Resources.WoW_Release;
             this.WowButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.WowButton.FlatAppearance.BorderSize = 0;
             this.WowButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.WowButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.WowButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.WowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WowButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WowButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WowButton.ForeColor = System.Drawing.Color.Transparent;
-            this.WowButton.Location = new System.Drawing.Point(1187, 601);
+            this.WowButton.Location = new System.Drawing.Point(739, 101);
             this.WowButton.Name = "WowButton";
-            this.WowButton.Size = new System.Drawing.Size(63, 43);
+            this.WowButton.Size = new System.Drawing.Size(32, 40);
             this.WowButton.TabIndex = 4;
-            this.WowButton.Text = "WOW";
             this.WowButton.UseVisualStyleBackColor = false;
             this.WowButton.Click += new System.EventHandler(this.WowButton_Click);
-            // 
-            // ACSchemPB
-            // 
-            this.ACSchemPB.Image = ((System.Drawing.Image)(resources.GetObject("ACSchemPB.Image")));
-            this.ACSchemPB.Location = new System.Drawing.Point(787, 25);
-            this.ACSchemPB.Name = "ACSchemPB";
-            this.ACSchemPB.Size = new System.Drawing.Size(452, 140);
-            this.ACSchemPB.TabIndex = 5;
-            this.ACSchemPB.TabStop = false;
             // 
             // GWButton
             // 
@@ -190,7 +184,7 @@
             this.GWButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.GWButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.GWButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GWButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GWButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GWButton.ForeColor = System.Drawing.Color.Transparent;
             this.GWButton.Location = new System.Drawing.Point(1109, 415);
             this.GWButton.Name = "GWButton";
@@ -203,11 +197,11 @@
             // IntegerInput
             // 
             this.IntegerInput.BackColor = System.Drawing.Color.Black;
-            this.IntegerInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IntegerInput.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IntegerInput.ForeColor = System.Drawing.Color.White;
             this.IntegerInput.Location = new System.Drawing.Point(966, 649);
             this.IntegerInput.Name = "IntegerInput";
-            this.IntegerInput.Size = new System.Drawing.Size(284, 23);
+            this.IntegerInput.Size = new System.Drawing.Size(284, 25);
             this.IntegerInput.TabIndex = 17;
             this.IntegerInput.Text = "Enter Value Here";
             this.IntegerInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -216,11 +210,11 @@
             // 
             this.BaroUnitTB.BackColor = System.Drawing.Color.Black;
             this.BaroUnitTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.BaroUnitTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BaroUnitTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BaroUnitTB.ForeColor = System.Drawing.Color.White;
             this.BaroUnitTB.Location = new System.Drawing.Point(1048, 475);
             this.BaroUnitTB.Name = "BaroUnitTB";
-            this.BaroUnitTB.Size = new System.Drawing.Size(45, 16);
+            this.BaroUnitTB.Size = new System.Drawing.Size(45, 18);
             this.BaroUnitTB.TabIndex = 19;
             this.BaroUnitTB.Text = "\"Hg";
             this.BaroUnitTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -229,11 +223,11 @@
             // 
             this.AltUnitTB.BackColor = System.Drawing.Color.Black;
             this.AltUnitTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.AltUnitTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AltUnitTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AltUnitTB.ForeColor = System.Drawing.Color.White;
             this.AltUnitTB.Location = new System.Drawing.Point(1048, 521);
             this.AltUnitTB.Name = "AltUnitTB";
-            this.AltUnitTB.Size = new System.Drawing.Size(45, 16);
+            this.AltUnitTB.Size = new System.Drawing.Size(45, 18);
             this.AltUnitTB.TabIndex = 20;
             this.AltUnitTB.Text = "ft";
             this.AltUnitTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -242,11 +236,11 @@
             // 
             this.GWUnitTB.BackColor = System.Drawing.Color.Black;
             this.GWUnitTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GWUnitTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GWUnitTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GWUnitTB.ForeColor = System.Drawing.Color.White;
             this.GWUnitTB.Location = new System.Drawing.Point(1048, 428);
             this.GWUnitTB.Name = "GWUnitTB";
-            this.GWUnitTB.Size = new System.Drawing.Size(45, 16);
+            this.GWUnitTB.Size = new System.Drawing.Size(45, 18);
             this.GWUnitTB.TabIndex = 21;
             this.GWUnitTB.Text = "lbs";
             this.GWUnitTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -255,11 +249,11 @@
             // 
             this.IASUnitTB.BackColor = System.Drawing.Color.Black;
             this.IASUnitTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.IASUnitTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IASUnitTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IASUnitTB.ForeColor = System.Drawing.Color.White;
             this.IASUnitTB.Location = new System.Drawing.Point(1048, 567);
             this.IASUnitTB.Name = "IASUnitTB";
-            this.IASUnitTB.Size = new System.Drawing.Size(45, 16);
+            this.IASUnitTB.Size = new System.Drawing.Size(45, 18);
             this.IASUnitTB.TabIndex = 22;
             this.IASUnitTB.Text = "kts";
             this.IASUnitTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -268,12 +262,12 @@
             // 
             this.GwPrintOut.BackColor = System.Drawing.Color.Black;
             this.GwPrintOut.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GwPrintOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GwPrintOut.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GwPrintOut.ForeColor = System.Drawing.Color.White;
             this.GwPrintOut.Location = new System.Drawing.Point(966, 428);
             this.GwPrintOut.Name = "GwPrintOut";
             this.GwPrintOut.ReadOnly = true;
-            this.GwPrintOut.Size = new System.Drawing.Size(80, 16);
+            this.GwPrintOut.Size = new System.Drawing.Size(80, 18);
             this.GwPrintOut.TabIndex = 26;
             this.GwPrintOut.Text = "38500";
             this.GwPrintOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -282,12 +276,12 @@
             // 
             this.BaroPrintOut.BackColor = System.Drawing.Color.Black;
             this.BaroPrintOut.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.BaroPrintOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BaroPrintOut.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BaroPrintOut.ForeColor = System.Drawing.Color.White;
             this.BaroPrintOut.Location = new System.Drawing.Point(966, 475);
             this.BaroPrintOut.Name = "BaroPrintOut";
             this.BaroPrintOut.ReadOnly = true;
-            this.BaroPrintOut.Size = new System.Drawing.Size(80, 16);
+            this.BaroPrintOut.Size = new System.Drawing.Size(80, 18);
             this.BaroPrintOut.TabIndex = 27;
             this.BaroPrintOut.Text = "29.92";
             this.BaroPrintOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -296,12 +290,12 @@
             // 
             this.AltPrintOut.BackColor = System.Drawing.Color.Black;
             this.AltPrintOut.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.AltPrintOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AltPrintOut.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AltPrintOut.ForeColor = System.Drawing.Color.White;
             this.AltPrintOut.Location = new System.Drawing.Point(966, 521);
             this.AltPrintOut.Name = "AltPrintOut";
             this.AltPrintOut.ReadOnly = true;
-            this.AltPrintOut.Size = new System.Drawing.Size(80, 16);
+            this.AltPrintOut.Size = new System.Drawing.Size(80, 18);
             this.AltPrintOut.TabIndex = 28;
             this.AltPrintOut.Text = "10000";
             this.AltPrintOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -310,47 +304,29 @@
             // 
             this.IASPrintOut.BackColor = System.Drawing.Color.Black;
             this.IASPrintOut.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.IASPrintOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IASPrintOut.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IASPrintOut.ForeColor = System.Drawing.Color.White;
             this.IASPrintOut.Location = new System.Drawing.Point(966, 567);
             this.IASPrintOut.Name = "IASPrintOut";
             this.IASPrintOut.ReadOnly = true;
-            this.IASPrintOut.Size = new System.Drawing.Size(80, 16);
+            this.IASPrintOut.Size = new System.Drawing.Size(80, 18);
             this.IASPrintOut.TabIndex = 29;
             this.IASPrintOut.Text = "250";
             this.IASPrintOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // GearStatusIconPB
-            // 
-            this.GearStatusIconPB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.GearStatusIconPB.Location = new System.Drawing.Point(966, 604);
-            this.GearStatusIconPB.Name = "GearStatusIconPB";
-            this.GearStatusIconPB.Size = new System.Drawing.Size(60, 40);
-            this.GearStatusIconPB.TabIndex = 24;
-            this.GearStatusIconPB.TabStop = false;
-            // 
-            // WoWIconPB
-            // 
-            this.WoWIconPB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.WoWIconPB.Location = new System.Drawing.Point(1035, 600);
-            this.WoWIconPB.Name = "WoWIconPB";
-            this.WoWIconPB.Size = new System.Drawing.Size(60, 40);
-            this.WoWIconPB.TabIndex = 25;
-            this.WoWIconPB.TabStop = false;
-            // 
             // ControlWheelBar
             // 
-            this.ControlWheelBar.Location = new System.Drawing.Point(607, 362);
+            this.ControlWheelBar.Location = new System.Drawing.Point(597, 360);
             this.ControlWheelBar.Minimum = -10;
             this.ControlWheelBar.Name = "ControlWheelBar";
-            this.ControlWheelBar.Size = new System.Drawing.Size(362, 45);
+            this.ControlWheelBar.Size = new System.Drawing.Size(300, 45);
             this.ControlWheelBar.TabIndex = 30;
             // 
             // SpoilerLever
             // 
             this.SpoilerLever.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.SpoilerLever.LargeChange = 2;
-            this.SpoilerLever.Location = new System.Drawing.Point(645, 433);
+            this.SpoilerLever.Location = new System.Drawing.Point(656, 433);
             this.SpoilerLever.Maximum = 2;
             this.SpoilerLever.Minimum = -10;
             this.SpoilerLever.Name = "SpoilerLever";
@@ -364,11 +340,11 @@
             // 
             this.SpoilerUPLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.SpoilerUPLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.SpoilerUPLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SpoilerUPLabel.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpoilerUPLabel.ForeColor = System.Drawing.Color.White;
-            this.SpoilerUPLabel.Location = new System.Drawing.Point(678, 439);
+            this.SpoilerUPLabel.Location = new System.Drawing.Point(686, 439);
             this.SpoilerUPLabel.Name = "SpoilerUPLabel";
-            this.SpoilerUPLabel.Size = new System.Drawing.Size(25, 16);
+            this.SpoilerUPLabel.Size = new System.Drawing.Size(18, 18);
             this.SpoilerUPLabel.TabIndex = 32;
             this.SpoilerUPLabel.Text = "UP";
             // 
@@ -376,11 +352,11 @@
             // 
             this.SpoilersARMLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.SpoilersARMLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.SpoilersARMLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SpoilersARMLabel.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpoilersARMLabel.ForeColor = System.Drawing.Color.White;
-            this.SpoilersARMLabel.Location = new System.Drawing.Point(677, 474);
+            this.SpoilersARMLabel.Location = new System.Drawing.Point(685, 474);
             this.SpoilersARMLabel.Name = "SpoilersARMLabel";
-            this.SpoilersARMLabel.Size = new System.Drawing.Size(40, 16);
+            this.SpoilersARMLabel.Size = new System.Drawing.Size(27, 18);
             this.SpoilersARMLabel.TabIndex = 33;
             this.SpoilersARMLabel.Text = "ARM";
             // 
@@ -388,11 +364,11 @@
             // 
             this.SpoilersDOWNLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.SpoilersDOWNLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.SpoilersDOWNLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SpoilersDOWNLabel.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpoilersDOWNLabel.ForeColor = System.Drawing.Color.White;
-            this.SpoilersDOWNLabel.Location = new System.Drawing.Point(678, 652);
+            this.SpoilersDOWNLabel.Location = new System.Drawing.Point(686, 652);
             this.SpoilersDOWNLabel.Name = "SpoilersDOWNLabel";
-            this.SpoilersDOWNLabel.Size = new System.Drawing.Size(53, 16);
+            this.SpoilersDOWNLabel.Size = new System.Drawing.Size(40, 18);
             this.SpoilersDOWNLabel.TabIndex = 34;
             this.SpoilersDOWNLabel.Text = "DOWN";
             // 
@@ -412,11 +388,11 @@
             // 
             this.FlapsUPtext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.FlapsUPtext.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.FlapsUPtext.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FlapsUPtext.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FlapsUPtext.ForeColor = System.Drawing.Color.White;
-            this.FlapsUPtext.Location = new System.Drawing.Point(820, 438);
+            this.FlapsUPtext.Location = new System.Drawing.Point(816, 438);
             this.FlapsUPtext.Name = "FlapsUPtext";
-            this.FlapsUPtext.Size = new System.Drawing.Size(25, 16);
+            this.FlapsUPtext.Size = new System.Drawing.Size(18, 18);
             this.FlapsUPtext.TabIndex = 36;
             this.FlapsUPtext.Text = "UP";
             // 
@@ -424,11 +400,11 @@
             // 
             this.Flaps10text.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.Flaps10text.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Flaps10text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Flaps10text.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Flaps10text.ForeColor = System.Drawing.Color.White;
-            this.Flaps10text.Location = new System.Drawing.Point(820, 507);
+            this.Flaps10text.Location = new System.Drawing.Point(816, 507);
             this.Flaps10text.Name = "Flaps10text";
-            this.Flaps10text.Size = new System.Drawing.Size(18, 16);
+            this.Flaps10text.Size = new System.Drawing.Size(18, 18);
             this.Flaps10text.TabIndex = 37;
             this.Flaps10text.Text = "10";
             // 
@@ -436,11 +412,11 @@
             // 
             this.Flaps20text.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.Flaps20text.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Flaps20text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Flaps20text.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Flaps20text.ForeColor = System.Drawing.Color.White;
-            this.Flaps20text.Location = new System.Drawing.Point(820, 579);
+            this.Flaps20text.Location = new System.Drawing.Point(816, 579);
             this.Flaps20text.Name = "Flaps20text";
-            this.Flaps20text.Size = new System.Drawing.Size(18, 16);
+            this.Flaps20text.Size = new System.Drawing.Size(18, 18);
             this.Flaps20text.TabIndex = 38;
             this.Flaps20text.Text = "20";
             // 
@@ -448,17 +424,38 @@
             // 
             this.Flaps30text.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.Flaps30text.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Flaps30text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Flaps30text.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Flaps30text.ForeColor = System.Drawing.Color.White;
-            this.Flaps30text.Location = new System.Drawing.Point(820, 649);
+            this.Flaps30text.Location = new System.Drawing.Point(816, 649);
             this.Flaps30text.Name = "Flaps30text";
-            this.Flaps30text.Size = new System.Drawing.Size(18, 16);
+            this.Flaps30text.Size = new System.Drawing.Size(18, 18);
             this.Flaps30text.TabIndex = 39;
             this.Flaps30text.Text = "30";
             // 
+            // GearStatusIconPB
+            // 
+            this.GearStatusIconPB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.LDG_UP;
+            this.GearStatusIconPB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.GearStatusIconPB.Location = new System.Drawing.Point(645, 25);
+            this.GearStatusIconPB.Name = "GearStatusIconPB";
+            this.GearStatusIconPB.Size = new System.Drawing.Size(136, 200);
+            this.GearStatusIconPB.TabIndex = 24;
+            this.GearStatusIconPB.TabStop = false;
+            this.GearStatusIconPB.Click += new System.EventHandler(this.GearStatusIconPB_Click);
+            // 
+            // WoWPBLight
+            // 
+            this.WoWPBLight.BackgroundImage = global::Aero390Spoilers.Properties.Resources.WoWLightOn;
+            this.WoWPBLight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.WoWPBLight.Location = new System.Drawing.Point(658, 125);
+            this.WoWPBLight.Name = "WoWPBLight";
+            this.WoWPBLight.Size = new System.Drawing.Size(32, 40);
+            this.WoWPBLight.TabIndex = 44;
+            this.WoWPBLight.TabStop = false;
+            // 
             // attitudeIndicatorInstrumentControl1
             // 
-            this.attitudeIndicatorInstrumentControl1.Location = new System.Drawing.Point(32, 25);
+            this.attitudeIndicatorInstrumentControl1.Location = new System.Drawing.Point(32, 100);
             this.attitudeIndicatorInstrumentControl1.Name = "attitudeIndicatorInstrumentControl1";
             this.attitudeIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
             this.attitudeIndicatorInstrumentControl1.TabIndex = 43;
@@ -466,7 +463,7 @@
             // 
             // airSpeedIndicatorInstrumentControl1
             // 
-            this.airSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(32, 375);
+            this.airSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(32, 412);
             this.airSpeedIndicatorInstrumentControl1.Name = "airSpeedIndicatorInstrumentControl1";
             this.airSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
             this.airSpeedIndicatorInstrumentControl1.TabIndex = 42;
@@ -474,7 +471,7 @@
             // 
             // altimeterInstrumentControl1
             // 
-            this.altimeterInstrumentControl1.Location = new System.Drawing.Point(32, 199);
+            this.altimeterInstrumentControl1.Location = new System.Drawing.Point(32, 256);
             this.altimeterInstrumentControl1.Name = "altimeterInstrumentControl1";
             this.altimeterInstrumentControl1.Size = new System.Drawing.Size(150, 150);
             this.altimeterInstrumentControl1.TabIndex = 41;
@@ -482,7 +479,7 @@
             // 
             // verticalSpeedIndicatorInstrumentControl1
             // 
-            this.verticalSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(32, 548);
+            this.verticalSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(32, 568);
             this.verticalSpeedIndicatorInstrumentControl1.Name = "verticalSpeedIndicatorInstrumentControl1";
             this.verticalSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
             this.verticalSpeedIndicatorInstrumentControl1.TabIndex = 40;
@@ -565,6 +562,278 @@
             this.Spoiler1PGB.TabIndex = 9;
             this.Spoiler1PGB.Value = 60;
             // 
+            // ABSelectorPB
+            // 
+            this.ABSelectorPB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SelectorT_270deg;
+            this.ABSelectorPB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ABSelectorPB.Location = new System.Drawing.Point(653, 249);
+            this.ABSelectorPB.Name = "ABSelectorPB";
+            this.ABSelectorPB.Size = new System.Drawing.Size(120, 100);
+            this.ABSelectorPB.TabIndex = 45;
+            this.ABSelectorPB.TabStop = false;
+            // 
+            // AutobrakeTB
+            // 
+            this.AutobrakeTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.AutobrakeTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AutobrakeTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutobrakeTB.ForeColor = System.Drawing.Color.White;
+            this.AutobrakeTB.Location = new System.Drawing.Point(676, 346);
+            this.AutobrakeTB.Name = "AutobrakeTB";
+            this.AutobrakeTB.Size = new System.Drawing.Size(75, 18);
+            this.AutobrakeTB.TabIndex = 46;
+            this.AutobrakeTB.Text = "AUTOBRAKE";
+            // 
+            // ABMaxTB
+            // 
+            this.ABMaxTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.ABMaxTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ABMaxTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ABMaxTB.ForeColor = System.Drawing.Color.White;
+            this.ABMaxTB.Location = new System.Drawing.Point(774, 280);
+            this.ABMaxTB.Name = "ABMaxTB";
+            this.ABMaxTB.Size = new System.Drawing.Size(28, 18);
+            this.ABMaxTB.TabIndex = 47;
+            this.ABMaxTB.Text = "MAX";
+            // 
+            // ABOffTB
+            // 
+            this.ABOffTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.ABOffTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ABOffTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ABOffTB.ForeColor = System.Drawing.Color.White;
+            this.ABOffTB.Location = new System.Drawing.Point(632, 295);
+            this.ABOffTB.Name = "ABOffTB";
+            this.ABOffTB.Size = new System.Drawing.Size(28, 18);
+            this.ABOffTB.TabIndex = 48;
+            this.ABOffTB.Text = "OFF";
+            // 
+            // ABRtoTB
+            // 
+            this.ABRtoTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.ABRtoTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ABRtoTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ABRtoTB.ForeColor = System.Drawing.Color.White;
+            this.ABRtoTB.Location = new System.Drawing.Point(645, 249);
+            this.ABRtoTB.Name = "ABRtoTB";
+            this.ABRtoTB.Size = new System.Drawing.Size(27, 18);
+            this.ABRtoTB.TabIndex = 49;
+            this.ABRtoTB.Text = "RTO";
+            // 
+            // AB1TB
+            // 
+            this.AB1TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.AB1TB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AB1TB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AB1TB.ForeColor = System.Drawing.Color.White;
+            this.AB1TB.Location = new System.Drawing.Point(708, 232);
+            this.AB1TB.Name = "AB1TB";
+            this.AB1TB.Size = new System.Drawing.Size(10, 18);
+            this.AB1TB.TabIndex = 50;
+            this.AB1TB.Text = "1";
+            // 
+            // AB2TB
+            // 
+            this.AB2TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.AB2TB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AB2TB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AB2TB.ForeColor = System.Drawing.Color.White;
+            this.AB2TB.Location = new System.Drawing.Point(754, 249);
+            this.AB2TB.Name = "AB2TB";
+            this.AB2TB.Size = new System.Drawing.Size(10, 18);
+            this.AB2TB.TabIndex = 51;
+            this.AB2TB.Text = "2";
+            // 
+            // EicasSMTitle
+            // 
+            this.EicasSMTitle.BackColor = System.Drawing.Color.Black;
+            this.EicasSMTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasSMTitle.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasSMTitle.ForeColor = System.Drawing.Color.Aqua;
+            this.EicasSMTitle.Location = new System.Drawing.Point(440, 249);
+            this.EicasSMTitle.Name = "EicasSMTitle";
+            this.EicasSMTitle.Size = new System.Drawing.Size(100, 15);
+            this.EicasSMTitle.TabIndex = 52;
+            this.EicasSMTitle.Text = "STATUS MESSAGES";
+            // 
+            // EicasSMLine1
+            // 
+            this.EicasSMLine1.BackColor = System.Drawing.Color.Black;
+            this.EicasSMLine1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasSMLine1.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasSMLine1.ForeColor = System.Drawing.Color.White;
+            this.EicasSMLine1.Location = new System.Drawing.Point(440, 270);
+            this.EicasSMLine1.Name = "EicasSMLine1";
+            this.EicasSMLine1.Size = new System.Drawing.Size(100, 15);
+            this.EicasSMLine1.TabIndex = 53;
+            this.EicasSMLine1.Text = "APU RUNNING";
+            // 
+            // EicasGearMessage
+            // 
+            this.EicasGearMessage.BackColor = System.Drawing.Color.Black;
+            this.EicasGearMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasGearMessage.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasGearMessage.ForeColor = System.Drawing.Color.Lime;
+            this.EicasGearMessage.Location = new System.Drawing.Point(249, 270);
+            this.EicasGearMessage.Name = "EicasGearMessage";
+            this.EicasGearMessage.Size = new System.Drawing.Size(100, 15);
+            this.EicasGearMessage.TabIndex = 54;
+            this.EicasGearMessage.Text = "LDG GEAR DN";
+            // 
+            // EicasFlapsMessage
+            // 
+            this.EicasFlapsMessage.BackColor = System.Drawing.Color.Black;
+            this.EicasFlapsMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasFlapsMessage.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasFlapsMessage.ForeColor = System.Drawing.Color.Lime;
+            this.EicasFlapsMessage.Location = new System.Drawing.Point(249, 284);
+            this.EicasFlapsMessage.Name = "EicasFlapsMessage";
+            this.EicasFlapsMessage.Size = new System.Drawing.Size(100, 15);
+            this.EicasFlapsMessage.TabIndex = 55;
+            this.EicasFlapsMessage.Text = "FLAPS...........UP";
+            // 
+            // EicasSpoilerMessage
+            // 
+            this.EicasSpoilerMessage.BackColor = System.Drawing.Color.Black;
+            this.EicasSpoilerMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasSpoilerMessage.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasSpoilerMessage.ForeColor = System.Drawing.Color.Lime;
+            this.EicasSpoilerMessage.Location = new System.Drawing.Point(249, 298);
+            this.EicasSpoilerMessage.Name = "EicasSpoilerMessage";
+            this.EicasSpoilerMessage.Size = new System.Drawing.Size(100, 15);
+            this.EicasSpoilerMessage.TabIndex = 56;
+            this.EicasSpoilerMessage.Text = "SPOILERS";
+            // 
+            // EicasCWLine1
+            // 
+            this.EicasCWLine1.BackColor = System.Drawing.Color.Black;
+            this.EicasCWLine1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasCWLine1.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasCWLine1.ForeColor = System.Drawing.Color.Red;
+            this.EicasCWLine1.Location = new System.Drawing.Point(440, 53);
+            this.EicasCWLine1.Name = "EicasCWLine1";
+            this.EicasCWLine1.Size = new System.Drawing.Size(100, 15);
+            this.EicasCWLine1.TabIndex = 57;
+            this.EicasCWLine1.Text = "AIRCRAFT CONFIG";
+            // 
+            // EicasCWLine2
+            // 
+            this.EicasCWLine2.BackColor = System.Drawing.Color.Black;
+            this.EicasCWLine2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasCWLine2.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasCWLine2.ForeColor = System.Drawing.Color.Orange;
+            this.EicasCWLine2.Location = new System.Drawing.Point(440, 67);
+            this.EicasCWLine2.Name = "EicasCWLine2";
+            this.EicasCWLine2.Size = new System.Drawing.Size(100, 15);
+            this.EicasCWLine2.TabIndex = 58;
+            this.EicasCWLine2.Text = "SPOILERS";
+            // 
+            // EicasCWLine3
+            // 
+            this.EicasCWLine3.BackColor = System.Drawing.Color.Black;
+            this.EicasCWLine3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasCWLine3.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasCWLine3.ForeColor = System.Drawing.Color.Orange;
+            this.EicasCWLine3.Location = new System.Drawing.Point(440, 81);
+            this.EicasCWLine3.Name = "EicasCWLine3";
+            this.EicasCWLine3.Size = new System.Drawing.Size(100, 15);
+            this.EicasCWLine3.TabIndex = 59;
+            this.EicasCWLine3.Text = "FCC 1";
+            // 
+            // EicasSMLine2
+            // 
+            this.EicasSMLine2.BackColor = System.Drawing.Color.Black;
+            this.EicasSMLine2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasSMLine2.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasSMLine2.ForeColor = System.Drawing.Color.White;
+            this.EicasSMLine2.Location = new System.Drawing.Point(440, 284);
+            this.EicasSMLine2.Name = "EicasSMLine2";
+            this.EicasSMLine2.Size = new System.Drawing.Size(100, 15);
+            this.EicasSMLine2.TabIndex = 60;
+            this.EicasSMLine2.Text = "CABIN ALT";
+            // 
+            // EicasSMLine3
+            // 
+            this.EicasSMLine3.BackColor = System.Drawing.Color.Black;
+            this.EicasSMLine3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasSMLine3.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasSMLine3.ForeColor = System.Drawing.Color.White;
+            this.EicasSMLine3.Location = new System.Drawing.Point(440, 298);
+            this.EicasSMLine3.Name = "EicasSMLine3";
+            this.EicasSMLine3.Size = new System.Drawing.Size(100, 15);
+            this.EicasSMLine3.TabIndex = 61;
+            this.EicasSMLine3.Text = "CABIN PRESS";
+            // 
+            // EicasCWLine4
+            // 
+            this.EicasCWLine4.BackColor = System.Drawing.Color.Black;
+            this.EicasCWLine4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasCWLine4.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasCWLine4.ForeColor = System.Drawing.Color.Orange;
+            this.EicasCWLine4.Location = new System.Drawing.Point(440, 95);
+            this.EicasCWLine4.Name = "EicasCWLine4";
+            this.EicasCWLine4.Size = new System.Drawing.Size(100, 15);
+            this.EicasCWLine4.TabIndex = 62;
+            this.EicasCWLine4.Text = "FCC 2";
+            // 
+            // EicasCWLine5
+            // 
+            this.EicasCWLine5.BackColor = System.Drawing.Color.Black;
+            this.EicasCWLine5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasCWLine5.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasCWLine5.ForeColor = System.Drawing.Color.Orange;
+            this.EicasCWLine5.Location = new System.Drawing.Point(440, 110);
+            this.EicasCWLine5.Name = "EicasCWLine5";
+            this.EicasCWLine5.Size = new System.Drawing.Size(100, 15);
+            this.EicasCWLine5.TabIndex = 63;
+            this.EicasCWLine5.Text = "GEAR DISAGREE";
+            // 
+            // EicasCWLine6
+            // 
+            this.EicasCWLine6.BackColor = System.Drawing.Color.Black;
+            this.EicasCWLine6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasCWLine6.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasCWLine6.ForeColor = System.Drawing.Color.Orange;
+            this.EicasCWLine6.Location = new System.Drawing.Point(440, 124);
+            this.EicasCWLine6.Name = "EicasCWLine6";
+            this.EicasCWLine6.Size = new System.Drawing.Size(100, 15);
+            this.EicasCWLine6.TabIndex = 64;
+            this.EicasCWLine6.Text = "AOA DISAGREE";
+            // 
+            // EicasCWLine7
+            // 
+            this.EicasCWLine7.BackColor = System.Drawing.Color.Black;
+            this.EicasCWLine7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasCWLine7.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasCWLine7.ForeColor = System.Drawing.Color.Orange;
+            this.EicasCWLine7.Location = new System.Drawing.Point(440, 138);
+            this.EicasCWLine7.Name = "EicasCWLine7";
+            this.EicasCWLine7.Size = new System.Drawing.Size(100, 15);
+            this.EicasCWLine7.TabIndex = 65;
+            this.EicasCWLine7.Text = "RADALT";
+            // 
+            // EicasCWLine8
+            // 
+            this.EicasCWLine8.BackColor = System.Drawing.Color.Black;
+            this.EicasCWLine8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EicasCWLine8.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasCWLine8.ForeColor = System.Drawing.Color.Orange;
+            this.EicasCWLine8.Location = new System.Drawing.Point(440, 152);
+            this.EicasCWLine8.Name = "EicasCWLine8";
+            this.EicasCWLine8.Size = new System.Drawing.Size(100, 15);
+            this.EicasCWLine8.TabIndex = 66;
+            this.EicasCWLine8.Text = "HYD SYS 1";
+            // 
+            // MSMCPB
+            // 
+            this.MSMCPB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.MWMC_11;
+            this.MSMCPB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.MSMCPB.Location = new System.Drawing.Point(32, 12);
+            this.MSMCPB.Name = "MSMCPB";
+            this.MSMCPB.Size = new System.Drawing.Size(150, 80);
+            this.MSMCPB.TabIndex = 67;
+            this.MSMCPB.TabStop = false;
+            // 
             // AircraftGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -574,6 +843,32 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1264, 741);
+            this.Controls.Add(this.MSMCPB);
+            this.Controls.Add(this.EicasCWLine8);
+            this.Controls.Add(this.EicasCWLine7);
+            this.Controls.Add(this.EicasCWLine6);
+            this.Controls.Add(this.EicasCWLine5);
+            this.Controls.Add(this.EicasCWLine4);
+            this.Controls.Add(this.EicasSMLine3);
+            this.Controls.Add(this.EicasSMLine2);
+            this.Controls.Add(this.EicasCWLine3);
+            this.Controls.Add(this.EicasCWLine2);
+            this.Controls.Add(this.EicasCWLine1);
+            this.Controls.Add(this.EicasSpoilerMessage);
+            this.Controls.Add(this.EicasFlapsMessage);
+            this.Controls.Add(this.EicasGearMessage);
+            this.Controls.Add(this.EicasSMLine1);
+            this.Controls.Add(this.EicasSMTitle);
+            this.Controls.Add(this.AB2TB);
+            this.Controls.Add(this.AB1TB);
+            this.Controls.Add(this.ABRtoTB);
+            this.Controls.Add(this.ABOffTB);
+            this.Controls.Add(this.ABMaxTB);
+            this.Controls.Add(this.AutobrakeTB);
+            this.Controls.Add(this.ABSelectorPB);
+            this.Controls.Add(this.WoWPBLight);
+            this.Controls.Add(this.WowButton);
+            this.Controls.Add(this.GearStatusIconPB);
             this.Controls.Add(this.attitudeIndicatorInstrumentControl1);
             this.Controls.Add(this.airSpeedIndicatorInstrumentControl1);
             this.Controls.Add(this.altimeterInstrumentControl1);
@@ -592,8 +887,6 @@
             this.Controls.Add(this.AltPrintOut);
             this.Controls.Add(this.BaroPrintOut);
             this.Controls.Add(this.GwPrintOut);
-            this.Controls.Add(this.WoWIconPB);
-            this.Controls.Add(this.GearStatusIconPB);
             this.Controls.Add(this.IASUnitTB);
             this.Controls.Add(this.GWUnitTB);
             this.Controls.Add(this.AltUnitTB);
@@ -608,9 +901,6 @@
             this.Controls.Add(this.Spoiler2PGB);
             this.Controls.Add(this.Spoiler1PGB);
             this.Controls.Add(this.GWButton);
-            this.Controls.Add(this.ACSchemPB);
-            this.Controls.Add(this.WowButton);
-            this.Controls.Add(this.GearPos);
             this.Controls.Add(this.IASButton);
             this.Controls.Add(this.Altitude);
             this.Controls.Add(this.Barometer);
@@ -618,12 +908,13 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AircraftGUI";
             this.Text = "AircraftGUI";
-            ((System.ComponentModel.ISupportInitialize)(this.ACSchemPB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WoWIconPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GearStatusIconPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WoWPBLight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ABSelectorPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MSMCPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -634,9 +925,7 @@
         private System.Windows.Forms.Button Barometer;
         private System.Windows.Forms.Button Altitude;
         private System.Windows.Forms.Button IASButton;
-        private System.Windows.Forms.Button GearPos;
         private System.Windows.Forms.Button WowButton;
-        private System.Windows.Forms.PictureBox ACSchemPB;
         private System.Windows.Forms.Button GWButton;
         private System.Windows.Forms.TextBox IntegerInput;
         private System.Windows.Forms.TextBox BaroUnitTB;
@@ -647,8 +936,6 @@
         private System.Windows.Forms.TextBox BaroPrintOut;
         private System.Windows.Forms.TextBox AltPrintOut;
         private System.Windows.Forms.TextBox IASPrintOut;
-        private System.Windows.Forms.PictureBox GearStatusIconPB;
-        private System.Windows.Forms.PictureBox WoWIconPB;
         private System.Windows.Forms.TrackBar ControlWheelBar;
         private System.Windows.Forms.TrackBar SpoilerLever;
         private System.Windows.Forms.TextBox SpoilerUPLabel;
@@ -671,6 +958,31 @@
         private AvionicsInstrumentControlDemo.AltimeterInstrumentControl altimeterInstrumentControl1;
         private AvionicsInstrumentControlDemo.AirSpeedIndicatorInstrumentControl airSpeedIndicatorInstrumentControl1;
         private AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl attitudeIndicatorInstrumentControl1;
+        private System.Windows.Forms.PictureBox GearStatusIconPB;
+        private System.Windows.Forms.PictureBox WoWPBLight;
+        private System.Windows.Forms.PictureBox ABSelectorPB;
+        private System.Windows.Forms.TextBox AutobrakeTB;
+        private System.Windows.Forms.TextBox ABMaxTB;
+        private System.Windows.Forms.TextBox ABOffTB;
+        private System.Windows.Forms.TextBox ABRtoTB;
+        private System.Windows.Forms.TextBox AB1TB;
+        private System.Windows.Forms.TextBox AB2TB;
+        private System.Windows.Forms.TextBox EicasSMTitle;
+        private System.Windows.Forms.TextBox EicasSMLine1;
+        private System.Windows.Forms.TextBox EicasGearMessage;
+        private System.Windows.Forms.TextBox EicasFlapsMessage;
+        private System.Windows.Forms.TextBox EicasSpoilerMessage;
+        private System.Windows.Forms.TextBox EicasCWLine1;
+        private System.Windows.Forms.TextBox EicasCWLine2;
+        private System.Windows.Forms.TextBox EicasCWLine3;
+        private System.Windows.Forms.TextBox EicasSMLine2;
+        private System.Windows.Forms.TextBox EicasSMLine3;
+        private System.Windows.Forms.TextBox EicasCWLine4;
+        private System.Windows.Forms.TextBox EicasCWLine5;
+        private System.Windows.Forms.TextBox EicasCWLine6;
+        private System.Windows.Forms.TextBox EicasCWLine7;
+        private System.Windows.Forms.TextBox EicasCWLine8;
+        private System.Windows.Forms.PictureBox MSMCPB;
     }
 }
 

@@ -45,21 +45,11 @@ namespace Aero390Spoilers
             //AIRCRAFT SCHEMATIC AND GEAR ICON
             if (GUIOwnship.GlobalGearStatus() == "UP")
             {
-                GearStatusIconPB.Image = Resources.LgIcon_Up;
-                ACSchemPB.Image = Resources.LgUpSchem;
+                GearStatusIconPB.Image = Resources.LDG_UP;
             }
             else if (GUIOwnship.GlobalGearStatus() == "DOWN")
             {
-                GearStatusIconPB.Image = Resources.LgIcon_Down;
-
-                if (GUIOwnship.WeightOnWheels == true) //AC on ground
-                {
-                    ACSchemPB.Image = Resources.WowSchem;
-                }
-                else //AC in flight
-                {
-                    ACSchemPB.Image = Resources.LgDownSchem;
-                }
+                GearStatusIconPB.Image = Resources.LDG_Down;
             }
             else if (GUIOwnship.GlobalGearStatus() == "IN TRANSIT")
             {
@@ -73,11 +63,11 @@ namespace Aero390Spoilers
             //WEIGHT ON WHEELS ICON
             if(GUIOwnship.WeightOnWheels == true)
             {
-                WoWIconPB.Image = Resources.LgIcon_Wow;
+                WoWPBLight.Image = Resources.WoWLightOn;
             }
             else
             {
-                WoWIconPB.Image = null;
+                WoWPBLight.Image = Resources.WoWLightOff;
             }
 
         }
@@ -302,12 +292,12 @@ namespace Aero390Spoilers
 
             }
         }
-        private void GearPos_Click(object sender, EventArgs e)
+
+        private void GearStatusIconPB_Click(object sender, EventArgs e)
         {
             GUIOwnship.GearPositionChange();
         }
+
         #endregion
-
-
     }
 }

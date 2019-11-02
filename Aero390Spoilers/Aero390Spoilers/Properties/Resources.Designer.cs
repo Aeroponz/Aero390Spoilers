@@ -93,26 +93,6 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Background {
-            get {
-                object obj = ResourceManager.GetObject("Background", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Background_EICAS_LDG {
-            get {
-                object obj = ResourceManager.GetObject("Background_EICAS_LDG", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Bandeau_Dérouleur {
             get {
                 object obj = ResourceManager.GetObject("Bandeau_Dérouleur", resourceCulture);
@@ -313,9 +293,99 @@ namespace Aero390Spoilers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MWMC_00 {
+            get {
+                object obj = ResourceManager.GetObject("MWMC_00", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MWMC_01 {
+            get {
+                object obj = ResourceManager.GetObject("MWMC_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MWMC_10 {
+            get {
+                object obj = ResourceManager.GetObject("MWMC_10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MWMC_11 {
+            get {
+                object obj = ResourceManager.GetObject("MWMC_11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewCockpit1 {
             get {
                 object obj = ResourceManager.GetObject("NewCockpit1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SelectorT_0deg {
+            get {
+                object obj = ResourceManager.GetObject("SelectorT_0deg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SelectorT_270deg {
+            get {
+                object obj = ResourceManager.GetObject("SelectorT_270deg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SelectorT_315deg {
+            get {
+                object obj = ResourceManager.GetObject("SelectorT_315deg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SelectorT_45deg {
+            get {
+                object obj = ResourceManager.GetObject("SelectorT_45deg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SelectorT_90deg {
+            get {
+                object obj = ResourceManager.GetObject("SelectorT_90deg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -386,6 +456,36 @@ namespace Aero390Spoilers.Properties {
         internal static System.Drawing.Bitmap VerticalSpeedNeedle {
             get {
                 object obj = ResourceManager.GetObject("VerticalSpeedNeedle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WoW_Release {
+            get {
+                object obj = ResourceManager.GetObject("WoW_Release", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WoWLightOff {
+            get {
+                object obj = ResourceManager.GetObject("WoWLightOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WoWLightOn {
+            get {
+                object obj = ResourceManager.GetObject("WoWLightOn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
