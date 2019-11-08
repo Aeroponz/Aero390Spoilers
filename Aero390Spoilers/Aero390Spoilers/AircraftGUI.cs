@@ -34,9 +34,11 @@ namespace Aero390Spoilers
         private void GUI_TickJobs(object sender, EventArgs e)
         {
             ReadCockpitControls();
-            RefreshGearPict();
+            RefreshAutoBrakeSelector();
             RefreshCockpitInstruments();
+            RefreshEICAS();
             RefreshFCSynoptic();
+            RefreshGearPict();
             RefreshPrintOuts();
         }
         private void RefreshGearPict()
@@ -82,12 +84,111 @@ namespace Aero390Spoilers
         {
 
         }
+        private void RefreshAutoBrakeSelector()
+        {
+            switch(GUIOwnship.AutoBrakeSelectorPosition)
+            {
+                case 0: ABSelectorPB.BackgroundImage = Resources.SelectorT_270deg; break;
+                case 1: ABSelectorPB.BackgroundImage = Resources.SelectorT_315deg; break;
+                case 2: ABSelectorPB.BackgroundImage = Resources.SelectorT_0deg; break;
+                case 3: ABSelectorPB.BackgroundImage = Resources.SelectorT_45deg; break;
+                case 4: ABSelectorPB.BackgroundImage = Resources.SelectorT_90deg; break;
+            }
+        }
         private void RefreshCockpitInstruments()
         {
             airSpeedIndicatorInstrumentControl1.SetAirSpeedIndicatorParameters(GUIOwnship.IasKts);
             attitudeIndicatorInstrumentControl1.SetAttitudeIndicatorParameters(GUIOwnship.AoA, GUIOwnship.BankAngle);
             altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
             verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters(GUIOwnship.VS);
+        }
+        private void RefreshEICAS()
+        {
+            RefreshEICASAllMessages();
+            RefreshEICASSystemStatus();
+        }
+        private void RefreshEICASMessage(System.Windows.Forms.TextBox iTextbox, Ownship.EICASMessage iMsg)
+        {
+            iTextbox.Text = iMsg.MessageText;
+            switch(iMsg.Importance)
+            {
+                case 0: iTextbox.ForeColor = Color.White; break;
+                case 1: iTextbox.ForeColor = Color.Orange; break;
+                case 2: iTextbox.ForeColor = Color.Red; break;
+            }
+        }
+        private void RefreshEICASAllMessages()
+        {
+            RefreshEICASMessage(EicasMsgLine1, GUIOwnship.EICASMessages[0]);
+            RefreshEICASMessage(EicasMsgLine2, GUIOwnship.EICASMessages[1]);
+            RefreshEICASMessage(EicasMsgLine3, GUIOwnship.EICASMessages[2]);
+            RefreshEICASMessage(EicasMsgLine4, GUIOwnship.EICASMessages[3]);
+            RefreshEICASMessage(EicasMsgLine5, GUIOwnship.EICASMessages[4]);
+            RefreshEICASMessage(EicasMsgLine6, GUIOwnship.EICASMessages[5]);
+            RefreshEICASMessage(EicasMsgLine7, GUIOwnship.EICASMessages[6]);
+            RefreshEICASMessage(EicasMsgLine8, GUIOwnship.EICASMessages[7]);
+            RefreshEICASMessage(EicasMsgLine9, GUIOwnship.EICASMessages[8]);
+            RefreshEICASMessage(EicasMsgLine10, GUIOwnship.EICASMessages[9]);
+            RefreshEICASMessage(EicasMsgLine11, GUIOwnship.EICASMessages[10]);
+        }
+        private void RefreshEICASSystemStatus()
+        {
+            //LDG GEAR
+            switch (GUIOwnship.GlobalGearStatus())
+            {
+                case ("DOWN"):
+                    {
+                        EicasGearMessage.Text = "LDG GEAR DN";
+                        EicasGearMessage.ForeColor = Color.Lime;
+                        break;
+                    }
+                case ("UP"):
+                    {
+                        EicasGearMessage.Text = "LDG GEAR UP";
+                        EicasGearMessage.ForeColor = Color.Lime;
+                        break;
+                    }
+                case ("IN TRANSIT"):
+                    {
+                        EicasGearMessage.Text = "LDG GEAR TR";
+                        EicasGearMessage.ForeColor = Color.Lime;
+                        break;
+                    }
+                case ("UNKNOWN"):
+                    {
+                        EicasGearMessage.Text = "LDG GEAR UNKNOWN";
+                        EicasGearMessage.ForeColor = Color.Orange;
+                        break;
+                    }
+            }
+
+            //FLAPS
+            string FlapPos = "";
+            if (GUIOwnship.FlapLeverPosition == 0)
+            {
+                FlapPos = "UP";
+            }
+            else
+            {
+                FlapPos = Convert.ToString(GUIOwnship.FlapLeverPosition*10);
+            }
+            EicasFlapsMessage.Text = "FLAPS..........." + FlapPos;
+
+            //SPOILERS
+            if (SpoilerLever.Value >= 0) EicasSpoilerMessage.Text = "";
+            else EicasSpoilerMessage.Text = "SPOILERS";
+
+
+            //AUTOBRAKES
+            switch(GUIOwnship.AutoBrakeSelectorPosition)
+            {
+                case 0: EICASAutoBrakesMessage.Text = "AUTOBRAKES OFF"; break;
+                case 1: EICASAutoBrakesMessage.Text = "AUTOBRAKES RTO"; break;
+                case 2: EICASAutoBrakesMessage.Text = "AUTOBRAKES 1"; break;
+                case 3: EICASAutoBrakesMessage.Text = "AUTOBRAKES 2"; break;
+                case 4: EICASAutoBrakesMessage.Text = "AUTOBRAKES MAX"; break;
+            }
+
         }
         private void RefreshFCSynoptic()
         {
@@ -110,6 +211,7 @@ namespace Aero390Spoilers
         }
         private void ReadCockpitControls()
         {
+            //SPOILER LEVER REFRESH
             int temp = GUIOwnship.SpoilerLeverPosition;
             GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
             if (temp != GUIOwnship.SpoilerLeverPosition)//Spoiler Lever Position has changed.
@@ -131,7 +233,11 @@ namespace Aero390Spoilers
                     IncrementSpoilers.Start();
                 }
             }
+
+            //FLAP LEVER REFRESH
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
+
+            //CONTROL WHEEL REFRESH
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
             GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
         }
@@ -153,23 +259,6 @@ namespace Aero390Spoilers
             
             while (CurrentDeflection != TargetDeflection)
             {
-                //double newTarget = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
-                // if (InFlight)
-                // {
-                //     if (SymDeploy)
-                //     {
-                //         newTarget *= GUIOwnship.SpoilerSBrakeDeflection;
-                //     }
-                //     else
-                //     {
-                //         newTarget *= GUIOwnship.SpoilerFlightDeflection;
-                //     }
-                //     if ((int)newTarget != TargetDeflection)
-                //     {
-                //         TargetDeflection = (int)newTarget;
-                //     }
-                // }
-
                 int increment = TargetDeflection >= CurrentDeflection ? 1 : -1;
                 if (SymDeploy)
                 {
@@ -292,10 +381,29 @@ namespace Aero390Spoilers
 
             }
         }
-
         private void GearStatusIconPB_Click(object sender, EventArgs e)
         {
             GUIOwnship.GearPositionChange();
+        }
+        public void ABOffTB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.AutoBrakeSelectorPosition = 0;
+        }
+        public void ABRtoTB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.AutoBrakeSelectorPosition = 1;
+        }
+        public void AB1TB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.AutoBrakeSelectorPosition = 2;
+        }
+        public void AB2TB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.AutoBrakeSelectorPosition = 3;
+        }
+        public void ABMaxTB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.AutoBrakeSelectorPosition = 4;
         }
 
         #endregion

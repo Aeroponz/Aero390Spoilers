@@ -24,6 +24,12 @@ namespace Ownship
                 LandingGears[i] = new LandingGear.LandingGear();
             }
 
+            EICASMessages = new EICASMessage[11];
+            for (int i = 0; i < 11; i++)
+            {
+                EICASMessages[i] = new EICASMessage();
+            }
+
             //Parameter Initialisation
             WeightOnWheels = true;
             IasKts = 0;
@@ -38,6 +44,7 @@ namespace Ownship
             AoA = 0;
             SpoilerLeverPosition = 0;
             FlapLeverPosition = 0;
+            AutoBrakeSelectorPosition = 0;
 
             for (int i = 0; i < wArincMessages.Length; i++)
             {
@@ -62,6 +69,15 @@ namespace Ownship
 
             return wArincMessages;  
         }
+
+        #region EICAS
+
+        public void UpdateEICASMessages()
+        {
+
+        }
+
+        #endregion EICAS
 
         #region Landing Gear
 
@@ -158,6 +174,8 @@ namespace Ownship
 
         double G32_RequiredPressure = 500;//psi
         bool G32_LowGearPressure = false;
+
+        //Aircraft Parameters
         public bool WeightOnWheels { get; set; }
         public double GrossWeightLbs { get; set; }
         public double BaroSettingmmHg { get; set; }
@@ -169,10 +187,18 @@ namespace Ownship
         public int BankAngle { get; set; }
         public int AoA { get; set; }
         public int VS { get; set; }
+
+        //Cockpit
         public int SpoilerLeverPosition { get; set; }
         public int FlapLeverPosition { get; set; }
         public int SWControlWheelPosition { get; set; }
+        public int AutoBrakeSelectorPosition { get; set; }
+
+        //DISPLAYS
         public int[] SpoilerDeflectionPercentage = new int[8];
+        public EICASMessage[] EICASMessages; //Lines 1 to 8 for CW Messages, 9 to 11 for status
+
+        //ARINC
         string[] wArincMessages = new string[1];
         #endregion
     }
