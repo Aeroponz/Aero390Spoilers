@@ -91,6 +91,10 @@
             this.BaroTitleTB = new System.Windows.Forms.TextBox();
             this.AltTitleTB = new System.Windows.Forms.TextBox();
             this.IASTitleTB = new System.Windows.Forms.TextBox();
+            this.RENGThrottle = new System.Windows.Forms.TrackBar();
+            this.LENGThrottle = new System.Windows.Forms.TrackBar();
+            this.IdleTB = new System.Windows.Forms.TextBox();
+            this.MaxThrTB = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).BeginInit();
@@ -98,6 +102,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.WoWPBLight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ABSelectorPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MWMCPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RENGThrottle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LENGThrottle)).BeginInit();
             this.SuspendLayout();
             // 
             // WowButton
@@ -124,7 +130,7 @@
             this.IntegerInput.BackColor = System.Drawing.Color.Black;
             this.IntegerInput.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IntegerInput.ForeColor = System.Drawing.Color.White;
-            this.IntegerInput.Location = new System.Drawing.Point(966, 649);
+            this.IntegerInput.Location = new System.Drawing.Point(653, 704);
             this.IntegerInput.Name = "IntegerInput";
             this.IntegerInput.Size = new System.Drawing.Size(284, 25);
             this.IntegerInput.TabIndex = 17;
@@ -318,7 +324,7 @@
             this.FlapLever.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
             this.FlapLever.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FlapLever.LargeChange = 1;
-            this.FlapLever.Location = new System.Drawing.Point(787, 432);
+            this.FlapLever.Location = new System.Drawing.Point(915, 430);
             this.FlapLever.Maximum = 0;
             this.FlapLever.Minimum = -3;
             this.FlapLever.Name = "FlapLever";
@@ -333,7 +339,7 @@
             this.FlapsUPtext.Cursor = System.Windows.Forms.Cursors.Default;
             this.FlapsUPtext.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FlapsUPtext.ForeColor = System.Drawing.Color.White;
-            this.FlapsUPtext.Location = new System.Drawing.Point(816, 438);
+            this.FlapsUPtext.Location = new System.Drawing.Point(944, 436);
             this.FlapsUPtext.Name = "FlapsUPtext";
             this.FlapsUPtext.Size = new System.Drawing.Size(18, 18);
             this.FlapsUPtext.TabIndex = 36;
@@ -346,7 +352,7 @@
             this.Flaps10text.Cursor = System.Windows.Forms.Cursors.Default;
             this.Flaps10text.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Flaps10text.ForeColor = System.Drawing.Color.White;
-            this.Flaps10text.Location = new System.Drawing.Point(816, 507);
+            this.Flaps10text.Location = new System.Drawing.Point(944, 505);
             this.Flaps10text.Name = "Flaps10text";
             this.Flaps10text.Size = new System.Drawing.Size(18, 18);
             this.Flaps10text.TabIndex = 37;
@@ -359,7 +365,7 @@
             this.Flaps20text.Cursor = System.Windows.Forms.Cursors.Default;
             this.Flaps20text.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Flaps20text.ForeColor = System.Drawing.Color.White;
-            this.Flaps20text.Location = new System.Drawing.Point(816, 579);
+            this.Flaps20text.Location = new System.Drawing.Point(944, 577);
             this.Flaps20text.Name = "Flaps20text";
             this.Flaps20text.Size = new System.Drawing.Size(18, 18);
             this.Flaps20text.TabIndex = 38;
@@ -372,7 +378,7 @@
             this.Flaps30text.Cursor = System.Windows.Forms.Cursors.Default;
             this.Flaps30text.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Flaps30text.ForeColor = System.Drawing.Color.White;
-            this.Flaps30text.Location = new System.Drawing.Point(816, 649);
+            this.Flaps30text.Location = new System.Drawing.Point(944, 647);
             this.Flaps30text.Name = "Flaps30text";
             this.Flaps30text.Size = new System.Drawing.Size(18, 18);
             this.Flaps30text.TabIndex = 39;
@@ -877,6 +883,58 @@
             this.IASTitleTB.Text = "IAS:";
             this.IASTitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // RENGThrottle
+            // 
+            this.RENGThrottle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.RENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RENGThrottle.LargeChange = 1;
+            this.RENGThrottle.Location = new System.Drawing.Point(804, 433);
+            this.RENGThrottle.Name = "RENGThrottle";
+            this.RENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.RENGThrottle.Size = new System.Drawing.Size(45, 240);
+            this.RENGThrottle.TabIndex = 73;
+            this.RENGThrottle.TickFrequency = 2;
+            // 
+            // LENGThrottle
+            // 
+            this.LENGThrottle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.LENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LENGThrottle.LargeChange = 1;
+            this.LENGThrottle.Location = new System.Drawing.Point(774, 433);
+            this.LENGThrottle.Name = "LENGThrottle";
+            this.LENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.LENGThrottle.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.LENGThrottle.Size = new System.Drawing.Size(45, 240);
+            this.LENGThrottle.TabIndex = 74;
+            this.LENGThrottle.TickFrequency = 2;
+            this.LENGThrottle.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            // 
+            // IdleTB
+            // 
+            this.IdleTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.IdleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.IdleTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.IdleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IdleTB.ForeColor = System.Drawing.Color.White;
+            this.IdleTB.Location = new System.Drawing.Point(828, 652);
+            this.IdleTB.Name = "IdleTB";
+            this.IdleTB.Size = new System.Drawing.Size(30, 18);
+            this.IdleTB.TabIndex = 75;
+            this.IdleTB.Text = "IDLE";
+            // 
+            // MaxThrTB
+            // 
+            this.MaxThrTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.MaxThrTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MaxThrTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.MaxThrTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaxThrTB.ForeColor = System.Drawing.Color.White;
+            this.MaxThrTB.Location = new System.Drawing.Point(828, 439);
+            this.MaxThrTB.Name = "MaxThrTB";
+            this.MaxThrTB.Size = new System.Drawing.Size(30, 18);
+            this.MaxThrTB.TabIndex = 76;
+            this.MaxThrTB.Text = "MAX";
+            // 
             // AircraftGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -886,6 +944,10 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1264, 741);
+            this.Controls.Add(this.MaxThrTB);
+            this.Controls.Add(this.IdleTB);
+            this.Controls.Add(this.RENGThrottle);
+            this.Controls.Add(this.LENGThrottle);
             this.Controls.Add(this.IASTitleTB);
             this.Controls.Add(this.AltTitleTB);
             this.Controls.Add(this.GwPrintOut);
@@ -960,6 +1022,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.WoWPBLight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ABSelectorPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MWMCPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RENGThrottle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LENGThrottle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1028,6 +1092,10 @@
         private System.Windows.Forms.TextBox BaroTitleTB;
         private System.Windows.Forms.TextBox AltTitleTB;
         private System.Windows.Forms.TextBox IASTitleTB;
+        private System.Windows.Forms.TrackBar RENGThrottle;
+        private System.Windows.Forms.TrackBar LENGThrottle;
+        private System.Windows.Forms.TextBox IdleTB;
+        private System.Windows.Forms.TextBox MaxThrTB;
     }
 }
 

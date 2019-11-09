@@ -45,6 +45,8 @@ namespace Ownship
             SpoilerLeverPosition = 0;
             FlapLeverPosition = 0;
             AutoBrakeSelectorPosition = 0;
+            LThrottlePosition = 0;
+            RThrottlePosition = 0;
 
             for (int i = 0; i < wArincMessages.Length; i++)
             {
@@ -193,6 +195,8 @@ namespace Ownship
         public int FlapLeverPosition { get; set; }
         public int SWControlWheelPosition { get; set; }
         public int AutoBrakeSelectorPosition { get; set; }
+        public int LThrottlePosition { get; set; }
+        public int RThrottlePosition { get; set; }
 
         //DISPLAYS
         public int[] SpoilerDeflectionPercentage = new int[8];

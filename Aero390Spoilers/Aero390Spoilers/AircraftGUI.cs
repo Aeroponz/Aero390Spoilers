@@ -74,6 +74,10 @@ namespace Aero390Spoilers
             //CONTROL WHEEL REFRESH
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
             GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
+
+            //THROTTLES
+            GUIOwnship.LThrottlePosition = LENGThrottle.Value;
+            GUIOwnship.RThrottlePosition = RENGThrottle.Value;
         }
         private void ReadDataPipe(string PipeName)
         {
