@@ -39,46 +39,41 @@ namespace Aero390Spoilers
             RefreshEICAS();
             RefreshFCSynoptic();
             RefreshGearPict();
+            RefreshMasterLights();
             RefreshPrintOuts();
         }
-        private void RefreshGearPict()
+
+        private void ReadCockpitControls()
         {
-
-            //AIRCRAFT SCHEMATIC AND GEAR ICON
-            if (GUIOwnship.GlobalGearStatus() == "UP")
+            //SPOILER LEVER REFRESH
+            int temp = GUIOwnship.SpoilerLeverPosition;
+            GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
+            if (temp != GUIOwnship.SpoilerLeverPosition)//Spoiler Lever Position has changed.
             {
-                GearStatusIconPB.Image = Resources.LDG_UP;
-            }
-            else if (GUIOwnship.GlobalGearStatus() == "DOWN")
-            {
-                GearStatusIconPB.Image = Resources.LDG_Down;
-            }
-            else if (GUIOwnship.GlobalGearStatus() == "IN TRANSIT")
-            {
-                GearStatusIconPB.Image = Resources.LgIcon_Transit;
-            }
-            else
-            {
-                GearStatusIconPB.Image = Resources.LgIcon_Unknown;
-            }
-
-            //WEIGHT ON WHEELS ICON
-            if(GUIOwnship.WeightOnWheels == true)
-            {
-                WoWPBLight.Image = Resources.WoWLightOn;
-            }
-            else
-            {
-                WoWPBLight.Image = Resources.WoWLightOff;
+                //TEMP WORK-AROUND
+                if (!SpoilerThreadRunning)
+                {
+                    if (GUIOwnship.SpoilerLeverPosition == -1)
+                    {
+                        SpoilerLever.Value = 0;
+                        GUIOwnship.SpoilerLeverPosition = 0;
+                    }
+                    double DeflectionPercent = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
+                    double FromDeflection = GUIOwnship.SpoilerDeflectionPercentage[0];
+                    if (GUIOwnship.SpoilerLeverPosition <= 0) DeflectionPercent = 0;
+                    if (temp <= 0) FromDeflection = 0;
+                    Thread IncrementSpoilers = new Thread(() => RefreshSpoilerActuation((int)FromDeflection, (int)DeflectionPercent, !GUIOwnship.WeightOnWheels));
+                    SpoilerThreadRunning = true;
+                    IncrementSpoilers.Start();
+                }
             }
 
-        }
-        private void RefreshPrintOuts()
-        {
-            GwPrintOut.Text = GUIOwnship.GrossWeightLbs.ToString();
-            BaroPrintOut.Text = GUIOwnship.BaroSettingmmHg.ToString();
-            AltPrintOut.Text = GUIOwnship.AltitudeASL.ToString();
-            IASPrintOut.Text = GUIOwnship.IasKts.ToString();
+            //FLAP LEVER REFRESH
+            GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
+
+            //CONTROL WHEEL REFRESH
+            GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
+            GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
         }
         private void ReadDataPipe(string PipeName)
         {
@@ -209,37 +204,57 @@ namespace Aero390Spoilers
             Spoiler8PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[7];
             Spoiler8PGB.Refresh();
         }
-        private void ReadCockpitControls()
+        private void RefreshGearPict()
         {
-            //SPOILER LEVER REFRESH
-            int temp = GUIOwnship.SpoilerLeverPosition;
-            GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
-            if (temp != GUIOwnship.SpoilerLeverPosition)//Spoiler Lever Position has changed.
+
+            //AIRCRAFT SCHEMATIC AND GEAR ICON
+            if (GUIOwnship.GlobalGearStatus() == "UP")
             {
-                //TEMP WORK-AROUND
-                if (!SpoilerThreadRunning)
-                {
-                    if (GUIOwnship.SpoilerLeverPosition == -1)
-                    {
-                        SpoilerLever.Value = 0;
-                        GUIOwnship.SpoilerLeverPosition = 0;
-                    }
-                    double DeflectionPercent = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
-                    double FromDeflection = GUIOwnship.SpoilerDeflectionPercentage[0];
-                    if (GUIOwnship.SpoilerLeverPosition <= 0) DeflectionPercent = 0;
-                    if (temp <= 0) FromDeflection = 0;
-                    Thread IncrementSpoilers = new Thread(() => RefreshSpoilerActuation((int)FromDeflection, (int)DeflectionPercent, !GUIOwnship.WeightOnWheels));
-                    SpoilerThreadRunning = true;
-                    IncrementSpoilers.Start();
-                }
+                GearStatusIconPB.Image = Resources.LDG_UP;
+            }
+            else if (GUIOwnship.GlobalGearStatus() == "DOWN")
+            {
+                GearStatusIconPB.Image = Resources.LDG_Down;
+            }
+            else if (GUIOwnship.GlobalGearStatus() == "IN TRANSIT")
+            {
+                GearStatusIconPB.Image = Resources.LgIcon_Transit;
+            }
+            else
+            {
+                GearStatusIconPB.Image = Resources.LgIcon_Unknown;
             }
 
-            //FLAP LEVER REFRESH
-            GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
+            //WEIGHT ON WHEELS ICON
+            if (GUIOwnship.WeightOnWheels == true)
+            {
+                WoWPBLight.Image = Resources.WoWLightOn;
+            }
+            else
+            {
+                WoWPBLight.Image = Resources.WoWLightOff;
+            }
 
-            //CONTROL WHEEL REFRESH
-            GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
-            GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
+        }
+        private void RefreshMasterLights()
+        {
+            if (GUIOwnship.WarningActive)
+            {
+                if (GUIOwnship.CautionActive) MWMCPB.BackgroundImage = Resources.MWMC_11;
+                else MWMCPB.BackgroundImage = Resources.MWMC_10; ;
+            }
+            else
+            {
+                if (GUIOwnship.CautionActive) MWMCPB.BackgroundImage = Resources.MWMC_01;
+                else MWMCPB.BackgroundImage = Resources.MWMC_00; ;
+            }
+        }
+        private void RefreshPrintOuts()
+        {
+            GwPrintOut.Text = GUIOwnship.GrossWeightLbs.ToString();
+            BaroPrintOut.Text = GUIOwnship.BaroSettingmmHg.ToString();
+            AltPrintOut.Text = GUIOwnship.AltitudeASL.ToString();
+            IASPrintOut.Text = GUIOwnship.IasKts.ToString();
         }
         private void RefreshSpoilerActuation(int CurrentDeflection, int TargetDeflection,  bool InFlight = true, bool SymDeploy = true)
         {
@@ -405,7 +420,11 @@ namespace Aero390Spoilers
         {
             GUIOwnship.AutoBrakeSelectorPosition = 4;
         }
-
+        private void MWMCPB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.CautionActive = false;
+            GUIOwnship.WarningActive = false;
+        }
         #endregion
     }
 }

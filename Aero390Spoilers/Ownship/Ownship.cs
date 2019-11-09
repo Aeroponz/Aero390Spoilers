@@ -198,6 +198,11 @@ namespace Ownship
         public int[] SpoilerDeflectionPercentage = new int[8];
         public EICASMessage[] EICASMessages; //Lines 1 to 8 for CW Messages, 9 to 11 for status
 
+        //WARNING SYSTEM
+        public bool WarningActive;
+        public bool CautionActive;
+
+
         //ARINC
         string[] wArincMessages = new string[1];
         #endregion
