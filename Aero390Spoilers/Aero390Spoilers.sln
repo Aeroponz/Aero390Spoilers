@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSSimulationNode", "CSSimul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARINC", "ARINC\ARINC.csproj", "{6A0A4869-233D-4DF0-BE80-C1344A9E0E89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMI_Handler", "HMI_Handler\HMI_Handler.csproj", "{5F98022B-FF4B-47CB-8B16-6A8ECF28F6B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
