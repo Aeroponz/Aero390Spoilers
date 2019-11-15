@@ -47,13 +47,16 @@ namespace HMI
             // Acquire the joystick
             joystick.Acquire();
 
+            double X_axis = 0;
             // Poll events from joystick
             while (true)
             {
                 joystick.Poll();
                 joystick.GetCurrentState(ref joystickState);
                 //foreach (var state in datas)
-                Console.WriteLine(joystickState.X.ToString());
+                X_axis = ((double)joystickState.X - 32767.0)/32767.0;
+
+                Console.WriteLine(Math.Round(X_axis,2));
             }
 
          }
