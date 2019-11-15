@@ -100,6 +100,8 @@ namespace Aero390Spoilers
             attitudeIndicatorInstrumentControl1.SetAttitudeIndicatorParameters(GUIOwnship.AoA, GUIOwnship.BankAngle);
             altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
             verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters(GUIOwnship.VS);
+            EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value * 10);
+            EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value * 10);
         }
         private void RefreshEICAS()
         {
@@ -428,6 +430,42 @@ namespace Aero390Spoilers
         {
             GUIOwnship.CautionActive = false;
             GUIOwnship.WarningActive = false;
+        }
+        private void SW1PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch1On = !GUIOwnship.Switch1On;
+            if (GUIOwnship.Switch1On) SW1PB.BackgroundImage = Resources.Switch_ON;
+            else SW1PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW2PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch2On = !GUIOwnship.Switch2On;
+            if (GUIOwnship.Switch2On) SW2PB.BackgroundImage = Resources.Switch_ON;
+            else SW2PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW3PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch3On = !GUIOwnship.Switch3On;
+            if (GUIOwnship.Switch3On) SW3PB.BackgroundImage = Resources.Switch_ON;
+            else SW3PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW4PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch4On = !GUIOwnship.Switch4On;
+            if (GUIOwnship.Switch4On) SW4PB.BackgroundImage = Resources.Switch_ON;
+            else SW4PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW5PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch5On = !GUIOwnship.Switch5On;
+            if (GUIOwnship.Switch5On) SW5PB.BackgroundImage = Resources.Switch_ON;
+            else SW5PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW6PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch6On = !GUIOwnship.Switch6On;
+            if (GUIOwnship.Switch6On) SW6PB.BackgroundImage = Resources.Switch_ON;
+            else SW6PB.BackgroundImage = Resources.Switch_OFF;
         }
         #endregion
     }

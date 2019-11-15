@@ -203,9 +203,16 @@ namespace Ownship
         public EICASMessage[] EICASMessages; //Lines 1 to 8 for CW Messages, 9 to 11 for status
 
         //WARNING SYSTEM
-        public bool WarningActive;
-        public bool CautionActive;
+        public bool WarningActive { get; set; }
+        public bool CautionActive { get; set; }
 
+        //MALFUNCTIONS AND SWITCHES
+        public bool Switch1On { get; set; }
+        public bool Switch2On { get; set; }
+        public bool Switch3On { get; set; }
+        public bool Switch4On { get; set; }
+        public bool Switch5On { get; set; }
+        public bool Switch6On { get; set; }
 
         //ARINC
         string[] wArincMessages = new string[1];

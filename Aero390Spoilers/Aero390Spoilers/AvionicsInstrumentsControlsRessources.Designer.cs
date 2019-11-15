@@ -100,7 +100,31 @@ namespace AvionicsInstrumentControlDemo.AvionicsInstrumentsControls {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EngineIndicator_Background
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("EngineIndicator_Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EngineIndicatorNeedle
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("EngineIndicatorNeedle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>

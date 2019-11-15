@@ -130,6 +130,12 @@
   <data name="Bandeau_Dérouleur" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Bandeau_Dérouleur.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="EngineIndicatorNeedle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\EngineIndicatorNeedle.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EngineIndicator_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\EngineIndicator_Background.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HeadingIndicator_Aircraft" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\HeadingIndicator_Aircraft.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
