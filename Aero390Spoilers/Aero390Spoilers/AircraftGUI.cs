@@ -4,7 +4,8 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-
+using System.Media;
+using System.IO;
 
 namespace Aero390Spoilers
 {
@@ -14,6 +15,7 @@ namespace Aero390Spoilers
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         bool SpoilerThreadRunning = false;
+        int AltCalloutTimeout = 0;
         //Constructor
         public AircraftGUI()
         {
@@ -26,7 +28,7 @@ namespace Aero390Spoilers
         public void AircraftGUI_Tick()
         {
             System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-            timer.Interval = (100); // 0.5 secs
+            timer.Interval = (100); // 0.1 secs
             timer.Tick += new EventHandler(GUI_TickJobs);
             timer.Start();
         }
@@ -41,8 +43,44 @@ namespace Aero390Spoilers
             RefreshGearPict();
             RefreshMasterLights();
             RefreshPrintOuts();
+            UpdatePhaseOfFlight();
+            if (GUIOwnship.PhaseOfFlight == "APPROACH") AltitudeCallouts(GUIOwnship.AltitudeASL-GUIOwnship.RunwayAltASL);
         }
 
+        private void AltitudeCallouts(double ACRadioAltitude)
+        {
+            
+            string wAlt = "";
+            if (AltCalloutTimeout == 10) AltCalloutTimeout = 0;
+            if (AltCalloutTimeout == 0)
+            {
+                if (ACRadioAltitude <= 11 && ACRadioAltitude > 9) wAlt = "10";
+                else if (ACRadioAltitude <= 21 && ACRadioAltitude > 19) wAlt = "20";
+                else if (ACRadioAltitude <= 31 && ACRadioAltitude > 29) wAlt = "30";
+                else if (ACRadioAltitude <= 41 && ACRadioAltitude > 39) wAlt = "40";
+                else if (ACRadioAltitude <= 51 && ACRadioAltitude > 49) wAlt = "50";
+                else if (ACRadioAltitude <= 101 && ACRadioAltitude > 99) wAlt = "100";
+                else if (ACRadioAltitude <= 116 && ACRadioAltitude > 114) wAlt = "Mins";
+                else if (ACRadioAltitude <= 201 && ACRadioAltitude > 199) wAlt = "200";
+                else if (ACRadioAltitude <= 216 && ACRadioAltitude > 214) wAlt = "AppMins";
+                else if (ACRadioAltitude <= 301 && ACRadioAltitude > 299) wAlt = "300";
+                else if (ACRadioAltitude <= 401 && ACRadioAltitude > 399) wAlt = "400";
+                else if (ACRadioAltitude <= 501 && ACRadioAltitude > 499) wAlt = "500";
+                else if (ACRadioAltitude <= 1001 && ACRadioAltitude > 999) wAlt = "1000";
+                else if (ACRadioAltitude <= 2501 && ACRadioAltitude > 2499) wAlt = "2500";
+            }
+            else
+            {
+                AltCalloutTimeout++;
+            }
+
+            if (wAlt != "")
+            {
+                SoundPlayer simpleSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_" + wAlt + ".wav");
+                simpleSound.Play();
+                AltCalloutTimeout++;
+            }
+        }
         private void ReadCockpitControls()
         {
             //SPOILER LEVER REFRESH
@@ -99,7 +137,7 @@ namespace Aero390Spoilers
             airSpeedIndicatorInstrumentControl1.SetAirSpeedIndicatorParameters(GUIOwnship.IasKts);
             attitudeIndicatorInstrumentControl1.SetAttitudeIndicatorParameters(GUIOwnship.AoA, GUIOwnship.BankAngle);
             altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
-            verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters(GUIOwnship.VS);
+            verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters((int)GUIOwnship.VS);
             EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value * 10);
             EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value * 10);
         }
@@ -259,8 +297,9 @@ namespace Aero390Spoilers
         {
             GwPrintOut.Text = GUIOwnship.GrossWeightLbs.ToString();
             BaroPrintOut.Text = GUIOwnship.BaroSettingmmHg.ToString();
-            AltPrintOut.Text = GUIOwnship.AltitudeASL.ToString();
-            IASPrintOut.Text = GUIOwnship.IasKts.ToString();
+            AltPrintOut.Text = ((int)GUIOwnship.AltitudeASL).ToString();
+            IASPrintOut.Text = ((int)GUIOwnship.IasKts).ToString();
+            PhaseOfFlightTB.Text = GUIOwnship.PhaseOfFlight;
         }
         private void RefreshSpoilerActuation(int CurrentDeflection, int TargetDeflection,  bool InFlight = true, bool SymDeploy = true)
         {
@@ -310,7 +349,159 @@ namespace Aero390Spoilers
                 Thread.Sleep(30);
             }
             SpoilerThreadRunning = false;
+            return;
         }
+        private void RepositionTo(string Reposition)
+        {
+            switch (Reposition)
+            {
+                case ("Takeoff"):
+                    {
+                        GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
+                        GUIOwnship.AoA = 0;
+                        GUIOwnship.AutoBrakeSelectorPosition = 0;
+                        GUIOwnship.BankAngle = 0;
+                        GUIOwnship.BaroSettingmmHg = 29.92;
+                        FlapLever.Value = 0;
+                        GUIOwnship.FlapLeverPosition = 0;
+                        GUIOwnship.GrossWeightLbs = 35000;
+                        LENGThrottle.Value = 0;
+                        RENGThrottle.Value = 0;
+                        GUIOwnship.LThrottlePosition = 0;
+                        GUIOwnship.RThrottlePosition = 0;
+                        SpoilerLever.Value = 2;
+                        GUIOwnship.SpoilerLeverPosition = 2;
+                        ControlWheelBar.Value = 0;
+                        GUIOwnship.SWControlWheelPosition = 0;
+                        GUIOwnship.VS = 0;
+                        GUIOwnship.IasKts = 0;
+                        if (GUIOwnship.GlobalGearStatus() != "DOWN") GUIOwnship.GearPositionChange();
+                        GUIOwnship.WeightOnWheels = true;
+                        GUIOwnship.PhaseOfFlight = "TAXI";
+                        break;
+                    }
+                case ("InAir"):
+                    {
+                        GUIOwnship.AltitudeASL = 10000;
+                        GUIOwnship.AoA = 1;
+                        GUIOwnship.AutoBrakeSelectorPosition = 0;
+                        GUIOwnship.BankAngle = 0;
+                        GUIOwnship.BaroSettingmmHg = 29.92;
+                        FlapLever.Value = 0;
+                        GUIOwnship.FlapLeverPosition = 0;
+                        GUIOwnship.GrossWeightLbs = 30000;
+                        LENGThrottle.Value = 8;
+                        RENGThrottle.Value = 8;
+                        GUIOwnship.LThrottlePosition = 8;
+                        GUIOwnship.RThrottlePosition = 8;
+                        SpoilerLever.Value = 2;
+                        GUIOwnship.SpoilerLeverPosition = 2;
+                        ControlWheelBar.Value = 0;
+                        GUIOwnship.SWControlWheelPosition = 0;
+                        GUIOwnship.VS = 0;
+                        GUIOwnship.IasKts = 250;
+                        if (GUIOwnship.GlobalGearStatus() != "UP") GUIOwnship.GearPositionChange();
+                        GUIOwnship.WeightOnWheels = false;
+                        GUIOwnship.PhaseOfFlight = "CRUISE";
+                        break;
+                    }
+                case ("Approach"):
+                    {
+                        GUIOwnship.AltitudeASL = 1073 + GUIOwnship.RunwayAltASL;
+                        GUIOwnship.AoA = -3;
+                        GUIOwnship.AutoBrakeSelectorPosition = 3;
+                        GUIOwnship.BankAngle = 0;
+                        GUIOwnship.BaroSettingmmHg = 29.92;
+                        FlapLever.Value = -3;
+                        GUIOwnship.FlapLeverPosition = -3;
+                        GUIOwnship.GrossWeightLbs = 28500;
+                        LENGThrottle.Value = 4;
+                        RENGThrottle.Value = 4;
+                        GUIOwnship.LThrottlePosition = 4;
+                        GUIOwnship.RThrottlePosition = 4;
+                        SpoilerLever.Value = 0;
+                        GUIOwnship.SpoilerLeverPosition = 0;
+                        ControlWheelBar.Value = 0;
+                        GUIOwnship.SWControlWheelPosition = 0;
+                        GUIOwnship.VS = -600;
+                        GUIOwnship.IasKts = 154;
+                        if (GUIOwnship.GlobalGearStatus() != "DOWN") GUIOwnship.GearPositionChange();
+                        GUIOwnship.WeightOnWheels = false;
+                        GUIOwnship.PhaseOfFlight = "APPROACH";
+                        Thread ApproachScenario = new Thread(() => RADALTStub());
+                        ApproachScenario.Start();
+                        break;
+                    
+}
+            }
+        }
+        private void RADALTStub()
+        {
+            while (GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL > 0)
+            {
+                if (GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL >= 30)//-600fpm == 5ft/0.5sec, AOA -3
+                {
+                    GUIOwnship.AltitudeASL -= 1;
+                }
+                else //-150fpm, AOA +3
+                {
+                    GUIOwnship.AltitudeASL -= 0.50;
+                    GUIOwnship.AoA += 0.1;
+                    GUIOwnship.VS += 7.5;
+                    if (GUIOwnship.AltitudeASL < GUIOwnship.RunwayAltASL) GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
+                }
+                Thread.Sleep(100);
+            }
+            GUIOwnship.VS = 0;
+            GUIOwnship.WeightOnWheels = true;
+            while (GUIOwnship.IasKts > 0)
+            {
+                if(GUIOwnship.AoA > 0) GUIOwnship.AoA -= 0.05;
+                GUIOwnship.IasKts -= 1;
+                if (GUIOwnship.IasKts < 0) GUIOwnship.IasKts = 0;
+                Thread.Sleep(100);
+            }
+            return;
+        }
+        private void UpdatePhaseOfFlight()
+        {
+            switch(GUIOwnship.PhaseOfFlight)
+            {
+                case ("TAXI"):
+                    {
+                        if (GUIOwnship.LThrottlePosition > 5 && GUIOwnship.RThrottlePosition > 5) GUIOwnship.PhaseOfFlight = "TAKEOFF";
+                        break;
+                    }
+                case ("TAKEOFF"):
+                    {
+                        if(GUIOwnship.LThrottlePosition < 9 && GUIOwnship.RThrottlePosition < 9) GUIOwnship.PhaseOfFlight = "RTO";
+                        else if (GUIOwnship.GlobalGearStatus() == "UP") GUIOwnship.PhaseOfFlight = "CLIMB";
+                        break;
+                    }
+                case ("CLIMB"):
+                    {
+                        if (GUIOwnship.AoA < 1.25 && GUIOwnship.AoA >= 0) GUIOwnship.PhaseOfFlight = "CRUISE";
+                        break;
+                    }
+                case ("CRUISE"):
+                    {
+                        if (GUIOwnship.GlobalGearStatus() == "DOWN") GUIOwnship.PhaseOfFlight = "APPROACH";
+                        break;
+                    }
+                case ("APPROACH"):
+                    {
+                        if (GUIOwnship.WeightOnWheels) GUIOwnship.PhaseOfFlight = "LANDING";
+                        break;
+                    }
+                case ("LANDING"):
+                    {
+                        if (GUIOwnship.IasKts <= 50) GUIOwnship.PhaseOfFlight = "TAXI";
+                        break;
+                    }
+            }
+        }
+
+
         #endregion
 
         #region GUI Elements
@@ -468,5 +659,20 @@ namespace Aero390Spoilers
             else SW6PB.BackgroundImage = Resources.Switch_OFF;
         }
         #endregion
+
+        private void TORepoButton_Click(object sender, EventArgs e)
+        {
+            RepositionTo("Takeoff");
+        }
+
+        private void InAirRepoButton_Click(object sender, EventArgs e)
+        {
+            RepositionTo("InAir");
+        }
+
+        private void AppRepoButton_Click(object sender, EventArgs e)
+        {
+            RepositionTo("Approach");
+        }
     }
 }
