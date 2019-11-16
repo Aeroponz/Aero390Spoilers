@@ -96,6 +96,10 @@
             this.SW5Title = new System.Windows.Forms.TextBox();
             this.SW6Title = new System.Windows.Forms.TextBox();
             this.AppRepoButton = new System.Windows.Forms.Button();
+            this.InAirRepoButton = new System.Windows.Forms.Button();
+            this.TORepoButton = new System.Windows.Forms.Button();
+            this.RepoToTitle = new System.Windows.Forms.TextBox();
+            this.CustomInputTitle = new System.Windows.Forms.TextBox();
             this.EIEngine2Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.EIEngine1Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
@@ -110,10 +114,8 @@
             this.Spoiler3PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler2PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler1PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
-            this.InAirRepoButton = new System.Windows.Forms.Button();
-            this.TORepoButton = new System.Windows.Forms.Button();
-            this.RepoToTitle = new System.Windows.Forms.TextBox();
-            this.CustomInputTitle = new System.Windows.Forms.TextBox();
+            this.PoFTItle = new System.Windows.Forms.TextBox();
+            this.PhaseOfFlightTB = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).BeginInit();
@@ -1016,6 +1018,57 @@
             this.AppRepoButton.TabIndex = 91;
             this.AppRepoButton.Text = "Approach";
             this.AppRepoButton.UseVisualStyleBackColor = true;
+            this.AppRepoButton.Click += new System.EventHandler(this.AppRepoButton_Click);
+            // 
+            // InAirRepoButton
+            // 
+            this.InAirRepoButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InAirRepoButton.Location = new System.Drawing.Point(1017, 562);
+            this.InAirRepoButton.Name = "InAirRepoButton";
+            this.InAirRepoButton.Size = new System.Drawing.Size(219, 37);
+            this.InAirRepoButton.TabIndex = 92;
+            this.InAirRepoButton.Text = "FL100";
+            this.InAirRepoButton.UseVisualStyleBackColor = true;
+            this.InAirRepoButton.Click += new System.EventHandler(this.InAirRepoButton_Click);
+            // 
+            // TORepoButton
+            // 
+            this.TORepoButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TORepoButton.Location = new System.Drawing.Point(1017, 519);
+            this.TORepoButton.Name = "TORepoButton";
+            this.TORepoButton.Size = new System.Drawing.Size(219, 37);
+            this.TORepoButton.TabIndex = 93;
+            this.TORepoButton.Text = "Takeoff";
+            this.TORepoButton.UseVisualStyleBackColor = true;
+            this.TORepoButton.Click += new System.EventHandler(this.TORepoButton_Click);
+            // 
+            // RepoToTitle
+            // 
+            this.RepoToTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.RepoToTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.RepoToTitle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RepoToTitle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RepoToTitle.ForeColor = System.Drawing.Color.White;
+            this.RepoToTitle.Location = new System.Drawing.Point(1017, 494);
+            this.RepoToTitle.Name = "RepoToTitle";
+            this.RepoToTitle.Size = new System.Drawing.Size(219, 18);
+            this.RepoToTitle.TabIndex = 94;
+            this.RepoToTitle.Text = "REPOSTION TO:";
+            this.RepoToTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CustomInputTitle
+            // 
+            this.CustomInputTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.CustomInputTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.CustomInputTitle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CustomInputTitle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomInputTitle.ForeColor = System.Drawing.Color.White;
+            this.CustomInputTitle.Location = new System.Drawing.Point(1017, 649);
+            this.CustomInputTitle.Name = "CustomInputTitle";
+            this.CustomInputTitle.Size = new System.Drawing.Size(219, 18);
+            this.CustomInputTitle.TabIndex = 95;
+            this.CustomInputTitle.Text = "CUSTOM INPUT:";
+            this.CustomInputTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // EIEngine2Control
             // 
@@ -1144,53 +1197,33 @@
             this.Spoiler1PGB.TabIndex = 9;
             this.Spoiler1PGB.Value = 60;
             // 
-            // InAirRepoButton
+            // PoFTItle
             // 
-            this.InAirRepoButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InAirRepoButton.Location = new System.Drawing.Point(1017, 562);
-            this.InAirRepoButton.Name = "InAirRepoButton";
-            this.InAirRepoButton.Size = new System.Drawing.Size(219, 37);
-            this.InAirRepoButton.TabIndex = 92;
-            this.InAirRepoButton.Text = "FL100";
-            this.InAirRepoButton.UseVisualStyleBackColor = true;
+            this.PoFTItle.BackColor = System.Drawing.Color.Black;
+            this.PoFTItle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PoFTItle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.PoFTItle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PoFTItle.ForeColor = System.Drawing.Color.Lime;
+            this.PoFTItle.Location = new System.Drawing.Point(360, 646);
+            this.PoFTItle.Name = "PoFTItle";
+            this.PoFTItle.Size = new System.Drawing.Size(82, 18);
+            this.PoFTItle.TabIndex = 96;
+            this.PoFTItle.Text = "Flight Phase";
+            this.PoFTItle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TORepoButton
+            // PhaseOfFlightTB
             // 
-            this.TORepoButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TORepoButton.Location = new System.Drawing.Point(1017, 519);
-            this.TORepoButton.Name = "TORepoButton";
-            this.TORepoButton.Size = new System.Drawing.Size(219, 37);
-            this.TORepoButton.TabIndex = 93;
-            this.TORepoButton.Text = "Takeoff";
-            this.TORepoButton.UseVisualStyleBackColor = true;
-            // 
-            // RepoToTitle
-            // 
-            this.RepoToTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
-            this.RepoToTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.RepoToTitle.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RepoToTitle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RepoToTitle.ForeColor = System.Drawing.Color.White;
-            this.RepoToTitle.Location = new System.Drawing.Point(1017, 494);
-            this.RepoToTitle.Name = "RepoToTitle";
-            this.RepoToTitle.Size = new System.Drawing.Size(219, 18);
-            this.RepoToTitle.TabIndex = 94;
-            this.RepoToTitle.Text = "REPOSTION TO:";
-            this.RepoToTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // CustomInputTitle
-            // 
-            this.CustomInputTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
-            this.CustomInputTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.CustomInputTitle.Cursor = System.Windows.Forms.Cursors.Default;
-            this.CustomInputTitle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CustomInputTitle.ForeColor = System.Drawing.Color.White;
-            this.CustomInputTitle.Location = new System.Drawing.Point(1017, 649);
-            this.CustomInputTitle.Name = "CustomInputTitle";
-            this.CustomInputTitle.Size = new System.Drawing.Size(219, 18);
-            this.CustomInputTitle.TabIndex = 95;
-            this.CustomInputTitle.Text = "CUSTOM INPUT:";
-            this.CustomInputTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.PhaseOfFlightTB.BackColor = System.Drawing.Color.Black;
+            this.PhaseOfFlightTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PhaseOfFlightTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.PhaseOfFlightTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PhaseOfFlightTB.ForeColor = System.Drawing.Color.Lime;
+            this.PhaseOfFlightTB.Location = new System.Drawing.Point(360, 670);
+            this.PhaseOfFlightTB.Name = "PhaseOfFlightTB";
+            this.PhaseOfFlightTB.Size = new System.Drawing.Size(82, 25);
+            this.PhaseOfFlightTB.TabIndex = 97;
+            this.PhaseOfFlightTB.Text = "APPROACH";
+            this.PhaseOfFlightTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // AircraftGUI
             // 
@@ -1200,7 +1233,9 @@
             this.BackgroundImage = global::Aero390Spoilers.Properties.Resources.NewCockpit1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
-            this.ClientSize = new System.Drawing.Size(1264, 741);
+            this.ClientSize = new System.Drawing.Size(1265, 734);
+            this.Controls.Add(this.PhaseOfFlightTB);
+            this.Controls.Add(this.PoFTItle);
             this.Controls.Add(this.CustomInputTitle);
             this.Controls.Add(this.RepoToTitle);
             this.Controls.Add(this.TORepoButton);
@@ -1288,7 +1323,7 @@
             this.Controls.Add(this.Spoiler1PGB);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "AircraftGUI";
             this.Text = "AircraftGUI";
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).EndInit();
@@ -1397,6 +1432,8 @@
         private System.Windows.Forms.Button TORepoButton;
         private System.Windows.Forms.TextBox RepoToTitle;
         private System.Windows.Forms.TextBox CustomInputTitle;
+        private System.Windows.Forms.TextBox PoFTItle;
+        private System.Windows.Forms.TextBox PhaseOfFlightTB;
     }
 }
 

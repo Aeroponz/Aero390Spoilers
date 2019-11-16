@@ -36,7 +36,8 @@ namespace Ownship
             IasNES = 350;
             IasOverspeed = 320;
             IasStall = 100;
-            AltitudeASL = 118;
+            AltitudeASL = RunwayAltASL;
+            PhaseOfFlight = "TAXI";
             BaroSettingmmHg = 29.92;
             GrossWeightLbs = 35000;
             VS = 0;
@@ -72,14 +73,7 @@ namespace Ownship
             return wArincMessages;  
         }
 
-        #region EICAS
 
-        public void UpdateEICASMessages()
-        {
-
-        }
-
-        #endregion EICAS
 
         #region Landing Gear
 
@@ -186,9 +180,10 @@ namespace Ownship
         public int IasOverspeed { get; set; }
         public int IasNES { get; set; }
         public int IasStall { get; set; }
-        public int BankAngle { get; set; }
-        public int AoA { get; set; }
-        public int VS { get; set; }
+        public double BankAngle { get; set; }
+        public double AoA { get; set; }
+        public double VS { get; set; }
+        public string PhaseOfFlight { get; set; }
 
         //Cockpit
         public int SpoilerLeverPosition { get; set; }
@@ -216,6 +211,12 @@ namespace Ownship
 
         //ARINC
         string[] wArincMessages = new string[1];
+        #endregion
+
+        #region Environmental Parameters
+
+        public double RunwayAltASL = 118;
+
         #endregion
     }
 }
