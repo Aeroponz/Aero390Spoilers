@@ -100,6 +100,18 @@
             this.TORepoButton = new System.Windows.Forms.Button();
             this.RepoToTitle = new System.Windows.Forms.TextBox();
             this.CustomInputTitle = new System.Windows.Forms.TextBox();
+            this.PoFTItle = new System.Windows.Forms.TextBox();
+            this.PhaseOfFlightTB = new System.Windows.Forms.TextBox();
+            this.EICASDISPLAY1OFF = new System.Windows.Forms.PictureBox();
+            this.EICASDISPLAY2OFF = new System.Windows.Forms.PictureBox();
+            this.SplrLoss1 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss2 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss3 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss4 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss5 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss6 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss7 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss8 = new System.Windows.Forms.PictureBox();
             this.EIEngine2Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.EIEngine1Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
@@ -114,8 +126,6 @@
             this.Spoiler3PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler2PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler1PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
-            this.PoFTItle = new System.Windows.Forms.TextBox();
-            this.PhaseOfFlightTB = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).BeginInit();
@@ -131,6 +141,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.SW4PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SW5PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SW6PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EICASDISPLAY1OFF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EICASDISPLAY2OFF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss8)).BeginInit();
             this.SuspendLayout();
             // 
             // WowButton
@@ -932,11 +952,11 @@
             this.SW1Title.Cursor = System.Windows.Forms.Cursors.Default;
             this.SW1Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SW1Title.ForeColor = System.Drawing.Color.White;
-            this.SW1Title.Location = new System.Drawing.Point(872, 17);
+            this.SW1Title.Location = new System.Drawing.Point(840, 17);
             this.SW1Title.Name = "SW1Title";
-            this.SW1Title.Size = new System.Drawing.Size(75, 18);
+            this.SW1Title.Size = new System.Drawing.Size(128, 18);
             this.SW1Title.TabIndex = 85;
-            this.SW1Title.Text = "MALF1";
+            this.SW1Title.Text = "DISPLAY PWR";
             this.SW1Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SW2Title
@@ -946,11 +966,11 @@
             this.SW2Title.Cursor = System.Windows.Forms.Cursors.Default;
             this.SW2Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SW2Title.ForeColor = System.Drawing.Color.White;
-            this.SW2Title.Location = new System.Drawing.Point(1000, 17);
+            this.SW2Title.Location = new System.Drawing.Point(974, 17);
             this.SW2Title.Name = "SW2Title";
-            this.SW2Title.Size = new System.Drawing.Size(75, 18);
+            this.SW2Title.Size = new System.Drawing.Size(128, 18);
             this.SW2Title.TabIndex = 86;
-            this.SW2Title.Text = "MALF2";
+            this.SW2Title.Text = "FCC 1 FAULT";
             this.SW2Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SW3Title
@@ -960,11 +980,11 @@
             this.SW3Title.Cursor = System.Windows.Forms.Cursors.Default;
             this.SW3Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SW3Title.ForeColor = System.Drawing.Color.White;
-            this.SW3Title.Location = new System.Drawing.Point(1135, 17);
+            this.SW3Title.Location = new System.Drawing.Point(1108, 17);
             this.SW3Title.Name = "SW3Title";
-            this.SW3Title.Size = new System.Drawing.Size(75, 18);
+            this.SW3Title.Size = new System.Drawing.Size(128, 18);
             this.SW3Title.TabIndex = 87;
-            this.SW3Title.Text = "MALF3";
+            this.SW3Title.Text = "FCC 2 FAULT";
             this.SW3Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SW4Title
@@ -974,11 +994,11 @@
             this.SW4Title.Cursor = System.Windows.Forms.Cursors.Default;
             this.SW4Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SW4Title.ForeColor = System.Drawing.Color.White;
-            this.SW4Title.Location = new System.Drawing.Point(872, 194);
+            this.SW4Title.Location = new System.Drawing.Point(840, 194);
             this.SW4Title.Name = "SW4Title";
-            this.SW4Title.Size = new System.Drawing.Size(75, 18);
+            this.SW4Title.Size = new System.Drawing.Size(128, 18);
             this.SW4Title.TabIndex = 88;
-            this.SW4Title.Text = "MALF4";
+            this.SW4Title.Text = "HYD SYS 1 FAIL";
             this.SW4Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SW5Title
@@ -988,11 +1008,11 @@
             this.SW5Title.Cursor = System.Windows.Forms.Cursors.Default;
             this.SW5Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SW5Title.ForeColor = System.Drawing.Color.White;
-            this.SW5Title.Location = new System.Drawing.Point(1000, 194);
+            this.SW5Title.Location = new System.Drawing.Point(974, 194);
             this.SW5Title.Name = "SW5Title";
-            this.SW5Title.Size = new System.Drawing.Size(75, 18);
+            this.SW5Title.Size = new System.Drawing.Size(128, 18);
             this.SW5Title.TabIndex = 89;
-            this.SW5Title.Text = "MALF5";
+            this.SW5Title.Text = "HYD SYS 2 FAIL";
             this.SW5Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SW6Title
@@ -1002,11 +1022,11 @@
             this.SW6Title.Cursor = System.Windows.Forms.Cursors.Default;
             this.SW6Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SW6Title.ForeColor = System.Drawing.Color.White;
-            this.SW6Title.Location = new System.Drawing.Point(1135, 194);
+            this.SW6Title.Location = new System.Drawing.Point(1108, 194);
             this.SW6Title.Name = "SW6Title";
-            this.SW6Title.Size = new System.Drawing.Size(75, 18);
+            this.SW6Title.Size = new System.Drawing.Size(128, 18);
             this.SW6Title.TabIndex = 90;
-            this.SW6Title.Text = "MALF6";
+            this.SW6Title.Text = "SPOILER MISMATCH";
             this.SW6Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // AppRepoButton
@@ -1069,6 +1089,152 @@
             this.CustomInputTitle.TabIndex = 95;
             this.CustomInputTitle.Text = "CUSTOM INPUT:";
             this.CustomInputTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // PoFTItle
+            // 
+            this.PoFTItle.BackColor = System.Drawing.Color.Black;
+            this.PoFTItle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PoFTItle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.PoFTItle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PoFTItle.ForeColor = System.Drawing.Color.Lime;
+            this.PoFTItle.Location = new System.Drawing.Point(360, 646);
+            this.PoFTItle.Name = "PoFTItle";
+            this.PoFTItle.Size = new System.Drawing.Size(82, 18);
+            this.PoFTItle.TabIndex = 96;
+            this.PoFTItle.Text = "Flight Phase";
+            this.PoFTItle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // PhaseOfFlightTB
+            // 
+            this.PhaseOfFlightTB.BackColor = System.Drawing.Color.Black;
+            this.PhaseOfFlightTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PhaseOfFlightTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.PhaseOfFlightTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PhaseOfFlightTB.ForeColor = System.Drawing.Color.Lime;
+            this.PhaseOfFlightTB.Location = new System.Drawing.Point(360, 670);
+            this.PhaseOfFlightTB.Name = "PhaseOfFlightTB";
+            this.PhaseOfFlightTB.Size = new System.Drawing.Size(82, 18);
+            this.PhaseOfFlightTB.TabIndex = 97;
+            this.PhaseOfFlightTB.Text = "APPROACH";
+            this.PhaseOfFlightTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // EICASDISPLAY1OFF
+            // 
+            this.EICASDISPLAY1OFF.BackColor = System.Drawing.Color.Black;
+            this.EICASDISPLAY1OFF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EICASDISPLAY1OFF.Cursor = System.Windows.Forms.Cursors.Default;
+            this.EICASDISPLAY1OFF.Location = new System.Drawing.Point(244, 41);
+            this.EICASDISPLAY1OFF.Name = "EICASDISPLAY1OFF";
+            this.EICASDISPLAY1OFF.Size = new System.Drawing.Size(306, 286);
+            this.EICASDISPLAY1OFF.TabIndex = 98;
+            this.EICASDISPLAY1OFF.TabStop = false;
+            // 
+            // EICASDISPLAY2OFF
+            // 
+            this.EICASDISPLAY2OFF.BackColor = System.Drawing.Color.Black;
+            this.EICASDISPLAY2OFF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EICASDISPLAY2OFF.Cursor = System.Windows.Forms.Cursors.Default;
+            this.EICASDISPLAY2OFF.Location = new System.Drawing.Point(229, 439);
+            this.EICASDISPLAY2OFF.Name = "EICASDISPLAY2OFF";
+            this.EICASDISPLAY2OFF.Size = new System.Drawing.Size(345, 249);
+            this.EICASDISPLAY2OFF.TabIndex = 99;
+            this.EICASDISPLAY2OFF.TabStop = false;
+            // 
+            // SplrLoss1
+            // 
+            this.SplrLoss1.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss1.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss1.Location = new System.Drawing.Point(294, 499);
+            this.SplrLoss1.Name = "SplrLoss1";
+            this.SplrLoss1.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss1.TabIndex = 100;
+            this.SplrLoss1.TabStop = false;
+            // 
+            // SplrLoss2
+            // 
+            this.SplrLoss2.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss2.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss2.Location = new System.Drawing.Point(312, 494);
+            this.SplrLoss2.Name = "SplrLoss2";
+            this.SplrLoss2.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss2.TabIndex = 101;
+            this.SplrLoss2.TabStop = false;
+            // 
+            // SplrLoss3
+            // 
+            this.SplrLoss3.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss3.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss3.Location = new System.Drawing.Point(330, 489);
+            this.SplrLoss3.Name = "SplrLoss3";
+            this.SplrLoss3.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss3.TabIndex = 102;
+            this.SplrLoss3.TabStop = false;
+            // 
+            // SplrLoss4
+            // 
+            this.SplrLoss4.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss4.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss4.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss4.Location = new System.Drawing.Point(350, 484);
+            this.SplrLoss4.Name = "SplrLoss4";
+            this.SplrLoss4.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss4.TabIndex = 103;
+            this.SplrLoss4.TabStop = false;
+            // 
+            // SplrLoss5
+            // 
+            this.SplrLoss5.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss5.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss5.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss5.Location = new System.Drawing.Point(440, 484);
+            this.SplrLoss5.Name = "SplrLoss5";
+            this.SplrLoss5.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss5.TabIndex = 104;
+            this.SplrLoss5.TabStop = false;
+            // 
+            // SplrLoss6
+            // 
+            this.SplrLoss6.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss6.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss6.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss6.Location = new System.Drawing.Point(460, 489);
+            this.SplrLoss6.Name = "SplrLoss6";
+            this.SplrLoss6.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss6.TabIndex = 105;
+            this.SplrLoss6.TabStop = false;
+            // 
+            // SplrLoss7
+            // 
+            this.SplrLoss7.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss7.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss7.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss7.Location = new System.Drawing.Point(478, 494);
+            this.SplrLoss7.Name = "SplrLoss7";
+            this.SplrLoss7.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss7.TabIndex = 106;
+            this.SplrLoss7.TabStop = false;
+            // 
+            // SplrLoss8
+            // 
+            this.SplrLoss8.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss8.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss8.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss8.Location = new System.Drawing.Point(496, 499);
+            this.SplrLoss8.Name = "SplrLoss8";
+            this.SplrLoss8.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss8.TabIndex = 107;
+            this.SplrLoss8.TabStop = false;
             // 
             // EIEngine2Control
             // 
@@ -1197,34 +1363,6 @@
             this.Spoiler1PGB.TabIndex = 9;
             this.Spoiler1PGB.Value = 60;
             // 
-            // PoFTItle
-            // 
-            this.PoFTItle.BackColor = System.Drawing.Color.Black;
-            this.PoFTItle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PoFTItle.Cursor = System.Windows.Forms.Cursors.Default;
-            this.PoFTItle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PoFTItle.ForeColor = System.Drawing.Color.Lime;
-            this.PoFTItle.Location = new System.Drawing.Point(360, 646);
-            this.PoFTItle.Name = "PoFTItle";
-            this.PoFTItle.Size = new System.Drawing.Size(82, 18);
-            this.PoFTItle.TabIndex = 96;
-            this.PoFTItle.Text = "Flight Phase";
-            this.PoFTItle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // PhaseOfFlightTB
-            // 
-            this.PhaseOfFlightTB.BackColor = System.Drawing.Color.Black;
-            this.PhaseOfFlightTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PhaseOfFlightTB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.PhaseOfFlightTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PhaseOfFlightTB.ForeColor = System.Drawing.Color.Lime;
-            this.PhaseOfFlightTB.Location = new System.Drawing.Point(360, 670);
-            this.PhaseOfFlightTB.Name = "PhaseOfFlightTB";
-            this.PhaseOfFlightTB.Size = new System.Drawing.Size(82, 25);
-            this.PhaseOfFlightTB.TabIndex = 97;
-            this.PhaseOfFlightTB.Text = "APPROACH";
-            this.PhaseOfFlightTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // AircraftGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1234,6 +1372,16 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1265, 734);
+            this.Controls.Add(this.EICASDISPLAY2OFF);
+            this.Controls.Add(this.EICASDISPLAY1OFF);
+            this.Controls.Add(this.SplrLoss8);
+            this.Controls.Add(this.SplrLoss7);
+            this.Controls.Add(this.SplrLoss6);
+            this.Controls.Add(this.SplrLoss5);
+            this.Controls.Add(this.SplrLoss4);
+            this.Controls.Add(this.SplrLoss3);
+            this.Controls.Add(this.SplrLoss2);
+            this.Controls.Add(this.SplrLoss1);
             this.Controls.Add(this.PhaseOfFlightTB);
             this.Controls.Add(this.PoFTItle);
             this.Controls.Add(this.CustomInputTitle);
@@ -1323,7 +1471,7 @@
             this.Controls.Add(this.Spoiler1PGB);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AircraftGUI";
             this.Text = "AircraftGUI";
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).EndInit();
@@ -1341,6 +1489,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.SW4PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SW5PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SW6PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EICASDISPLAY1OFF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EICASDISPLAY2OFF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1434,6 +1592,16 @@
         private System.Windows.Forms.TextBox CustomInputTitle;
         private System.Windows.Forms.TextBox PoFTItle;
         private System.Windows.Forms.TextBox PhaseOfFlightTB;
+        private System.Windows.Forms.PictureBox EICASDISPLAY1OFF;
+        private System.Windows.Forms.PictureBox EICASDISPLAY2OFF;
+        private System.Windows.Forms.PictureBox SplrLoss1;
+        private System.Windows.Forms.PictureBox SplrLoss2;
+        private System.Windows.Forms.PictureBox SplrLoss3;
+        private System.Windows.Forms.PictureBox SplrLoss4;
+        private System.Windows.Forms.PictureBox SplrLoss5;
+        private System.Windows.Forms.PictureBox SplrLoss6;
+        private System.Windows.Forms.PictureBox SplrLoss7;
+        private System.Windows.Forms.PictureBox SplrLoss8;
     }
 }
 
