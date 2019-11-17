@@ -21,6 +21,7 @@ namespace Aero390Spoilers
         {
             InitializeComponent();
             AircraftGUI_Tick();
+            HideMalfunctionComponents();
         }
 
         #region GUI Tick
@@ -79,6 +80,125 @@ namespace Aero390Spoilers
                 SoundPlayer simpleSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_" + wAlt + ".wav");
                 simpleSound.Play();
                 AltCalloutTimeout++;
+            }
+        }
+        private void FccFault(bool Fcc1Fault, bool Fcc2Fault, int UpdateSide)
+        {
+            if(Fcc1Fault && Fcc2Fault)
+            {
+                EICASMessage FccFail = new EICASMessage();
+                FccFail.Importance = 1;
+                FccFail.MessageText = "FCC " + UpdateSide.ToString();
+                GUIOwnship.AddEicasMessage(FccFail);
+
+                EICASMessage SplrFail = new EICASMessage();
+                SplrFail.Importance = 2;
+                SplrFail.MessageText = "SPOILERS";
+                GUIOwnship.AddEicasMessage(SplrFail);
+            }
+            else if((Fcc1Fault && UpdateSide == 1) || (Fcc2Fault && UpdateSide == 2))
+            {
+                EICASMessage FccFail = new EICASMessage();
+                FccFail.Importance = 1;
+                FccFail.MessageText = "FCC " + UpdateSide.ToString();
+                GUIOwnship.AddEicasMessage(FccFail);
+            }
+            else if ((!Fcc1Fault && UpdateSide == 1) || (!Fcc2Fault && UpdateSide == 2))
+            {
+                EICASMessage FccFail = new EICASMessage();
+                FccFail.Importance = 1;
+                FccFail.MessageText = "FCC " + UpdateSide.ToString();
+                GUIOwnship.RemoveEicasMessage(FccFail);
+
+                EICASMessage SplrFail = new EICASMessage();
+                SplrFail.Importance = 2;
+                SplrFail.MessageText = "SPOILERS";
+                GUIOwnship.RemoveEicasMessage(SplrFail);
+            }
+        }
+        private void HideMalfunctionComponents()
+        {
+            EICASDISPLAY1OFF.Hide();
+            EICASDISPLAY2OFF.Hide();
+            SplrLoss1.Hide();
+            SplrLoss2.Hide();
+            SplrLoss3.Hide();
+            SplrLoss4.Hide();
+            SplrLoss5.Hide();
+            SplrLoss6.Hide();
+            SplrLoss7.Hide();
+            SplrLoss8.Hide();
+        }
+        private void HydSysFailure(bool MalfActive, int side)
+        {
+            if(MalfActive)
+            {
+                if(side == 1)
+                {
+                    EICASMessage HYDFail1 = new EICASMessage();
+                    HYDFail1.Importance = 1;
+                    HYDFail1.MessageText = "HYD SYS 1";
+                    GUIOwnship.AddEicasMessage(HYDFail1);
+                    //Loss of 1,3,6,8
+                    SplrLoss1.Show();
+                    SplrLoss3.Show();
+                    SplrLoss6.Show();
+                    SplrLoss8.Show();
+                }
+                else
+                {
+                    EICASMessage HYDFail2 = new EICASMessage();
+                    HYDFail2.Importance = 1;
+                    HYDFail2.MessageText = "HYD SYS 2";
+                    GUIOwnship.AddEicasMessage(HYDFail2);
+                    //Loss of 2,4,5,7
+                    SplrLoss2.Show();
+                    SplrLoss4.Show();
+                    SplrLoss5.Show();
+                    SplrLoss7.Show();
+                    
+                }
+            }
+            else
+            {
+                if (side == 1)
+                {
+                    EICASMessage HYDFail1 = new EICASMessage();
+                    HYDFail1.Importance = 1;
+                    HYDFail1.MessageText = "HYD SYS 1";
+                    GUIOwnship.RemoveEicasMessage(HYDFail1);
+                    //Loss of 1,3,6,8
+                    SplrLoss1.Hide();
+                    SplrLoss3.Hide();
+                    SplrLoss6.Hide();
+                    SplrLoss8.Hide();
+                }
+                else
+                {
+                    EICASMessage HYDFail2 = new EICASMessage();
+                    HYDFail2.Importance = 1;
+                    HYDFail2.MessageText = "HYD SYS 2";
+                    GUIOwnship.RemoveEicasMessage(HYDFail2);
+                    //Loss of 2,4,5,7
+                    SplrLoss2.Hide();
+                    SplrLoss4.Hide();
+                    SplrLoss5.Hide();
+                    SplrLoss7.Hide();
+                }
+            }
+            return;
+        }
+        private void PowerLossMalfunction(bool MalfStatus)
+        {
+            if(MalfStatus)
+            {
+                EICASDISPLAY1OFF.Show();
+                EICASDISPLAY2OFF.Show();
+            }
+            else
+            {
+                EICASDISPLAY1OFF.Hide();
+                EICASDISPLAY2OFF.Hide();
             }
         }
         private void ReadCockpitControls()
@@ -146,29 +266,192 @@ namespace Aero390Spoilers
             RefreshEICASAllMessages();
             RefreshEICASSystemStatus();
         }
-        private void RefreshEICASMessage(System.Windows.Forms.TextBox iTextbox, Ownship.EICASMessage iMsg)
-        {
-            iTextbox.Text = iMsg.MessageText;
-            switch(iMsg.Importance)
-            {
-                case 0: iTextbox.ForeColor = Color.White; break;
-                case 1: iTextbox.ForeColor = Color.Orange; break;
-                case 2: iTextbox.ForeColor = Color.Red; break;
-            }
-        }
         private void RefreshEICASAllMessages()
         {
-            RefreshEICASMessage(EicasMsgLine1, GUIOwnship.EICASMessages[0]);
-            RefreshEICASMessage(EicasMsgLine2, GUIOwnship.EICASMessages[1]);
-            RefreshEICASMessage(EicasMsgLine3, GUIOwnship.EICASMessages[2]);
-            RefreshEICASMessage(EicasMsgLine4, GUIOwnship.EICASMessages[3]);
-            RefreshEICASMessage(EicasMsgLine5, GUIOwnship.EICASMessages[4]);
-            RefreshEICASMessage(EicasMsgLine6, GUIOwnship.EICASMessages[5]);
-            RefreshEICASMessage(EicasMsgLine7, GUIOwnship.EICASMessages[6]);
-            RefreshEICASMessage(EicasMsgLine8, GUIOwnship.EICASMessages[7]);
-            RefreshEICASMessage(EicasMsgLine9, GUIOwnship.EICASMessages[8]);
-            RefreshEICASMessage(EicasMsgLine10, GUIOwnship.EICASMessages[9]);
-            RefreshEICASMessage(EicasMsgLine11, GUIOwnship.EICASMessages[10]);
+            EICASMessage[] ArEICASMsgs = GUIOwnship.EICASMessages.ToArray();
+            int count = ArEICASMsgs.Length;
+            for( int i=0; i<11; i++ )
+            {
+                switch(i)
+                {
+                    case (0):
+                        {
+                            if(i>=count)
+                            {
+                                EicasMsgLine1.Text = "";
+                                break;
+                            }
+                            EicasMsgLine1.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine1.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine1.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine1.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (1):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine2.Text = "";
+                                break;
+                            }
+                            EicasMsgLine2.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine2.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine2.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine2.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (2):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine3.Text = "";
+                                break;
+                            }
+                            EicasMsgLine3.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine3.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine3.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine3.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (3):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine4.Text = "";
+                                break;
+                            }
+                            EicasMsgLine4.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine4.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine4.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine4.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (4):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine5.Text = "";
+                                break;
+                            }
+                            EicasMsgLine5.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine5.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine5.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine5.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (5):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine6.Text = "";
+                                break;
+                            }
+                            EicasMsgLine6.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine6.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine6.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine6.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (6):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine7.Text = "";
+                                break;
+                            }
+                            EicasMsgLine7.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine7.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine7.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine7.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (7):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine8.Text = "";
+                                break;
+                            }
+                            EicasMsgLine8.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine8.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine8.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine8.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (8):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine9.Text = "";
+                                break;
+                            }
+                            EicasMsgLine9.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine9.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine9.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine9.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (9):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine10.Text = "";
+                                break;
+                            }
+                            EicasMsgLine10.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine10.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine10.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine10.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (10):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine11.Text = "";
+                                break;
+                            }
+                            EicasMsgLine11.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine11.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine11.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine11.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                }
+            };
         }
         private void RefreshEICASSystemStatus()
         {
@@ -625,54 +908,63 @@ namespace Aero390Spoilers
         private void SW1PB_Click(object sender, EventArgs e)
         {
             GUIOwnship.Switch1On = !GUIOwnship.Switch1On;
+            GUIOwnship.MalfPwrLoss = !GUIOwnship.MalfPwrLoss;
+            PowerLossMalfunction(GUIOwnship.MalfPwrLoss);
             if (GUIOwnship.Switch1On) SW1PB.BackgroundImage = Resources.Switch_ON;
             else SW1PB.BackgroundImage = Resources.Switch_OFF;
         }
         private void SW2PB_Click(object sender, EventArgs e)
         {
             GUIOwnship.Switch2On = !GUIOwnship.Switch2On;
+            GUIOwnship.MalfFcc1 = !GUIOwnship.MalfFcc1;
+            FccFault(GUIOwnship.MalfFcc1, GUIOwnship.MalfFcc2, 1);
             if (GUIOwnship.Switch2On) SW2PB.BackgroundImage = Resources.Switch_ON;
             else SW2PB.BackgroundImage = Resources.Switch_OFF;
         }
         private void SW3PB_Click(object sender, EventArgs e)
         {
             GUIOwnship.Switch3On = !GUIOwnship.Switch3On;
+            GUIOwnship.MalfFcc2 = !GUIOwnship.MalfFcc2;
+            FccFault(GUIOwnship.MalfFcc1, GUIOwnship.MalfFcc2, 2);
             if (GUIOwnship.Switch3On) SW3PB.BackgroundImage = Resources.Switch_ON;
             else SW3PB.BackgroundImage = Resources.Switch_OFF;
         }
         private void SW4PB_Click(object sender, EventArgs e)
         {
             GUIOwnship.Switch4On = !GUIOwnship.Switch4On;
+            GUIOwnship.MalfHyd1 = !GUIOwnship.MalfHyd1;
+            HydSysFailure(GUIOwnship.MalfHyd1, 1);
             if (GUIOwnship.Switch4On) SW4PB.BackgroundImage = Resources.Switch_ON;
             else SW4PB.BackgroundImage = Resources.Switch_OFF;
         }
         private void SW5PB_Click(object sender, EventArgs e)
         {
             GUIOwnship.Switch5On = !GUIOwnship.Switch5On;
+            GUIOwnship.MalfHyd2 = !GUIOwnship.MalfHyd2;
+            HydSysFailure(GUIOwnship.MalfHyd2, 2);
             if (GUIOwnship.Switch5On) SW5PB.BackgroundImage = Resources.Switch_ON;
             else SW5PB.BackgroundImage = Resources.Switch_OFF;
         }
         private void SW6PB_Click(object sender, EventArgs e)
         {
             GUIOwnship.Switch6On = !GUIOwnship.Switch6On;
+            GUIOwnship.MalfSplrs = !GUIOwnship.MalfSplrs;
             if (GUIOwnship.Switch6On) SW6PB.BackgroundImage = Resources.Switch_ON;
             else SW6PB.BackgroundImage = Resources.Switch_OFF;
         }
-        #endregion
-
         private void TORepoButton_Click(object sender, EventArgs e)
         {
             RepositionTo("Takeoff");
         }
-
         private void InAirRepoButton_Click(object sender, EventArgs e)
         {
             RepositionTo("InAir");
         }
-
         private void AppRepoButton_Click(object sender, EventArgs e)
         {
             RepositionTo("Approach");
         }
+        #endregion
+
     }
 }

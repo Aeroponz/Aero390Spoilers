@@ -217,6 +217,7 @@
     <Content Include="Resources\SmallNeedleAltimeter.bmp" />
     <None Include="Resources\Switch_OFF.png" />
     <None Include="Resources\Switch_ON.png" />
+    <None Include="Resources\SPLRUnkown.png" />
     <Content Include="Resources\TurnCoordinatorAircraft.bmp" />
     <Content Include="Resources\TurnCoordinatorBall.bmp" />
     <Content Include="Resources\TurnCoordinatorMarks.bmp" />
