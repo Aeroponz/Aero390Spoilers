@@ -16,6 +16,7 @@ namespace Aero390Spoilers
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         bool SpoilerThreadRunning = false;
         int AltCalloutTimeout = 0;
+        SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         //Constructor
         public AircraftGUI()
         {
@@ -45,12 +46,12 @@ namespace Aero390Spoilers
             RefreshMasterLights();
             RefreshPrintOuts();
             UpdatePhaseOfFlight();
-            if (GUIOwnship.PhaseOfFlight == "APPROACH") AltitudeCallouts(GUIOwnship.AltitudeASL-GUIOwnship.RunwayAltASL);
+            if (GUIOwnship.PhaseOfFlight == "APPROACH") AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
         }
 
         private void AltitudeCallouts(double ACRadioAltitude)
         {
-            
+
             string wAlt = "";
             if (AltCalloutTimeout == 10) AltCalloutTimeout = 0;
             if (AltCalloutTimeout == 0)
@@ -84,24 +85,35 @@ namespace Aero390Spoilers
         }
         private void FccFault(bool Fcc1Fault, bool Fcc2Fault, int UpdateSide)
         {
-            if(Fcc1Fault && Fcc2Fault)
+            if (Fcc1Fault && Fcc2Fault)
             {
-                EICASMessage FccFail = new EICASMessage();
-                FccFail.Importance = 1;
-                FccFail.MessageText = "FCC " + UpdateSide.ToString();
-                GUIOwnship.AddEicasMessage(FccFail);
-
                 EICASMessage SplrFail = new EICASMessage();
                 SplrFail.Importance = 2;
                 SplrFail.MessageText = "SPOILERS";
                 GUIOwnship.AddEicasMessage(SplrFail);
+                GUIOwnship.WarningActive = true;
+
+                WarningSound.PlayLooping();
+
+                //Loss of 1,3,6,8
+                SplrLoss1.Show();
+                SplrLoss3.Show();
+                SplrLoss6.Show();
+                SplrLoss8.Show();
+
+                //Loss of 2,4,5,7
+                SplrLoss2.Show();
+                SplrLoss4.Show();
+                SplrLoss5.Show();
+                SplrLoss7.Show();
             }
-            else if((Fcc1Fault && UpdateSide == 1) || (Fcc2Fault && UpdateSide == 2))
+            if ((Fcc1Fault && UpdateSide == 1) || (Fcc2Fault && UpdateSide == 2))
             {
                 EICASMessage FccFail = new EICASMessage();
                 FccFail.Importance = 1;
                 FccFail.MessageText = "FCC " + UpdateSide.ToString();
                 GUIOwnship.AddEicasMessage(FccFail);
+                GUIOwnship.CautionActive = true;
             }
             else if ((!Fcc1Fault && UpdateSide == 1) || (!Fcc2Fault && UpdateSide == 2))
             {
@@ -114,6 +126,23 @@ namespace Aero390Spoilers
                 SplrFail.Importance = 2;
                 SplrFail.MessageText = "SPOILERS";
                 GUIOwnship.RemoveEicasMessage(SplrFail);
+
+                if (!GUIOwnship.MalfHyd1)
+                {
+                    //Loss of 1,3,6,8
+                    SplrLoss1.Hide();
+                    SplrLoss3.Hide();
+                    SplrLoss6.Hide();
+                    SplrLoss8.Hide();
+                }
+                if (!GUIOwnship.MalfHyd2)
+                {
+                    //Loss of 2,4,5,7
+                    SplrLoss2.Hide();
+                    SplrLoss4.Hide();
+                    SplrLoss5.Hide();
+                    SplrLoss7.Hide();
+                }
             }
         }
         private void HideMalfunctionComponents()
@@ -131,14 +160,15 @@ namespace Aero390Spoilers
         }
         private void HydSysFailure(bool MalfActive, int side)
         {
-            if(MalfActive)
+            if (MalfActive)
             {
-                if(side == 1)
+                if (side == 1)
                 {
                     EICASMessage HYDFail1 = new EICASMessage();
                     HYDFail1.Importance = 1;
                     HYDFail1.MessageText = "HYD SYS 1";
                     GUIOwnship.AddEicasMessage(HYDFail1);
+                    GUIOwnship.CautionActive = true;
                     //Loss of 1,3,6,8
                     SplrLoss1.Show();
                     SplrLoss3.Show();
@@ -151,12 +181,13 @@ namespace Aero390Spoilers
                     HYDFail2.Importance = 1;
                     HYDFail2.MessageText = "HYD SYS 2";
                     GUIOwnship.AddEicasMessage(HYDFail2);
+                    GUIOwnship.CautionActive = true;
                     //Loss of 2,4,5,7
                     SplrLoss2.Show();
                     SplrLoss4.Show();
                     SplrLoss5.Show();
                     SplrLoss7.Show();
-                    
+
                 }
             }
             else
@@ -568,12 +599,12 @@ namespace Aero390Spoilers
             if (GUIOwnship.WarningActive)
             {
                 if (GUIOwnship.CautionActive) MWMCPB.BackgroundImage = Resources.MWMC_11;
-                else MWMCPB.BackgroundImage = Resources.MWMC_10; ;
+                else MWMCPB.BackgroundImage = Resources.MWMC_10;
             }
             else
             {
                 if (GUIOwnship.CautionActive) MWMCPB.BackgroundImage = Resources.MWMC_01;
-                else MWMCPB.BackgroundImage = Resources.MWMC_00; ;
+                else MWMCPB.BackgroundImage = Resources.MWMC_00;
             }
         }
         private void RefreshPrintOuts()
@@ -902,6 +933,7 @@ namespace Aero390Spoilers
         }
         private void MWMCPB_Click(object sender, EventArgs e)
         {
+            if (GUIOwnship.WarningActive) WarningSound.Stop();
             GUIOwnship.CautionActive = false;
             GUIOwnship.WarningActive = false;
         }

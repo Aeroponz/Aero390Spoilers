@@ -167,22 +167,13 @@ namespace Ownship
             Stack<EICASMessage> TempMsgs = new Stack<EICASMessage>();
             while(EICASMessages.Count>0)
             {
-                EICASMessage temp = EICASMessages.Pop();
-                if (temp.MessageText != iMsg.MessageText)
+                if (EICASMessages.Peek().MessageText == iMsg.MessageText && EICASMessages.Peek().Importance == iMsg.Importance)
                 {
-                    TempMsgs.Push(temp);
+                    EICASMessages.Pop();
+                    break;
                 }
-                else break;
+                else TempMsgs.Push(EICASMessages.Pop());
             }
-            //for (int i = 0; i < EICASMessages.Count; i++)
-            //{
-            //    EICASMessage temp = EICASMessages.Pop();
-            //    if (temp.MessageText != iMsg.MessageText)
-            //    {
-            //        TempMsgs.Push(temp);
-            //        break;
-            //    }
-            //}
             //Push higher messages back into stack
             for (int i = 0; i < TempMsgs.Count; i++)
             {
