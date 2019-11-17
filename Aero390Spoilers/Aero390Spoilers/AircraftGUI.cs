@@ -4,7 +4,8 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-
+using System.Media;
+using System.IO;
 
 namespace Aero390Spoilers
 {
@@ -14,11 +15,14 @@ namespace Aero390Spoilers
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         bool SpoilerThreadRunning = false;
+        int AltCalloutTimeout = 0;
+        SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         //Constructor
         public AircraftGUI()
         {
             InitializeComponent();
             AircraftGUI_Tick();
+            HideMalfunctionComponents();
         }
 
         #region GUI Tick
@@ -26,7 +30,7 @@ namespace Aero390Spoilers
         public void AircraftGUI_Tick()
         {
             System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-            timer.Interval = (100); // 0.5 secs
+            timer.Interval = (100); // 0.1 secs
             timer.Tick += new EventHandler(GUI_TickJobs);
             timer.Start();
         }
@@ -41,8 +45,193 @@ namespace Aero390Spoilers
             RefreshGearPict();
             RefreshMasterLights();
             RefreshPrintOuts();
+            UpdatePhaseOfFlight();
+            if (GUIOwnship.PhaseOfFlight == "APPROACH") AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
         }
 
+        private void AltitudeCallouts(double ACRadioAltitude)
+        {
+
+            string wAlt = "";
+            if (AltCalloutTimeout == 10) AltCalloutTimeout = 0;
+            if (AltCalloutTimeout == 0)
+            {
+                if (ACRadioAltitude <= 11 && ACRadioAltitude > 9) wAlt = "10";
+                else if (ACRadioAltitude <= 21 && ACRadioAltitude > 19) wAlt = "20";
+                else if (ACRadioAltitude <= 31 && ACRadioAltitude > 29) wAlt = "30";
+                else if (ACRadioAltitude <= 41 && ACRadioAltitude > 39) wAlt = "40";
+                else if (ACRadioAltitude <= 51 && ACRadioAltitude > 49) wAlt = "50";
+                else if (ACRadioAltitude <= 101 && ACRadioAltitude > 99) wAlt = "100";
+                else if (ACRadioAltitude <= 116 && ACRadioAltitude > 114) wAlt = "Mins";
+                else if (ACRadioAltitude <= 201 && ACRadioAltitude > 199) wAlt = "200";
+                else if (ACRadioAltitude <= 216 && ACRadioAltitude > 214) wAlt = "AppMins";
+                else if (ACRadioAltitude <= 301 && ACRadioAltitude > 299) wAlt = "300";
+                else if (ACRadioAltitude <= 401 && ACRadioAltitude > 399) wAlt = "400";
+                else if (ACRadioAltitude <= 501 && ACRadioAltitude > 499) wAlt = "500";
+                else if (ACRadioAltitude <= 1001 && ACRadioAltitude > 999) wAlt = "1000";
+                else if (ACRadioAltitude <= 2501 && ACRadioAltitude > 2499) wAlt = "2500";
+            }
+            else
+            {
+                AltCalloutTimeout++;
+            }
+
+            if (wAlt != "")
+            {
+                SoundPlayer simpleSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_" + wAlt + ".wav");
+                simpleSound.Play();
+                AltCalloutTimeout++;
+            }
+        }
+        private void FccFault(bool Fcc1Fault, bool Fcc2Fault, int UpdateSide)
+        {
+            if (Fcc1Fault && Fcc2Fault)
+            {
+                EICASMessage SplrFail = new EICASMessage();
+                SplrFail.Importance = 2;
+                SplrFail.MessageText = "SPOILERS";
+                GUIOwnship.AddEicasMessage(SplrFail);
+                GUIOwnship.WarningActive = true;
+
+                WarningSound.PlayLooping();
+
+                //Loss of 1,3,6,8
+                SplrLoss1.Show();
+                SplrLoss3.Show();
+                SplrLoss6.Show();
+                SplrLoss8.Show();
+
+                //Loss of 2,4,5,7
+                SplrLoss2.Show();
+                SplrLoss4.Show();
+                SplrLoss5.Show();
+                SplrLoss7.Show();
+            }
+            if ((Fcc1Fault && UpdateSide == 1) || (Fcc2Fault && UpdateSide == 2))
+            {
+                EICASMessage FccFail = new EICASMessage();
+                FccFail.Importance = 1;
+                FccFail.MessageText = "FCC " + UpdateSide.ToString();
+                GUIOwnship.AddEicasMessage(FccFail);
+                GUIOwnship.CautionActive = true;
+            }
+            else if ((!Fcc1Fault && UpdateSide == 1) || (!Fcc2Fault && UpdateSide == 2))
+            {
+                EICASMessage FccFail = new EICASMessage();
+                FccFail.Importance = 1;
+                FccFail.MessageText = "FCC " + UpdateSide.ToString();
+                GUIOwnship.RemoveEicasMessage(FccFail);
+
+                EICASMessage SplrFail = new EICASMessage();
+                SplrFail.Importance = 2;
+                SplrFail.MessageText = "SPOILERS";
+                GUIOwnship.RemoveEicasMessage(SplrFail);
+
+                if (!GUIOwnship.MalfHyd1)
+                {
+                    //Loss of 1,3,6,8
+                    SplrLoss1.Hide();
+                    SplrLoss3.Hide();
+                    SplrLoss6.Hide();
+                    SplrLoss8.Hide();
+                }
+                if (!GUIOwnship.MalfHyd2)
+                {
+                    //Loss of 2,4,5,7
+                    SplrLoss2.Hide();
+                    SplrLoss4.Hide();
+                    SplrLoss5.Hide();
+                    SplrLoss7.Hide();
+                }
+            }
+        }
+        private void HideMalfunctionComponents()
+        {
+            EICASDISPLAY1OFF.Hide();
+            EICASDISPLAY2OFF.Hide();
+            SplrLoss1.Hide();
+            SplrLoss2.Hide();
+            SplrLoss3.Hide();
+            SplrLoss4.Hide();
+            SplrLoss5.Hide();
+            SplrLoss6.Hide();
+            SplrLoss7.Hide();
+            SplrLoss8.Hide();
+        }
+        private void HydSysFailure(bool MalfActive, int side)
+        {
+            if (MalfActive)
+            {
+                if (side == 1)
+                {
+                    EICASMessage HYDFail1 = new EICASMessage();
+                    HYDFail1.Importance = 1;
+                    HYDFail1.MessageText = "HYD SYS 1";
+                    GUIOwnship.AddEicasMessage(HYDFail1);
+                    GUIOwnship.CautionActive = true;
+                    //Loss of 1,3,6,8
+                    SplrLoss1.Show();
+                    SplrLoss3.Show();
+                    SplrLoss6.Show();
+                    SplrLoss8.Show();
+                }
+                else
+                {
+                    EICASMessage HYDFail2 = new EICASMessage();
+                    HYDFail2.Importance = 1;
+                    HYDFail2.MessageText = "HYD SYS 2";
+                    GUIOwnship.AddEicasMessage(HYDFail2);
+                    GUIOwnship.CautionActive = true;
+                    //Loss of 2,4,5,7
+                    SplrLoss2.Show();
+                    SplrLoss4.Show();
+                    SplrLoss5.Show();
+                    SplrLoss7.Show();
+
+                }
+            }
+            else
+            {
+                if (side == 1)
+                {
+                    EICASMessage HYDFail1 = new EICASMessage();
+                    HYDFail1.Importance = 1;
+                    HYDFail1.MessageText = "HYD SYS 1";
+                    GUIOwnship.RemoveEicasMessage(HYDFail1);
+                    //Loss of 1,3,6,8
+                    SplrLoss1.Hide();
+                    SplrLoss3.Hide();
+                    SplrLoss6.Hide();
+                    SplrLoss8.Hide();
+                }
+                else
+                {
+                    EICASMessage HYDFail2 = new EICASMessage();
+                    HYDFail2.Importance = 1;
+                    HYDFail2.MessageText = "HYD SYS 2";
+                    GUIOwnship.RemoveEicasMessage(HYDFail2);
+                    //Loss of 2,4,5,7
+                    SplrLoss2.Hide();
+                    SplrLoss4.Hide();
+                    SplrLoss5.Hide();
+                    SplrLoss7.Hide();
+                }
+            }
+            return;
+        }
+        private void PowerLossMalfunction(bool MalfStatus)
+        {
+            if(MalfStatus)
+            {
+                EICASDISPLAY1OFF.Show();
+                EICASDISPLAY2OFF.Show();
+            }
+            else
+            {
+                EICASDISPLAY1OFF.Hide();
+                EICASDISPLAY2OFF.Hide();
+            }
+        }
         private void ReadCockpitControls()
         {
             //SPOILER LEVER REFRESH
@@ -99,36 +288,201 @@ namespace Aero390Spoilers
             airSpeedIndicatorInstrumentControl1.SetAirSpeedIndicatorParameters(GUIOwnship.IasKts);
             attitudeIndicatorInstrumentControl1.SetAttitudeIndicatorParameters(GUIOwnship.AoA, GUIOwnship.BankAngle);
             altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
-            verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters(GUIOwnship.VS);
+            verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters((int)GUIOwnship.VS);
+            EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value * 10);
+            EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value * 10);
         }
         private void RefreshEICAS()
         {
             RefreshEICASAllMessages();
             RefreshEICASSystemStatus();
         }
-        private void RefreshEICASMessage(System.Windows.Forms.TextBox iTextbox, Ownship.EICASMessage iMsg)
-        {
-            iTextbox.Text = iMsg.MessageText;
-            switch(iMsg.Importance)
-            {
-                case 0: iTextbox.ForeColor = Color.White; break;
-                case 1: iTextbox.ForeColor = Color.Orange; break;
-                case 2: iTextbox.ForeColor = Color.Red; break;
-            }
-        }
         private void RefreshEICASAllMessages()
         {
-            RefreshEICASMessage(EicasMsgLine1, GUIOwnship.EICASMessages[0]);
-            RefreshEICASMessage(EicasMsgLine2, GUIOwnship.EICASMessages[1]);
-            RefreshEICASMessage(EicasMsgLine3, GUIOwnship.EICASMessages[2]);
-            RefreshEICASMessage(EicasMsgLine4, GUIOwnship.EICASMessages[3]);
-            RefreshEICASMessage(EicasMsgLine5, GUIOwnship.EICASMessages[4]);
-            RefreshEICASMessage(EicasMsgLine6, GUIOwnship.EICASMessages[5]);
-            RefreshEICASMessage(EicasMsgLine7, GUIOwnship.EICASMessages[6]);
-            RefreshEICASMessage(EicasMsgLine8, GUIOwnship.EICASMessages[7]);
-            RefreshEICASMessage(EicasMsgLine9, GUIOwnship.EICASMessages[8]);
-            RefreshEICASMessage(EicasMsgLine10, GUIOwnship.EICASMessages[9]);
-            RefreshEICASMessage(EicasMsgLine11, GUIOwnship.EICASMessages[10]);
+            EICASMessage[] ArEICASMsgs = GUIOwnship.EICASMessages.ToArray();
+            int count = ArEICASMsgs.Length;
+            for( int i=0; i<11; i++ )
+            {
+                switch(i)
+                {
+                    case (0):
+                        {
+                            if(i>=count)
+                            {
+                                EicasMsgLine1.Text = "";
+                                break;
+                            }
+                            EicasMsgLine1.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine1.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine1.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine1.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (1):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine2.Text = "";
+                                break;
+                            }
+                            EicasMsgLine2.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine2.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine2.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine2.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (2):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine3.Text = "";
+                                break;
+                            }
+                            EicasMsgLine3.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine3.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine3.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine3.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (3):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine4.Text = "";
+                                break;
+                            }
+                            EicasMsgLine4.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine4.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine4.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine4.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (4):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine5.Text = "";
+                                break;
+                            }
+                            EicasMsgLine5.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine5.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine5.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine5.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (5):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine6.Text = "";
+                                break;
+                            }
+                            EicasMsgLine6.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine6.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine6.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine6.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (6):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine7.Text = "";
+                                break;
+                            }
+                            EicasMsgLine7.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine7.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine7.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine7.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (7):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine8.Text = "";
+                                break;
+                            }
+                            EicasMsgLine8.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine8.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine8.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine8.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (8):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine9.Text = "";
+                                break;
+                            }
+                            EicasMsgLine9.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine9.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine9.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine9.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (9):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine10.Text = "";
+                                break;
+                            }
+                            EicasMsgLine10.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine10.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine10.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine10.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                    case (10):
+                        {
+                            if (i >= count)
+                            {
+                                EicasMsgLine11.Text = "";
+                                break;
+                            }
+                            EicasMsgLine11.Text = ArEICASMsgs[i].MessageText;
+                            switch (ArEICASMsgs[i].Importance)
+                            {
+                                case 0: EicasMsgLine11.ForeColor = Color.White; break;
+                                case 1: EicasMsgLine11.ForeColor = Color.Orange; break;
+                                case 2: EicasMsgLine11.ForeColor = Color.Red; break;
+                            }
+                            break;
+                        }
+                }
+            };
         }
         private void RefreshEICASSystemStatus()
         {
@@ -245,20 +599,21 @@ namespace Aero390Spoilers
             if (GUIOwnship.WarningActive)
             {
                 if (GUIOwnship.CautionActive) MWMCPB.BackgroundImage = Resources.MWMC_11;
-                else MWMCPB.BackgroundImage = Resources.MWMC_10; ;
+                else MWMCPB.BackgroundImage = Resources.MWMC_10;
             }
             else
             {
                 if (GUIOwnship.CautionActive) MWMCPB.BackgroundImage = Resources.MWMC_01;
-                else MWMCPB.BackgroundImage = Resources.MWMC_00; ;
+                else MWMCPB.BackgroundImage = Resources.MWMC_00;
             }
         }
         private void RefreshPrintOuts()
         {
             GwPrintOut.Text = GUIOwnship.GrossWeightLbs.ToString();
             BaroPrintOut.Text = GUIOwnship.BaroSettingmmHg.ToString();
-            AltPrintOut.Text = GUIOwnship.AltitudeASL.ToString();
-            IASPrintOut.Text = GUIOwnship.IasKts.ToString();
+            AltPrintOut.Text = ((int)GUIOwnship.AltitudeASL).ToString();
+            IASPrintOut.Text = ((int)GUIOwnship.IasKts).ToString();
+            PhaseOfFlightTB.Text = GUIOwnship.PhaseOfFlight;
         }
         private void RefreshSpoilerActuation(int CurrentDeflection, int TargetDeflection,  bool InFlight = true, bool SymDeploy = true)
         {
@@ -308,7 +663,159 @@ namespace Aero390Spoilers
                 Thread.Sleep(30);
             }
             SpoilerThreadRunning = false;
+            return;
         }
+        private void RepositionTo(string Reposition)
+        {
+            switch (Reposition)
+            {
+                case ("Takeoff"):
+                    {
+                        GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
+                        GUIOwnship.AoA = 0;
+                        GUIOwnship.AutoBrakeSelectorPosition = 0;
+                        GUIOwnship.BankAngle = 0;
+                        GUIOwnship.BaroSettingmmHg = 29.92;
+                        FlapLever.Value = 0;
+                        GUIOwnship.FlapLeverPosition = 0;
+                        GUIOwnship.GrossWeightLbs = 35000;
+                        LENGThrottle.Value = 0;
+                        RENGThrottle.Value = 0;
+                        GUIOwnship.LThrottlePosition = 0;
+                        GUIOwnship.RThrottlePosition = 0;
+                        SpoilerLever.Value = 2;
+                        GUIOwnship.SpoilerLeverPosition = 2;
+                        ControlWheelBar.Value = 0;
+                        GUIOwnship.SWControlWheelPosition = 0;
+                        GUIOwnship.VS = 0;
+                        GUIOwnship.IasKts = 0;
+                        if (GUIOwnship.GlobalGearStatus() != "DOWN") GUIOwnship.GearPositionChange();
+                        GUIOwnship.WeightOnWheels = true;
+                        GUIOwnship.PhaseOfFlight = "TAXI";
+                        break;
+                    }
+                case ("InAir"):
+                    {
+                        GUIOwnship.AltitudeASL = 10000;
+                        GUIOwnship.AoA = 1;
+                        GUIOwnship.AutoBrakeSelectorPosition = 0;
+                        GUIOwnship.BankAngle = 0;
+                        GUIOwnship.BaroSettingmmHg = 29.92;
+                        FlapLever.Value = 0;
+                        GUIOwnship.FlapLeverPosition = 0;
+                        GUIOwnship.GrossWeightLbs = 30000;
+                        LENGThrottle.Value = 8;
+                        RENGThrottle.Value = 8;
+                        GUIOwnship.LThrottlePosition = 8;
+                        GUIOwnship.RThrottlePosition = 8;
+                        SpoilerLever.Value = 2;
+                        GUIOwnship.SpoilerLeverPosition = 2;
+                        ControlWheelBar.Value = 0;
+                        GUIOwnship.SWControlWheelPosition = 0;
+                        GUIOwnship.VS = 0;
+                        GUIOwnship.IasKts = 250;
+                        if (GUIOwnship.GlobalGearStatus() != "UP") GUIOwnship.GearPositionChange();
+                        GUIOwnship.WeightOnWheels = false;
+                        GUIOwnship.PhaseOfFlight = "CRUISE";
+                        break;
+                    }
+                case ("Approach"):
+                    {
+                        GUIOwnship.AltitudeASL = 1073 + GUIOwnship.RunwayAltASL;
+                        GUIOwnship.AoA = -3;
+                        GUIOwnship.AutoBrakeSelectorPosition = 3;
+                        GUIOwnship.BankAngle = 0;
+                        GUIOwnship.BaroSettingmmHg = 29.92;
+                        FlapLever.Value = -3;
+                        GUIOwnship.FlapLeverPosition = -3;
+                        GUIOwnship.GrossWeightLbs = 28500;
+                        LENGThrottle.Value = 4;
+                        RENGThrottle.Value = 4;
+                        GUIOwnship.LThrottlePosition = 4;
+                        GUIOwnship.RThrottlePosition = 4;
+                        SpoilerLever.Value = 0;
+                        GUIOwnship.SpoilerLeverPosition = 0;
+                        ControlWheelBar.Value = 0;
+                        GUIOwnship.SWControlWheelPosition = 0;
+                        GUIOwnship.VS = -600;
+                        GUIOwnship.IasKts = 154;
+                        if (GUIOwnship.GlobalGearStatus() != "DOWN") GUIOwnship.GearPositionChange();
+                        GUIOwnship.WeightOnWheels = false;
+                        GUIOwnship.PhaseOfFlight = "APPROACH";
+                        Thread ApproachScenario = new Thread(() => RADALTStub());
+                        ApproachScenario.Start();
+                        break;
+                    
+}
+            }
+        }
+        private void RADALTStub()
+        {
+            while (GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL > 0)
+            {
+                if (GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL >= 30)//-600fpm == 5ft/0.5sec, AOA -3
+                {
+                    GUIOwnship.AltitudeASL -= 1;
+                }
+                else //-150fpm, AOA +3
+                {
+                    GUIOwnship.AltitudeASL -= 0.50;
+                    GUIOwnship.AoA += 0.1;
+                    GUIOwnship.VS += 7.5;
+                    if (GUIOwnship.AltitudeASL < GUIOwnship.RunwayAltASL) GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
+                }
+                Thread.Sleep(100);
+            }
+            GUIOwnship.VS = 0;
+            GUIOwnship.WeightOnWheels = true;
+            while (GUIOwnship.IasKts > 0)
+            {
+                if(GUIOwnship.AoA > 0) GUIOwnship.AoA -= 0.05;
+                GUIOwnship.IasKts -= 1;
+                if (GUIOwnship.IasKts < 0) GUIOwnship.IasKts = 0;
+                Thread.Sleep(100);
+            }
+            return;
+        }
+        private void UpdatePhaseOfFlight()
+        {
+            switch(GUIOwnship.PhaseOfFlight)
+            {
+                case ("TAXI"):
+                    {
+                        if (GUIOwnship.LThrottlePosition > 5 && GUIOwnship.RThrottlePosition > 5) GUIOwnship.PhaseOfFlight = "TAKEOFF";
+                        break;
+                    }
+                case ("TAKEOFF"):
+                    {
+                        if(GUIOwnship.LThrottlePosition < 9 && GUIOwnship.RThrottlePosition < 9) GUIOwnship.PhaseOfFlight = "RTO";
+                        else if (GUIOwnship.GlobalGearStatus() == "UP") GUIOwnship.PhaseOfFlight = "CLIMB";
+                        break;
+                    }
+                case ("CLIMB"):
+                    {
+                        if (GUIOwnship.AoA < 1.25 && GUIOwnship.AoA >= 0) GUIOwnship.PhaseOfFlight = "CRUISE";
+                        break;
+                    }
+                case ("CRUISE"):
+                    {
+                        if (GUIOwnship.GlobalGearStatus() == "DOWN") GUIOwnship.PhaseOfFlight = "APPROACH";
+                        break;
+                    }
+                case ("APPROACH"):
+                    {
+                        if (GUIOwnship.WeightOnWheels) GUIOwnship.PhaseOfFlight = "LANDING";
+                        break;
+                    }
+                case ("LANDING"):
+                    {
+                        if (GUIOwnship.IasKts <= 50) GUIOwnship.PhaseOfFlight = "TAXI";
+                        break;
+                    }
+            }
+        }
+
+
         #endregion
 
         #region GUI Elements
@@ -426,9 +933,70 @@ namespace Aero390Spoilers
         }
         private void MWMCPB_Click(object sender, EventArgs e)
         {
+            if (GUIOwnship.WarningActive) WarningSound.Stop();
             GUIOwnship.CautionActive = false;
             GUIOwnship.WarningActive = false;
         }
+        private void SW1PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch1On = !GUIOwnship.Switch1On;
+            GUIOwnship.MalfPwrLoss = !GUIOwnship.MalfPwrLoss;
+            PowerLossMalfunction(GUIOwnship.MalfPwrLoss);
+            if (GUIOwnship.Switch1On) SW1PB.BackgroundImage = Resources.Switch_ON;
+            else SW1PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW2PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch2On = !GUIOwnship.Switch2On;
+            GUIOwnship.MalfFcc1 = !GUIOwnship.MalfFcc1;
+            FccFault(GUIOwnship.MalfFcc1, GUIOwnship.MalfFcc2, 1);
+            if (GUIOwnship.Switch2On) SW2PB.BackgroundImage = Resources.Switch_ON;
+            else SW2PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW3PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch3On = !GUIOwnship.Switch3On;
+            GUIOwnship.MalfFcc2 = !GUIOwnship.MalfFcc2;
+            FccFault(GUIOwnship.MalfFcc1, GUIOwnship.MalfFcc2, 2);
+            if (GUIOwnship.Switch3On) SW3PB.BackgroundImage = Resources.Switch_ON;
+            else SW3PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW4PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch4On = !GUIOwnship.Switch4On;
+            GUIOwnship.MalfHyd1 = !GUIOwnship.MalfHyd1;
+            HydSysFailure(GUIOwnship.MalfHyd1, 1);
+            if (GUIOwnship.Switch4On) SW4PB.BackgroundImage = Resources.Switch_ON;
+            else SW4PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW5PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch5On = !GUIOwnship.Switch5On;
+            GUIOwnship.MalfHyd2 = !GUIOwnship.MalfHyd2;
+            HydSysFailure(GUIOwnship.MalfHyd2, 2);
+            if (GUIOwnship.Switch5On) SW5PB.BackgroundImage = Resources.Switch_ON;
+            else SW5PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void SW6PB_Click(object sender, EventArgs e)
+        {
+            GUIOwnship.Switch6On = !GUIOwnship.Switch6On;
+            GUIOwnship.MalfSplrs = !GUIOwnship.MalfSplrs;
+            if (GUIOwnship.Switch6On) SW6PB.BackgroundImage = Resources.Switch_ON;
+            else SW6PB.BackgroundImage = Resources.Switch_OFF;
+        }
+        private void TORepoButton_Click(object sender, EventArgs e)
+        {
+            RepositionTo("Takeoff");
+        }
+        private void InAirRepoButton_Click(object sender, EventArgs e)
+        {
+            RepositionTo("InAir");
+        }
+        private void AppRepoButton_Click(object sender, EventArgs e)
+        {
+            RepositionTo("Approach");
+        }
         #endregion
+
     }
 }

@@ -63,6 +63,9 @@
     <Compile Include="AircraftGUI.Designer.cs">
       <DependentUpon>AircraftGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="EngineIndicator.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AirSpeedIndicatorInstrumentControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -183,6 +186,8 @@
     <None Include="Resources\WoW_Release.png" />
     <None Include="Resources\Background_EICAS_LDG.png" />
     <Content Include="Resources\Bandeau_Dérouleur.bmp" />
+    <None Include="Resources\EngineIndicator_Background.bmp" />
+    <None Include="Resources\EngineIndicatorNeedle.bmp" />
     <Content Include="Resources\HeadingIndicator_Aircraft.bmp" />
     <Content Include="Resources\HeadingIndicator_Background.bmp" />
     <Content Include="Resources\HeadingWeel.bmp" />
@@ -210,6 +215,9 @@
     <None Include="Resources\MWMC_10.png" />
     <None Include="Resources\MWMC_11.png" />
     <Content Include="Resources\SmallNeedleAltimeter.bmp" />
+    <None Include="Resources\Switch_OFF.png" />
+    <None Include="Resources\Switch_ON.png" />
+    <None Include="Resources\SPLRUnkown.png" />
     <Content Include="Resources\TurnCoordinatorAircraft.bmp" />
     <Content Include="Resources\TurnCoordinatorBall.bmp" />
     <Content Include="Resources\TurnCoordinatorMarks.bmp" />

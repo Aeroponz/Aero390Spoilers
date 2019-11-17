@@ -24,19 +24,14 @@ namespace Ownship
                 LandingGears[i] = new LandingGear.LandingGear();
             }
 
-            EICASMessages = new EICASMessage[11];
-            for (int i = 0; i < 11; i++)
-            {
-                EICASMessages[i] = new EICASMessage();
-            }
-
             //Parameter Initialisation
             WeightOnWheels = true;
             IasKts = 0;
             IasNES = 350;
             IasOverspeed = 320;
             IasStall = 100;
-            AltitudeASL = 118;
+            AltitudeASL = RunwayAltASL;
+            PhaseOfFlight = "TAXI";
             BaroSettingmmHg = 29.92;
             GrossWeightLbs = 35000;
             VS = 0;
@@ -72,14 +67,7 @@ namespace Ownship
             return wArincMessages;  
         }
 
-        #region EICAS
 
-        public void UpdateEICASMessages()
-        {
-
-        }
-
-        #endregion EICAS
 
         #region Landing Gear
 
@@ -94,22 +82,16 @@ namespace Ownship
         //Landing Gear Lever Position Change
         public void GearPositionChange()
         {
-            if (HydSys[0].GetAvailPress() < G32_RequiredPressure)
+
+            //Transition from wheels down to up (Takeoff) -> WoW should be false.
+            if (GlobalGearStatus() == "DOWN")
             {
-                G32_LowGearPressure = true;
-                return;
+                WeightOnWheels = false;
             }
-            else
-            {
-                //Transition from wheels down to up (Takeoff) -> WoW should be false.
-                if (GlobalGearStatus() == "DOWN")
-                {
-                    WeightOnWheels = false;
-                }
-                LandingGears[0].GearLeverPositionChanged();
-                LandingGears[1].GearLeverPositionChanged();
-                LandingGears[2].GearLeverPositionChanged();
-            }
+            LandingGears[0].GearLeverPositionChanged();
+            LandingGears[1].GearLeverPositionChanged();
+            LandingGears[2].GearLeverPositionChanged();
+
         }
 
         //Returns a common gear status calculated from the individual gear status
@@ -158,6 +140,49 @@ namespace Ownship
 
         #endregion
 
+        #region EICAS
+
+        public void AddEicasMessage(EICASMessage iMsg)
+        {
+            Stack<EICASMessage> TempMsgs = new Stack<EICASMessage>();
+            //Check for higher priority message
+            for (int i=0; i < EICASMessages.Count; i++)
+            {
+                if (EICASMessages.Peek().Importance > iMsg.Importance)
+                {
+                    TempMsgs.Push(EICASMessages.Pop());
+                }
+                else break;
+            }
+            //Push into position (top of the messages with the same priority)
+            EICASMessages.Push(iMsg);
+            //Push Higher Priority back on top
+            for (int i = 0; i < TempMsgs.Count; i++)
+            {
+                EICASMessages.Push(TempMsgs.Pop());
+            }
+        }
+        public void RemoveEicasMessage(EICASMessage iMsg)
+        {
+            Stack<EICASMessage> TempMsgs = new Stack<EICASMessage>();
+            while(EICASMessages.Count>0)
+            {
+                if (EICASMessages.Peek().MessageText == iMsg.MessageText && EICASMessages.Peek().Importance == iMsg.Importance)
+                {
+                    EICASMessages.Pop();
+                    break;
+                }
+                else TempMsgs.Push(EICASMessages.Pop());
+            }
+            //Push higher messages back into stack
+            for (int i = 0; i < TempMsgs.Count; i++)
+            {
+                EICASMessages.Push(TempMsgs.Pop());
+            }
+        }
+
+        #endregion EICAS
+
         #region Aircraft Systems Declarations
         //Aircraft Systems Declarations
         HydraulicSys[] HydSys;
@@ -173,11 +198,7 @@ namespace Ownship
         #endregion
 
         #region Aircraft Parameters
-
-        double G32_RequiredPressure = 500;//psi
-        bool G32_LowGearPressure = false;
-
-        //Aircraft Parameters
+        //AIRCRAFT PARAMETERS
         public bool WeightOnWheels { get; set; }
         public double GrossWeightLbs { get; set; }
         public double BaroSettingmmHg { get; set; }
@@ -186,11 +207,12 @@ namespace Ownship
         public int IasOverspeed { get; set; }
         public int IasNES { get; set; }
         public int IasStall { get; set; }
-        public int BankAngle { get; set; }
-        public int AoA { get; set; }
-        public int VS { get; set; }
+        public double BankAngle { get; set; }
+        public double AoA { get; set; }
+        public double VS { get; set; }
+        public string PhaseOfFlight { get; set; }
 
-        //Cockpit
+        //COCKPIT CONTROLS
         public int SpoilerLeverPosition { get; set; }
         public int FlapLeverPosition { get; set; }
         public int SWControlWheelPosition { get; set; }
@@ -200,15 +222,34 @@ namespace Ownship
 
         //DISPLAYS
         public int[] SpoilerDeflectionPercentage = new int[8];
-        public EICASMessage[] EICASMessages; //Lines 1 to 8 for CW Messages, 9 to 11 for status
+        public Stack<EICASMessage> EICASMessages = new Stack<EICASMessage>(); //Lines 1 to 8 for CW Messages, 9 to 11 for status
 
         //WARNING SYSTEM
-        public bool WarningActive;
-        public bool CautionActive;
+        public bool WarningActive { get; set; }
+        public bool CautionActive { get; set; }
 
+        //MALFUNCTIONS AND SWITCHES
+        public bool Switch1On { get; set; }
+        public bool Switch2On { get; set; }
+        public bool Switch3On { get; set; }
+        public bool Switch4On { get; set; }
+        public bool Switch5On { get; set; }
+        public bool Switch6On { get; set; }
+        public bool MalfPwrLoss { get; set; }
+        public bool MalfFcc1 { get; set; }
+        public bool MalfFcc2 { get; set; }
+        public bool MalfHyd1 { get; set; }
+        public bool MalfHyd2 { get; set; }
+        public bool MalfSplrs { get; set; }
 
         //ARINC
         string[] wArincMessages = new string[1];
+        #endregion
+
+        #region Environmental Parameters
+
+        public double RunwayAltASL = 118;
+
         #endregion
     }
 }

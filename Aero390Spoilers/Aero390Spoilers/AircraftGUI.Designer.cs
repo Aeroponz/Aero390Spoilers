@@ -75,6 +75,45 @@
             this.EicasMsgLine8 = new System.Windows.Forms.TextBox();
             this.MWMCPB = new System.Windows.Forms.PictureBox();
             this.EICASAutoBrakesMessage = new System.Windows.Forms.TextBox();
+            this.GWtitleTB = new System.Windows.Forms.TextBox();
+            this.BaroTitleTB = new System.Windows.Forms.TextBox();
+            this.AltTitleTB = new System.Windows.Forms.TextBox();
+            this.IASTitleTB = new System.Windows.Forms.TextBox();
+            this.RENGThrottle = new System.Windows.Forms.TrackBar();
+            this.LENGThrottle = new System.Windows.Forms.TrackBar();
+            this.IdleTB = new System.Windows.Forms.TextBox();
+            this.MaxThrTB = new System.Windows.Forms.TextBox();
+            this.SW1PB = new System.Windows.Forms.PictureBox();
+            this.SW2PB = new System.Windows.Forms.PictureBox();
+            this.SW3PB = new System.Windows.Forms.PictureBox();
+            this.SW4PB = new System.Windows.Forms.PictureBox();
+            this.SW5PB = new System.Windows.Forms.PictureBox();
+            this.SW6PB = new System.Windows.Forms.PictureBox();
+            this.SW1Title = new System.Windows.Forms.TextBox();
+            this.SW2Title = new System.Windows.Forms.TextBox();
+            this.SW3Title = new System.Windows.Forms.TextBox();
+            this.SW4Title = new System.Windows.Forms.TextBox();
+            this.SW5Title = new System.Windows.Forms.TextBox();
+            this.SW6Title = new System.Windows.Forms.TextBox();
+            this.AppRepoButton = new System.Windows.Forms.Button();
+            this.InAirRepoButton = new System.Windows.Forms.Button();
+            this.TORepoButton = new System.Windows.Forms.Button();
+            this.RepoToTitle = new System.Windows.Forms.TextBox();
+            this.CustomInputTitle = new System.Windows.Forms.TextBox();
+            this.PoFTItle = new System.Windows.Forms.TextBox();
+            this.PhaseOfFlightTB = new System.Windows.Forms.TextBox();
+            this.EICASDISPLAY1OFF = new System.Windows.Forms.PictureBox();
+            this.EICASDISPLAY2OFF = new System.Windows.Forms.PictureBox();
+            this.SplrLoss1 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss2 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss3 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss4 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss5 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss6 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss7 = new System.Windows.Forms.PictureBox();
+            this.SplrLoss8 = new System.Windows.Forms.PictureBox();
+            this.EIEngine2Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
+            this.EIEngine1Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
             this.airSpeedIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AirSpeedIndicatorInstrumentControl();
             this.altimeterInstrumentControl1 = new AvionicsInstrumentControlDemo.AltimeterInstrumentControl();
@@ -87,14 +126,6 @@
             this.Spoiler3PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler2PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler1PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
-            this.GWtitleTB = new System.Windows.Forms.TextBox();
-            this.BaroTitleTB = new System.Windows.Forms.TextBox();
-            this.AltTitleTB = new System.Windows.Forms.TextBox();
-            this.IASTitleTB = new System.Windows.Forms.TextBox();
-            this.RENGThrottle = new System.Windows.Forms.TrackBar();
-            this.LENGThrottle = new System.Windows.Forms.TrackBar();
-            this.IdleTB = new System.Windows.Forms.TextBox();
-            this.MaxThrTB = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).BeginInit();
@@ -104,6 +135,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.MWMCPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RENGThrottle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LENGThrottle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW1PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW2PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW3PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW4PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW5PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW6PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EICASDISPLAY1OFF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EICASDISPLAY2OFF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss8)).BeginInit();
             this.SuspendLayout();
             // 
             // WowButton
@@ -130,9 +177,9 @@
             this.IntegerInput.BackColor = System.Drawing.Color.Black;
             this.IntegerInput.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IntegerInput.ForeColor = System.Drawing.Color.White;
-            this.IntegerInput.Location = new System.Drawing.Point(653, 704);
+            this.IntegerInput.Location = new System.Drawing.Point(1017, 673);
             this.IntegerInput.Name = "IntegerInput";
-            this.IntegerInput.Size = new System.Drawing.Size(284, 25);
+            this.IntegerInput.Size = new System.Drawing.Size(219, 25);
             this.IntegerInput.TabIndex = 17;
             this.IntegerInput.Text = "Enter Value Here";
             this.IntegerInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -259,7 +306,7 @@
             // 
             // ControlWheelBar
             // 
-            this.ControlWheelBar.Location = new System.Drawing.Point(597, 360);
+            this.ControlWheelBar.Location = new System.Drawing.Point(660, 361);
             this.ControlWheelBar.Minimum = -10;
             this.ControlWheelBar.Name = "ControlWheelBar";
             this.ControlWheelBar.Size = new System.Drawing.Size(300, 45);
@@ -718,6 +765,495 @@
             this.EICASAutoBrakesMessage.TabIndex = 68;
             this.EICASAutoBrakesMessage.Text = "AUTOBRAKES OFF";
             // 
+            // GWtitleTB
+            // 
+            this.GWtitleTB.BackColor = System.Drawing.Color.Black;
+            this.GWtitleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GWtitleTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.GWtitleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GWtitleTB.ForeColor = System.Drawing.Color.White;
+            this.GWtitleTB.Location = new System.Drawing.Point(249, 646);
+            this.GWtitleTB.Name = "GWtitleTB";
+            this.GWtitleTB.Size = new System.Drawing.Size(28, 18);
+            this.GWtitleTB.TabIndex = 69;
+            this.GWtitleTB.Text = "GW:";
+            this.GWtitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // BaroTitleTB
+            // 
+            this.BaroTitleTB.BackColor = System.Drawing.Color.Black;
+            this.BaroTitleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.BaroTitleTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.BaroTitleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BaroTitleTB.ForeColor = System.Drawing.Color.White;
+            this.BaroTitleTB.Location = new System.Drawing.Point(243, 670);
+            this.BaroTitleTB.Name = "BaroTitleTB";
+            this.BaroTitleTB.Size = new System.Drawing.Size(34, 18);
+            this.BaroTitleTB.TabIndex = 70;
+            this.BaroTitleTB.Text = "Baro:";
+            this.BaroTitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // AltTitleTB
+            // 
+            this.AltTitleTB.BackColor = System.Drawing.Color.Black;
+            this.AltTitleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AltTitleTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.AltTitleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AltTitleTB.ForeColor = System.Drawing.Color.White;
+            this.AltTitleTB.Location = new System.Drawing.Point(460, 646);
+            this.AltTitleTB.Name = "AltTitleTB";
+            this.AltTitleTB.Size = new System.Drawing.Size(28, 18);
+            this.AltTitleTB.TabIndex = 71;
+            this.AltTitleTB.Text = "Alt:";
+            this.AltTitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // IASTitleTB
+            // 
+            this.IASTitleTB.BackColor = System.Drawing.Color.Black;
+            this.IASTitleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.IASTitleTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.IASTitleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IASTitleTB.ForeColor = System.Drawing.Color.White;
+            this.IASTitleTB.Location = new System.Drawing.Point(460, 670);
+            this.IASTitleTB.Name = "IASTitleTB";
+            this.IASTitleTB.Size = new System.Drawing.Size(28, 18);
+            this.IASTitleTB.TabIndex = 72;
+            this.IASTitleTB.Text = "IAS:";
+            this.IASTitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // RENGThrottle
+            // 
+            this.RENGThrottle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.RENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RENGThrottle.LargeChange = 1;
+            this.RENGThrottle.Location = new System.Drawing.Point(804, 433);
+            this.RENGThrottle.Name = "RENGThrottle";
+            this.RENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.RENGThrottle.Size = new System.Drawing.Size(45, 240);
+            this.RENGThrottle.TabIndex = 73;
+            this.RENGThrottle.TickFrequency = 2;
+            // 
+            // LENGThrottle
+            // 
+            this.LENGThrottle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.LENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LENGThrottle.LargeChange = 1;
+            this.LENGThrottle.Location = new System.Drawing.Point(774, 433);
+            this.LENGThrottle.Name = "LENGThrottle";
+            this.LENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.LENGThrottle.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.LENGThrottle.Size = new System.Drawing.Size(45, 240);
+            this.LENGThrottle.TabIndex = 74;
+            this.LENGThrottle.TickFrequency = 2;
+            this.LENGThrottle.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            // 
+            // IdleTB
+            // 
+            this.IdleTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.IdleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.IdleTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.IdleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IdleTB.ForeColor = System.Drawing.Color.White;
+            this.IdleTB.Location = new System.Drawing.Point(828, 652);
+            this.IdleTB.Name = "IdleTB";
+            this.IdleTB.Size = new System.Drawing.Size(30, 18);
+            this.IdleTB.TabIndex = 75;
+            this.IdleTB.Text = "IDLE";
+            // 
+            // MaxThrTB
+            // 
+            this.MaxThrTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.MaxThrTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MaxThrTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.MaxThrTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaxThrTB.ForeColor = System.Drawing.Color.White;
+            this.MaxThrTB.Location = new System.Drawing.Point(828, 439);
+            this.MaxThrTB.Name = "MaxThrTB";
+            this.MaxThrTB.Size = new System.Drawing.Size(30, 18);
+            this.MaxThrTB.TabIndex = 76;
+            this.MaxThrTB.Text = "MAX";
+            // 
+            // SW1PB
+            // 
+            this.SW1PB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.Switch_OFF;
+            this.SW1PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SW1PB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SW1PB.Location = new System.Drawing.Point(840, 41);
+            this.SW1PB.Name = "SW1PB";
+            this.SW1PB.Size = new System.Drawing.Size(128, 146);
+            this.SW1PB.TabIndex = 79;
+            this.SW1PB.TabStop = false;
+            this.SW1PB.Click += new System.EventHandler(this.SW1PB_Click);
+            // 
+            // SW2PB
+            // 
+            this.SW2PB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.Switch_OFF;
+            this.SW2PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SW2PB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SW2PB.Location = new System.Drawing.Point(974, 41);
+            this.SW2PB.Name = "SW2PB";
+            this.SW2PB.Size = new System.Drawing.Size(128, 146);
+            this.SW2PB.TabIndex = 80;
+            this.SW2PB.TabStop = false;
+            this.SW2PB.Click += new System.EventHandler(this.SW2PB_Click);
+            // 
+            // SW3PB
+            // 
+            this.SW3PB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.Switch_OFF;
+            this.SW3PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SW3PB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SW3PB.Location = new System.Drawing.Point(1108, 41);
+            this.SW3PB.Name = "SW3PB";
+            this.SW3PB.Size = new System.Drawing.Size(128, 146);
+            this.SW3PB.TabIndex = 81;
+            this.SW3PB.TabStop = false;
+            this.SW3PB.Click += new System.EventHandler(this.SW3PB_Click);
+            // 
+            // SW4PB
+            // 
+            this.SW4PB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.Switch_OFF;
+            this.SW4PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SW4PB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SW4PB.Location = new System.Drawing.Point(840, 218);
+            this.SW4PB.Name = "SW4PB";
+            this.SW4PB.Size = new System.Drawing.Size(128, 146);
+            this.SW4PB.TabIndex = 82;
+            this.SW4PB.TabStop = false;
+            this.SW4PB.Click += new System.EventHandler(this.SW4PB_Click);
+            // 
+            // SW5PB
+            // 
+            this.SW5PB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.Switch_OFF;
+            this.SW5PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SW5PB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SW5PB.Location = new System.Drawing.Point(974, 218);
+            this.SW5PB.Name = "SW5PB";
+            this.SW5PB.Size = new System.Drawing.Size(128, 146);
+            this.SW5PB.TabIndex = 83;
+            this.SW5PB.TabStop = false;
+            this.SW5PB.Click += new System.EventHandler(this.SW5PB_Click);
+            // 
+            // SW6PB
+            // 
+            this.SW6PB.BackgroundImage = global::Aero390Spoilers.Properties.Resources.Switch_OFF;
+            this.SW6PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SW6PB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SW6PB.Location = new System.Drawing.Point(1108, 218);
+            this.SW6PB.Name = "SW6PB";
+            this.SW6PB.Size = new System.Drawing.Size(128, 146);
+            this.SW6PB.TabIndex = 84;
+            this.SW6PB.TabStop = false;
+            this.SW6PB.Click += new System.EventHandler(this.SW6PB_Click);
+            // 
+            // SW1Title
+            // 
+            this.SW1Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.SW1Title.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SW1Title.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SW1Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SW1Title.ForeColor = System.Drawing.Color.White;
+            this.SW1Title.Location = new System.Drawing.Point(840, 17);
+            this.SW1Title.Name = "SW1Title";
+            this.SW1Title.Size = new System.Drawing.Size(128, 18);
+            this.SW1Title.TabIndex = 85;
+            this.SW1Title.Text = "DISPLAY PWR";
+            this.SW1Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SW2Title
+            // 
+            this.SW2Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.SW2Title.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SW2Title.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SW2Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SW2Title.ForeColor = System.Drawing.Color.White;
+            this.SW2Title.Location = new System.Drawing.Point(974, 17);
+            this.SW2Title.Name = "SW2Title";
+            this.SW2Title.Size = new System.Drawing.Size(128, 18);
+            this.SW2Title.TabIndex = 86;
+            this.SW2Title.Text = "FCC 1 FAULT";
+            this.SW2Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SW3Title
+            // 
+            this.SW3Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.SW3Title.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SW3Title.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SW3Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SW3Title.ForeColor = System.Drawing.Color.White;
+            this.SW3Title.Location = new System.Drawing.Point(1108, 17);
+            this.SW3Title.Name = "SW3Title";
+            this.SW3Title.Size = new System.Drawing.Size(128, 18);
+            this.SW3Title.TabIndex = 87;
+            this.SW3Title.Text = "FCC 2 FAULT";
+            this.SW3Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SW4Title
+            // 
+            this.SW4Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.SW4Title.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SW4Title.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SW4Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SW4Title.ForeColor = System.Drawing.Color.White;
+            this.SW4Title.Location = new System.Drawing.Point(840, 194);
+            this.SW4Title.Name = "SW4Title";
+            this.SW4Title.Size = new System.Drawing.Size(128, 18);
+            this.SW4Title.TabIndex = 88;
+            this.SW4Title.Text = "HYD SYS 1 FAIL";
+            this.SW4Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SW5Title
+            // 
+            this.SW5Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.SW5Title.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SW5Title.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SW5Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SW5Title.ForeColor = System.Drawing.Color.White;
+            this.SW5Title.Location = new System.Drawing.Point(974, 194);
+            this.SW5Title.Name = "SW5Title";
+            this.SW5Title.Size = new System.Drawing.Size(128, 18);
+            this.SW5Title.TabIndex = 89;
+            this.SW5Title.Text = "HYD SYS 2 FAIL";
+            this.SW5Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SW6Title
+            // 
+            this.SW6Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.SW6Title.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SW6Title.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SW6Title.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SW6Title.ForeColor = System.Drawing.Color.White;
+            this.SW6Title.Location = new System.Drawing.Point(1108, 194);
+            this.SW6Title.Name = "SW6Title";
+            this.SW6Title.Size = new System.Drawing.Size(128, 18);
+            this.SW6Title.TabIndex = 90;
+            this.SW6Title.Text = "SPOILER MISMATCH";
+            this.SW6Title.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // AppRepoButton
+            // 
+            this.AppRepoButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AppRepoButton.Location = new System.Drawing.Point(1017, 605);
+            this.AppRepoButton.Name = "AppRepoButton";
+            this.AppRepoButton.Size = new System.Drawing.Size(219, 37);
+            this.AppRepoButton.TabIndex = 91;
+            this.AppRepoButton.Text = "Approach";
+            this.AppRepoButton.UseVisualStyleBackColor = true;
+            this.AppRepoButton.Click += new System.EventHandler(this.AppRepoButton_Click);
+            // 
+            // InAirRepoButton
+            // 
+            this.InAirRepoButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InAirRepoButton.Location = new System.Drawing.Point(1017, 562);
+            this.InAirRepoButton.Name = "InAirRepoButton";
+            this.InAirRepoButton.Size = new System.Drawing.Size(219, 37);
+            this.InAirRepoButton.TabIndex = 92;
+            this.InAirRepoButton.Text = "FL100";
+            this.InAirRepoButton.UseVisualStyleBackColor = true;
+            this.InAirRepoButton.Click += new System.EventHandler(this.InAirRepoButton_Click);
+            // 
+            // TORepoButton
+            // 
+            this.TORepoButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TORepoButton.Location = new System.Drawing.Point(1017, 519);
+            this.TORepoButton.Name = "TORepoButton";
+            this.TORepoButton.Size = new System.Drawing.Size(219, 37);
+            this.TORepoButton.TabIndex = 93;
+            this.TORepoButton.Text = "Takeoff";
+            this.TORepoButton.UseVisualStyleBackColor = true;
+            this.TORepoButton.Click += new System.EventHandler(this.TORepoButton_Click);
+            // 
+            // RepoToTitle
+            // 
+            this.RepoToTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.RepoToTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.RepoToTitle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RepoToTitle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RepoToTitle.ForeColor = System.Drawing.Color.White;
+            this.RepoToTitle.Location = new System.Drawing.Point(1017, 494);
+            this.RepoToTitle.Name = "RepoToTitle";
+            this.RepoToTitle.Size = new System.Drawing.Size(219, 18);
+            this.RepoToTitle.TabIndex = 94;
+            this.RepoToTitle.Text = "REPOSTION TO:";
+            this.RepoToTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CustomInputTitle
+            // 
+            this.CustomInputTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
+            this.CustomInputTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.CustomInputTitle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CustomInputTitle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomInputTitle.ForeColor = System.Drawing.Color.White;
+            this.CustomInputTitle.Location = new System.Drawing.Point(1017, 649);
+            this.CustomInputTitle.Name = "CustomInputTitle";
+            this.CustomInputTitle.Size = new System.Drawing.Size(219, 18);
+            this.CustomInputTitle.TabIndex = 95;
+            this.CustomInputTitle.Text = "CUSTOM INPUT:";
+            this.CustomInputTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // PoFTItle
+            // 
+            this.PoFTItle.BackColor = System.Drawing.Color.Black;
+            this.PoFTItle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PoFTItle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.PoFTItle.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PoFTItle.ForeColor = System.Drawing.Color.Lime;
+            this.PoFTItle.Location = new System.Drawing.Point(360, 646);
+            this.PoFTItle.Name = "PoFTItle";
+            this.PoFTItle.Size = new System.Drawing.Size(82, 18);
+            this.PoFTItle.TabIndex = 96;
+            this.PoFTItle.Text = "Flight Phase";
+            this.PoFTItle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // PhaseOfFlightTB
+            // 
+            this.PhaseOfFlightTB.BackColor = System.Drawing.Color.Black;
+            this.PhaseOfFlightTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PhaseOfFlightTB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.PhaseOfFlightTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PhaseOfFlightTB.ForeColor = System.Drawing.Color.Lime;
+            this.PhaseOfFlightTB.Location = new System.Drawing.Point(360, 670);
+            this.PhaseOfFlightTB.Name = "PhaseOfFlightTB";
+            this.PhaseOfFlightTB.Size = new System.Drawing.Size(82, 18);
+            this.PhaseOfFlightTB.TabIndex = 97;
+            this.PhaseOfFlightTB.Text = "APPROACH";
+            this.PhaseOfFlightTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // EICASDISPLAY1OFF
+            // 
+            this.EICASDISPLAY1OFF.BackColor = System.Drawing.Color.Black;
+            this.EICASDISPLAY1OFF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EICASDISPLAY1OFF.Cursor = System.Windows.Forms.Cursors.Default;
+            this.EICASDISPLAY1OFF.Location = new System.Drawing.Point(244, 41);
+            this.EICASDISPLAY1OFF.Name = "EICASDISPLAY1OFF";
+            this.EICASDISPLAY1OFF.Size = new System.Drawing.Size(306, 286);
+            this.EICASDISPLAY1OFF.TabIndex = 98;
+            this.EICASDISPLAY1OFF.TabStop = false;
+            // 
+            // EICASDISPLAY2OFF
+            // 
+            this.EICASDISPLAY2OFF.BackColor = System.Drawing.Color.Black;
+            this.EICASDISPLAY2OFF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EICASDISPLAY2OFF.Cursor = System.Windows.Forms.Cursors.Default;
+            this.EICASDISPLAY2OFF.Location = new System.Drawing.Point(229, 439);
+            this.EICASDISPLAY2OFF.Name = "EICASDISPLAY2OFF";
+            this.EICASDISPLAY2OFF.Size = new System.Drawing.Size(345, 249);
+            this.EICASDISPLAY2OFF.TabIndex = 99;
+            this.EICASDISPLAY2OFF.TabStop = false;
+            // 
+            // SplrLoss1
+            // 
+            this.SplrLoss1.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss1.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss1.Location = new System.Drawing.Point(294, 499);
+            this.SplrLoss1.Name = "SplrLoss1";
+            this.SplrLoss1.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss1.TabIndex = 100;
+            this.SplrLoss1.TabStop = false;
+            // 
+            // SplrLoss2
+            // 
+            this.SplrLoss2.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss2.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss2.Location = new System.Drawing.Point(312, 494);
+            this.SplrLoss2.Name = "SplrLoss2";
+            this.SplrLoss2.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss2.TabIndex = 101;
+            this.SplrLoss2.TabStop = false;
+            // 
+            // SplrLoss3
+            // 
+            this.SplrLoss3.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss3.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss3.Location = new System.Drawing.Point(330, 489);
+            this.SplrLoss3.Name = "SplrLoss3";
+            this.SplrLoss3.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss3.TabIndex = 102;
+            this.SplrLoss3.TabStop = false;
+            // 
+            // SplrLoss4
+            // 
+            this.SplrLoss4.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss4.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss4.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss4.Location = new System.Drawing.Point(350, 484);
+            this.SplrLoss4.Name = "SplrLoss4";
+            this.SplrLoss4.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss4.TabIndex = 103;
+            this.SplrLoss4.TabStop = false;
+            // 
+            // SplrLoss5
+            // 
+            this.SplrLoss5.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss5.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss5.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss5.Location = new System.Drawing.Point(440, 484);
+            this.SplrLoss5.Name = "SplrLoss5";
+            this.SplrLoss5.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss5.TabIndex = 104;
+            this.SplrLoss5.TabStop = false;
+            // 
+            // SplrLoss6
+            // 
+            this.SplrLoss6.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss6.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss6.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss6.Location = new System.Drawing.Point(460, 489);
+            this.SplrLoss6.Name = "SplrLoss6";
+            this.SplrLoss6.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss6.TabIndex = 105;
+            this.SplrLoss6.TabStop = false;
+            // 
+            // SplrLoss7
+            // 
+            this.SplrLoss7.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss7.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss7.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss7.Location = new System.Drawing.Point(478, 494);
+            this.SplrLoss7.Name = "SplrLoss7";
+            this.SplrLoss7.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss7.TabIndex = 106;
+            this.SplrLoss7.TabStop = false;
+            // 
+            // SplrLoss8
+            // 
+            this.SplrLoss8.BackColor = System.Drawing.Color.Black;
+            this.SplrLoss8.BackgroundImage = global::Aero390Spoilers.Properties.Resources.SPLRUnkown;
+            this.SplrLoss8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SplrLoss8.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SplrLoss8.Location = new System.Drawing.Point(496, 499);
+            this.SplrLoss8.Name = "SplrLoss8";
+            this.SplrLoss8.Size = new System.Drawing.Size(10, 50);
+            this.SplrLoss8.TabIndex = 107;
+            this.SplrLoss8.TabStop = false;
+            // 
+            // EIEngine2Control
+            // 
+            this.EIEngine2Control.BackColor = System.Drawing.Color.Black;
+            this.EIEngine2Control.Location = new System.Drawing.Point(283, 152);
+            this.EIEngine2Control.Name = "EIEngine2Control";
+            this.EIEngine2Control.Size = new System.Drawing.Size(85, 85);
+            this.EIEngine2Control.TabIndex = 78;
+            this.EIEngine2Control.Text = "engineIndicatorControl1";
+            // 
+            // EIEngine1Control
+            // 
+            this.EIEngine1Control.BackColor = System.Drawing.Color.Black;
+            this.EIEngine1Control.Location = new System.Drawing.Point(283, 53);
+            this.EIEngine1Control.Name = "EIEngine1Control";
+            this.EIEngine1Control.Size = new System.Drawing.Size(85, 85);
+            this.EIEngine1Control.TabIndex = 77;
+            this.EIEngine1Control.Text = "engineIndicatorControl1";
+            // 
             // attitudeIndicatorInstrumentControl1
             // 
             this.attitudeIndicatorInstrumentControl1.Location = new System.Drawing.Point(32, 100);
@@ -827,114 +1363,6 @@
             this.Spoiler1PGB.TabIndex = 9;
             this.Spoiler1PGB.Value = 60;
             // 
-            // GWtitleTB
-            // 
-            this.GWtitleTB.BackColor = System.Drawing.Color.Black;
-            this.GWtitleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GWtitleTB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.GWtitleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GWtitleTB.ForeColor = System.Drawing.Color.White;
-            this.GWtitleTB.Location = new System.Drawing.Point(249, 646);
-            this.GWtitleTB.Name = "GWtitleTB";
-            this.GWtitleTB.Size = new System.Drawing.Size(28, 18);
-            this.GWtitleTB.TabIndex = 69;
-            this.GWtitleTB.Text = "GW:";
-            this.GWtitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // BaroTitleTB
-            // 
-            this.BaroTitleTB.BackColor = System.Drawing.Color.Black;
-            this.BaroTitleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.BaroTitleTB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.BaroTitleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BaroTitleTB.ForeColor = System.Drawing.Color.White;
-            this.BaroTitleTB.Location = new System.Drawing.Point(243, 670);
-            this.BaroTitleTB.Name = "BaroTitleTB";
-            this.BaroTitleTB.Size = new System.Drawing.Size(34, 18);
-            this.BaroTitleTB.TabIndex = 70;
-            this.BaroTitleTB.Text = "Baro:";
-            this.BaroTitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // AltTitleTB
-            // 
-            this.AltTitleTB.BackColor = System.Drawing.Color.Black;
-            this.AltTitleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.AltTitleTB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.AltTitleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AltTitleTB.ForeColor = System.Drawing.Color.White;
-            this.AltTitleTB.Location = new System.Drawing.Point(460, 646);
-            this.AltTitleTB.Name = "AltTitleTB";
-            this.AltTitleTB.Size = new System.Drawing.Size(28, 18);
-            this.AltTitleTB.TabIndex = 71;
-            this.AltTitleTB.Text = "Alt:";
-            this.AltTitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // IASTitleTB
-            // 
-            this.IASTitleTB.BackColor = System.Drawing.Color.Black;
-            this.IASTitleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.IASTitleTB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.IASTitleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IASTitleTB.ForeColor = System.Drawing.Color.White;
-            this.IASTitleTB.Location = new System.Drawing.Point(460, 670);
-            this.IASTitleTB.Name = "IASTitleTB";
-            this.IASTitleTB.Size = new System.Drawing.Size(28, 18);
-            this.IASTitleTB.TabIndex = 72;
-            this.IASTitleTB.Text = "IAS:";
-            this.IASTitleTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // RENGThrottle
-            // 
-            this.RENGThrottle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
-            this.RENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.RENGThrottle.LargeChange = 1;
-            this.RENGThrottle.Location = new System.Drawing.Point(804, 433);
-            this.RENGThrottle.Name = "RENGThrottle";
-            this.RENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.RENGThrottle.Size = new System.Drawing.Size(45, 240);
-            this.RENGThrottle.TabIndex = 73;
-            this.RENGThrottle.TickFrequency = 2;
-            // 
-            // LENGThrottle
-            // 
-            this.LENGThrottle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
-            this.LENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.LENGThrottle.LargeChange = 1;
-            this.LENGThrottle.Location = new System.Drawing.Point(774, 433);
-            this.LENGThrottle.Name = "LENGThrottle";
-            this.LENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.LENGThrottle.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LENGThrottle.Size = new System.Drawing.Size(45, 240);
-            this.LENGThrottle.TabIndex = 74;
-            this.LENGThrottle.TickFrequency = 2;
-            this.LENGThrottle.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            // 
-            // IdleTB
-            // 
-            this.IdleTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
-            this.IdleTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.IdleTB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.IdleTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IdleTB.ForeColor = System.Drawing.Color.White;
-            this.IdleTB.Location = new System.Drawing.Point(828, 652);
-            this.IdleTB.Name = "IdleTB";
-            this.IdleTB.Size = new System.Drawing.Size(30, 18);
-            this.IdleTB.TabIndex = 75;
-            this.IdleTB.Text = "IDLE";
-            // 
-            // MaxThrTB
-            // 
-            this.MaxThrTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(119)))));
-            this.MaxThrTB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.MaxThrTB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.MaxThrTB.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaxThrTB.ForeColor = System.Drawing.Color.White;
-            this.MaxThrTB.Location = new System.Drawing.Point(828, 439);
-            this.MaxThrTB.Name = "MaxThrTB";
-            this.MaxThrTB.Size = new System.Drawing.Size(30, 18);
-            this.MaxThrTB.TabIndex = 76;
-            this.MaxThrTB.Text = "MAX";
-            // 
             // AircraftGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -943,7 +1371,38 @@
             this.BackgroundImage = global::Aero390Spoilers.Properties.Resources.NewCockpit1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
-            this.ClientSize = new System.Drawing.Size(1264, 741);
+            this.ClientSize = new System.Drawing.Size(1265, 734);
+            this.Controls.Add(this.EICASDISPLAY2OFF);
+            this.Controls.Add(this.EICASDISPLAY1OFF);
+            this.Controls.Add(this.SplrLoss8);
+            this.Controls.Add(this.SplrLoss7);
+            this.Controls.Add(this.SplrLoss6);
+            this.Controls.Add(this.SplrLoss5);
+            this.Controls.Add(this.SplrLoss4);
+            this.Controls.Add(this.SplrLoss3);
+            this.Controls.Add(this.SplrLoss2);
+            this.Controls.Add(this.SplrLoss1);
+            this.Controls.Add(this.PhaseOfFlightTB);
+            this.Controls.Add(this.PoFTItle);
+            this.Controls.Add(this.CustomInputTitle);
+            this.Controls.Add(this.RepoToTitle);
+            this.Controls.Add(this.TORepoButton);
+            this.Controls.Add(this.InAirRepoButton);
+            this.Controls.Add(this.AppRepoButton);
+            this.Controls.Add(this.SW6Title);
+            this.Controls.Add(this.SW5Title);
+            this.Controls.Add(this.SW4Title);
+            this.Controls.Add(this.SW3Title);
+            this.Controls.Add(this.SW2Title);
+            this.Controls.Add(this.SW1Title);
+            this.Controls.Add(this.SW6PB);
+            this.Controls.Add(this.SW5PB);
+            this.Controls.Add(this.SW4PB);
+            this.Controls.Add(this.SW3PB);
+            this.Controls.Add(this.SW2PB);
+            this.Controls.Add(this.SW1PB);
+            this.Controls.Add(this.EIEngine2Control);
+            this.Controls.Add(this.EIEngine1Control);
             this.Controls.Add(this.MaxThrTB);
             this.Controls.Add(this.IdleTB);
             this.Controls.Add(this.RENGThrottle);
@@ -1024,6 +1483,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.MWMCPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RENGThrottle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LENGThrottle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW1PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW2PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW3PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW4PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW5PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SW6PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EICASDISPLAY1OFF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EICASDISPLAY2OFF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplrLoss8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1096,6 +1571,37 @@
         private System.Windows.Forms.TrackBar LENGThrottle;
         private System.Windows.Forms.TextBox IdleTB;
         private System.Windows.Forms.TextBox MaxThrTB;
+        private AvionicsInstrumentControlDemo.EngineIndicatorControl EIEngine1Control;
+        private AvionicsInstrumentControlDemo.EngineIndicatorControl EIEngine2Control;
+        private System.Windows.Forms.PictureBox SW1PB;
+        private System.Windows.Forms.PictureBox SW2PB;
+        private System.Windows.Forms.PictureBox SW3PB;
+        private System.Windows.Forms.PictureBox SW4PB;
+        private System.Windows.Forms.PictureBox SW5PB;
+        private System.Windows.Forms.PictureBox SW6PB;
+        private System.Windows.Forms.TextBox SW1Title;
+        private System.Windows.Forms.TextBox SW2Title;
+        private System.Windows.Forms.TextBox SW3Title;
+        private System.Windows.Forms.TextBox SW4Title;
+        private System.Windows.Forms.TextBox SW5Title;
+        private System.Windows.Forms.TextBox SW6Title;
+        private System.Windows.Forms.Button AppRepoButton;
+        private System.Windows.Forms.Button InAirRepoButton;
+        private System.Windows.Forms.Button TORepoButton;
+        private System.Windows.Forms.TextBox RepoToTitle;
+        private System.Windows.Forms.TextBox CustomInputTitle;
+        private System.Windows.Forms.TextBox PoFTItle;
+        private System.Windows.Forms.TextBox PhaseOfFlightTB;
+        private System.Windows.Forms.PictureBox EICASDISPLAY1OFF;
+        private System.Windows.Forms.PictureBox EICASDISPLAY2OFF;
+        private System.Windows.Forms.PictureBox SplrLoss1;
+        private System.Windows.Forms.PictureBox SplrLoss2;
+        private System.Windows.Forms.PictureBox SplrLoss3;
+        private System.Windows.Forms.PictureBox SplrLoss4;
+        private System.Windows.Forms.PictureBox SplrLoss5;
+        private System.Windows.Forms.PictureBox SplrLoss6;
+        private System.Windows.Forms.PictureBox SplrLoss7;
+        private System.Windows.Forms.PictureBox SplrLoss8;
     }
 }
 
