@@ -1,9 +1,0 @@
-diff a/Aero390Spoilers/Joystick_Input/App.config b/Aero390Spoilers/Joystick_Input/App.config	(rejected hunks)
-@@ -0,0 +1,6 @@
-+﻿<?xml version="1.0" encoding="utf-8" ?>
-+<configuration>
-+    <startup> 
-+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
-+    </startup>
-+</configuration>
-\ No newline at end of file

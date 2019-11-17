@@ -1,8 +1,0 @@
-diff a/Aero390Spoilers/Joystick_Input/packages.config b/Aero390Spoilers/Joystick_Input/packages.config	(rejected hunks)
-@@ -0,0 +1,5 @@
-+﻿<?xml version="1.0" encoding="utf-8"?>
-+<packages>
-+  <package id="SharpDX" version="4.2.0" targetFramework="net45" />
-+  <package id="SharpDX.DirectInput" version="4.2.0" targetFramework="net45" />
-+</packages>
-\ No newline at end of file
