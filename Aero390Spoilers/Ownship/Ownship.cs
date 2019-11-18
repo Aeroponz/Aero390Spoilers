@@ -203,7 +203,7 @@ namespace Ownship
         public double GrossWeightLbs { get; set; }
         public double BaroSettingmmHg { get; set; }
         public double AltitudeASL { get; set; }
-        public int IasKts { get; set; }
+        public double IasKts { get; set; }
         public int IasOverspeed { get; set; }
         public int IasNES { get; set; }
         public int IasStall { get; set; }

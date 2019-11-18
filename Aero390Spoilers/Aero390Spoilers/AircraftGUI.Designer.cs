@@ -827,12 +827,12 @@
             this.RENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.RENGThrottle.LargeChange = 1;
             this.RENGThrottle.Location = new System.Drawing.Point(804, 433);
-            this.RENGThrottle.Maximum = 200;
+            this.RENGThrottle.Maximum = 100;
             this.RENGThrottle.Name = "RENGThrottle";
             this.RENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.RENGThrottle.Size = new System.Drawing.Size(45, 240);
             this.RENGThrottle.TabIndex = 73;
-            this.RENGThrottle.TickFrequency = 20;
+            this.RENGThrottle.TickFrequency = 10;
             this.RENGThrottle.Scroll += new System.EventHandler(this.RENGThrottle_Scroll);
             // 
             // LENGThrottle
@@ -841,13 +841,13 @@
             this.LENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LENGThrottle.LargeChange = 1;
             this.LENGThrottle.Location = new System.Drawing.Point(774, 433);
-            this.LENGThrottle.Maximum = 200;
+            this.LENGThrottle.Maximum = 100;
             this.LENGThrottle.Name = "LENGThrottle";
             this.LENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.LENGThrottle.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.LENGThrottle.Size = new System.Drawing.Size(45, 240);
             this.LENGThrottle.TabIndex = 74;
-            this.LENGThrottle.TickFrequency = 20;
+            this.LENGThrottle.TickFrequency = 10;
             this.LENGThrottle.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             // 
             // IdleTB

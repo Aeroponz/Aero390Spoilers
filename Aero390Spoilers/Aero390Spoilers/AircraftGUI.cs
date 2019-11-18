@@ -50,7 +50,7 @@ namespace Aero390Spoilers
             RefreshMasterLights();
             RefreshPrintOuts();
             UpdatePhaseOfFlight();
-            RefreshVerticalSpeed();
+            RefreshAttitude();
             if (GUIOwnship.PhaseOfFlight == "APPROACH")
             {
                 AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
@@ -289,7 +289,7 @@ namespace Aero390Spoilers
             GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
 
             //THROTTLES
-            LENGThrottle.Value = (int)((HOTAS.get_JS_Throttle()+1) * 100);
+            LENGThrottle.Value = HOTAS.get_JS_Throttle();
             RENGThrottle.Value = LENGThrottle.Value;
             GUIOwnship.LThrottlePosition = LENGThrottle.Value;
             GUIOwnship.RThrottlePosition = RENGThrottle.Value;
@@ -311,12 +311,12 @@ namespace Aero390Spoilers
         }
         private void RefreshCockpitInstruments()
         {
-            airSpeedIndicatorInstrumentControl1.SetAirSpeedIndicatorParameters(GUIOwnship.IasKts);
+            airSpeedIndicatorInstrumentControl1.SetAirSpeedIndicatorParameters((int)GUIOwnship.IasKts);
             attitudeIndicatorInstrumentControl1.SetAttitudeIndicatorParameters(GUIOwnship.AoA, GUIOwnship.BankAngle);
             altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
             verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters((int)GUIOwnship.VS);
-            EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value / 2);
-            EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value / 2);
+            EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value);
+            EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value);
         }
         private void RefreshEICAS()
         {
@@ -691,25 +691,35 @@ namespace Aero390Spoilers
             SpoilerThreadRunning = false;
             return;
         }
-        private void RefreshVerticalSpeed()
+        private void RefreshAttitude()
         {
-            //GUIOwnship.VS = 175 * GUIOwnship.AoA*2/3*GUIOwnship.IasKts
-            if (GUIOwnship.PhaseOfFlight == "APPROACH" && GUIOwnship.WeightOnWheels) GUIOwnship.VS = 0;
-            else if (GUIOwnship.IasKts >= 140 && GUIOwnship.VS > 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS -= 50;
-            else if (GUIOwnship.IasKts >= 140 && GUIOwnship.VS < 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS += 50;
-            else if (GUIOwnship.IasKts < 140 && GUIOwnship.VS > -500 && GUIOwnship.PhaseOfFlight == "APPROACH") GUIOwnship.VS -= 50;
-            else if (GUIOwnship.IasKts < 140 && GUIOwnship.VS < -500 && GUIOwnship.PhaseOfFlight == "APPROACH") GUIOwnship.VS -= 50;
+            if (GUIOwnship.IasKts < 375 * LENGThrottle.Value / 100) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
+            else if (GUIOwnship.IasKts > 375 * LENGThrottle.Value / 100)
+            {
+                if (!HOTAS.JS_Triangle_button()) GUIOwnship.IasKts -= 0.1;
+                else GUIOwnship.IasKts--;
+            }
+            GUIOwnship.
 
-            //if (GUIOwnship.GlobalGearStatus() == "DOWN" && !GUIOwnship.WeightOnWheels)
+            ////GUIOwnship.VS = 175 * GUIOwnship.AoA*2/3*GUIOwnship.IasKts
+            //if (GUIOwnship.PhaseOfFlight == "APPROACH" && GUIOwnship.WeightOnWheels) GUIOwnship.VS = 0;
+            //else if (GUIOwnship.PhaseOfFlight == "APPROACH")
             //{
-            //    GUIOwnship.VS -= 675;
+            //    if (GUIOwnship.VS > 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS -= 50;
+            //    else if (GUIOwnship.VS < 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS += 50;
             //}
-            GUIOwnship.AltitudeASL += GUIOwnship.VS / 600.0;
+            //else if (GUIOwnship.IasKts >= 140 && GUIOwnship.VS > 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS -= 50;
+            //else if (GUIOwnship.IasKts >= 140 && GUIOwnship.VS < 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS += 50;
 
-            if (GUIOwnship.IasKts < 375 * LENGThrottle.Value / 200) GUIOwnship.IasKts++;
-            else if (GUIOwnship.IasKts > 375 * LENGThrottle.Value / 200) GUIOwnship.IasKts--;
+            ////if (GUIOwnship.GlobalGearStatus() == "DOWN" && !GUIOwnship.WeightOnWheels)
+            ////{
+            ////    GUIOwnship.VS -= 675;
+            ////}
+            //GUIOwnship.AltitudeASL += GUIOwnship.VS / 600.0;
 
-            //GUIOwnship.IasKts = (375 * LENGThrottle.Value)/200;
+
+
+            ////GUIOwnship.IasKts = (375 * LENGThrottle.Value)/200;
 
         }
         private void RepositionTo(string Reposition)
@@ -726,8 +736,8 @@ namespace Aero390Spoilers
                         FlapLever.Value = 0;
                         GUIOwnship.FlapLeverPosition = 0;
                         GUIOwnship.GrossWeightLbs = 35000;
-                        //LENGThrottle.Value = 0;
-                        //RENGThrottle.Value = 0;
+                        LENGThrottle.Value = 0;
+                        RENGThrottle.Value = 0;
                         GUIOwnship.LThrottlePosition = 0;
                         GUIOwnship.RThrottlePosition = 0;
                         SpoilerLever.Value = 2;
@@ -830,12 +840,12 @@ namespace Aero390Spoilers
             {
                 case ("TAXI"):
                     {
-                        if (GUIOwnship.LThrottlePosition > 100 && GUIOwnship.RThrottlePosition > 100) GUIOwnship.PhaseOfFlight = "TAKEOFF";
+                        if (GUIOwnship.LThrottlePosition > 70 && GUIOwnship.RThrottlePosition > 70) GUIOwnship.PhaseOfFlight = "TAKEOFF";
                         break;
                     }
                 case ("TAKEOFF"):
                     {
-                        if(GUIOwnship.LThrottlePosition < 100 && GUIOwnship.RThrottlePosition < 100) GUIOwnship.PhaseOfFlight = "RTO";
+                        if(GUIOwnship.LThrottlePosition < 50 && GUIOwnship.RThrottlePosition < 50) GUIOwnship.PhaseOfFlight = "RTO";
                         else if (GUIOwnship.GlobalGearStatus() == "UP") GUIOwnship.PhaseOfFlight = "CLIMB";
                         break;
                     }

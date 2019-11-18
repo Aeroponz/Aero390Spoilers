@@ -13,6 +13,7 @@ namespace Joystick_Input
         static DirectInput directInput = new DirectInput();
         static Guid joystickGuid = new Guid("5f939150-07ab-11ea-8001-444553540000");
         Joystick joystick = new Joystick(directInput, joystickGuid);
+        bool first_check = true;
 
         //static void Main()
         public JS_Input()
@@ -35,10 +36,27 @@ namespace Joystick_Input
             joystick.Poll();
             return Math.Round((joystick.GetCurrentState().Y - 32767.0) / 32767.0, 2);
         }
-        public double get_JS_Throttle()
+
+        public int get_JS_Throttle()
+        {
+            if (first_check && joystick.GetCurrentState().Z == 32767)
+            {
+                return 0;
+            }
+            else if (first_check && joystick.GetCurrentState().Z != 32767)
+            {
+                first_check = false;
+            }
+
+
+            joystick.Poll();
+            return (int)((joystick.GetCurrentState().Z - 65535) / (-655.35));
+        }
+
+        public bool JS_Triangle_button()
         {
             joystick.Poll();
-            return Math.Round(((joystick.GetCurrentState().Z*(-1) - 32767.0) / 32767.0)+2, 2);
+            return joystick.GetCurrentState().Buttons[7];
         }
 
         //static void Main()
