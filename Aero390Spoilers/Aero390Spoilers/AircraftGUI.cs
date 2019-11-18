@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Media;
 using System.IO;
+using Joystick_Input;
 
 namespace Aero390Spoilers
 {
@@ -13,10 +14,13 @@ namespace Aero390Spoilers
     public partial class AircraftGUI : Form
     {
 
+        JS_Input HOTAS = new JS_Input();
+
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         bool SpoilerThreadRunning = false;
         int AltCalloutTimeout = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
+        
         //Constructor
         public AircraftGUI()
         {
@@ -260,7 +264,13 @@ namespace Aero390Spoilers
             //FLAP LEVER REFRESH
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
 
+            
+
+
+
+
             //CONTROL WHEEL REFRESH
+            ControlWheelBar.Value = (int)(HOTAS.get_JS_X() * 10);
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
             GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
 
@@ -998,5 +1008,9 @@ namespace Aero390Spoilers
         }
         #endregion
 
+        private void RENGThrottle_Scroll(object sender, EventArgs e)
+        {
+
+        }
     }
 }

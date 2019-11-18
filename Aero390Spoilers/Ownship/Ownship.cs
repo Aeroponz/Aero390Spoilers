@@ -215,10 +215,10 @@ namespace Ownship
         //COCKPIT CONTROLS
         public int SpoilerLeverPosition { get; set; }
         public int FlapLeverPosition { get; set; }
-        public int SWControlWheelPosition { get; set; }
+        public double SWControlWheelPosition { get; set; }
         public int AutoBrakeSelectorPosition { get; set; }
-        public int LThrottlePosition { get; set; }
-        public int RThrottlePosition { get; set; }
+        public double LThrottlePosition { get; set; }
+        public double RThrottlePosition { get; set; }
 
         //DISPLAYS
         public int[] SpoilerDeflectionPercentage = new int[8];

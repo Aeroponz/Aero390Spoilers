@@ -7,7 +7,6 @@ using System.Collections;
 using System.Text;
 
 using ARINC;
-using SharpDX.DirectInput;
 
 namespace CSSimulationNode
 {
@@ -51,47 +50,6 @@ namespace CSSimulationNode
             catch (IOException e)
             {
                 Console.WriteLine("ERROR: {0}", e.Message);
-            }
-
-            // Initialize DirectInput
-            var directInput = new DirectInput();
-
-            // Find a Joystick Guid
-            var joystickGuid = Guid.Empty;
-            var joystickState = new JoystickState();
-
-            // If Gamepad not found, look for a Joystick
-            if (joystickGuid == Guid.Empty)
-                foreach (var deviceInstance in directInput.GetDevices(DeviceType.Flight,
-                        DeviceEnumerationFlags.AllDevices))
-                    joystickGuid = deviceInstance.InstanceGuid;
-
-            // If Joystick not found, throws an error
-            if (joystickGuid == Guid.Empty)
-            {
-                Console.WriteLine("No joystick/Gamepad found.");
-                Console.WriteLine(DeviceEnumerationFlags.AllDevices.ToString());
-                Console.ReadKey();
-                Environment.Exit(1);
-            }
-
-            // Instantiate the joystick
-            var joystick = new Joystick(directInput, joystickGuid);
-
-            Console.WriteLine("Found Joystick/Gamepad with GUID: {0}", joystickGuid);
-
-            // Set BufferSize in order to use buffered data.
-            joystick.Properties.BufferSize = 128;
-
-            // Acquire the joystick
-            joystick.Acquire();
-
-            // Poll events from joystick
-            for (int i = 0; i <100; i++)
-            {
-                joystick.Poll();
-                joystick.GetCurrentState(ref joystickState);
-                Console.WriteLine(joystickState.X.ToString());
             }
 
             //Pipe created successfully, instantiate aircraft
