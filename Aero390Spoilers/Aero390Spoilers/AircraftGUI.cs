@@ -50,9 +50,22 @@ namespace Aero390Spoilers
             RefreshMasterLights();
             RefreshPrintOuts();
             UpdatePhaseOfFlight();
-            if (GUIOwnship.PhaseOfFlight == "APPROACH") AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
+            RefreshVerticalSpeed();
+            if (GUIOwnship.PhaseOfFlight == "APPROACH")
+            {
+                AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
+                AltitudeCheck();
+            }
         }
 
+        private void AltitudeCheck()
+        {
+            if(GUIOwnship.AltitudeASL <= GUIOwnship.RunwayAltASL + 0.49 && GUIOwnship.AltitudeASL >= GUIOwnship.RunwayAltASL - 0.49 )
+            {
+                GUIOwnship.WeightOnWheels = true;
+                GUIOwnship.VS = 0;
+            }
+        }
         private void AltitudeCallouts(double ACRadioAltitude)
         {
 
@@ -264,10 +277,11 @@ namespace Aero390Spoilers
             //FLAP LEVER REFRESH
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
 
-            
 
 
 
+            //PITCH CTRL
+            GUIOwnship.AoA = (int)(HOTAS.get_JS_Y() * (30));
 
             //CONTROL WHEEL REFRESH
             ControlWheelBar.Value = (int)(HOTAS.get_JS_X() * 10);
@@ -275,6 +289,8 @@ namespace Aero390Spoilers
             GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
 
             //THROTTLES
+            LENGThrottle.Value = (int)((HOTAS.get_JS_Throttle()+1) * 100);
+            RENGThrottle.Value = LENGThrottle.Value;
             GUIOwnship.LThrottlePosition = LENGThrottle.Value;
             GUIOwnship.RThrottlePosition = RENGThrottle.Value;
         }
@@ -299,8 +315,8 @@ namespace Aero390Spoilers
             attitudeIndicatorInstrumentControl1.SetAttitudeIndicatorParameters(GUIOwnship.AoA, GUIOwnship.BankAngle);
             altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
             verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters((int)GUIOwnship.VS);
-            EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value * 10);
-            EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value * 10);
+            EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value / 2);
+            EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value / 2);
         }
         private void RefreshEICAS()
         {
@@ -675,6 +691,27 @@ namespace Aero390Spoilers
             SpoilerThreadRunning = false;
             return;
         }
+        private void RefreshVerticalSpeed()
+        {
+            //GUIOwnship.VS = 175 * GUIOwnship.AoA*2/3*GUIOwnship.IasKts
+            if (GUIOwnship.PhaseOfFlight == "APPROACH" && GUIOwnship.WeightOnWheels) GUIOwnship.VS = 0;
+            else if (GUIOwnship.IasKts >= 140 && GUIOwnship.VS > 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS -= 50;
+            else if (GUIOwnship.IasKts >= 140 && GUIOwnship.VS < 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS += 50;
+            else if (GUIOwnship.IasKts < 140 && GUIOwnship.VS > -500 && GUIOwnship.PhaseOfFlight == "APPROACH") GUIOwnship.VS -= 50;
+            else if (GUIOwnship.IasKts < 140 && GUIOwnship.VS < -500 && GUIOwnship.PhaseOfFlight == "APPROACH") GUIOwnship.VS -= 50;
+
+            //if (GUIOwnship.GlobalGearStatus() == "DOWN" && !GUIOwnship.WeightOnWheels)
+            //{
+            //    GUIOwnship.VS -= 675;
+            //}
+            GUIOwnship.AltitudeASL += GUIOwnship.VS / 600.0;
+
+            if (GUIOwnship.IasKts < 375 * LENGThrottle.Value / 200) GUIOwnship.IasKts++;
+            else if (GUIOwnship.IasKts > 375 * LENGThrottle.Value / 200) GUIOwnship.IasKts--;
+
+            //GUIOwnship.IasKts = (375 * LENGThrottle.Value)/200;
+
+        }
         private void RepositionTo(string Reposition)
         {
             switch (Reposition)
@@ -689,8 +726,8 @@ namespace Aero390Spoilers
                         FlapLever.Value = 0;
                         GUIOwnship.FlapLeverPosition = 0;
                         GUIOwnship.GrossWeightLbs = 35000;
-                        LENGThrottle.Value = 0;
-                        RENGThrottle.Value = 0;
+                        //LENGThrottle.Value = 0;
+                        //RENGThrottle.Value = 0;
                         GUIOwnship.LThrottlePosition = 0;
                         GUIOwnship.RThrottlePosition = 0;
                         SpoilerLever.Value = 2;
@@ -714,8 +751,8 @@ namespace Aero390Spoilers
                         FlapLever.Value = 0;
                         GUIOwnship.FlapLeverPosition = 0;
                         GUIOwnship.GrossWeightLbs = 30000;
-                        LENGThrottle.Value = 8;
-                        RENGThrottle.Value = 8;
+                        //LENGThrottle.Value = 8;
+                        //RENGThrottle.Value = 8;
                         GUIOwnship.LThrottlePosition = 8;
                         GUIOwnship.RThrottlePosition = 8;
                         SpoilerLever.Value = 2;
@@ -745,9 +782,9 @@ namespace Aero390Spoilers
                         GUIOwnship.RThrottlePosition = 4;
                         SpoilerLever.Value = 0;
                         GUIOwnship.SpoilerLeverPosition = 0;
-                        ControlWheelBar.Value = 0;
-                        GUIOwnship.SWControlWheelPosition = 0;
-                        GUIOwnship.VS = -600;
+                        //ControlWheelBar.Value = 0;
+                        //GUIOwnship.SWControlWheelPosition = 0;
+                        //GUIOwnship.VS = -600;
                         GUIOwnship.IasKts = 154;
                         if (GUIOwnship.GlobalGearStatus() != "DOWN") GUIOwnship.GearPositionChange();
                         GUIOwnship.WeightOnWheels = false;
@@ -776,7 +813,7 @@ namespace Aero390Spoilers
                 }
                 Thread.Sleep(100);
             }
-            GUIOwnship.VS = 0;
+            //GUIOwnship.VS = 0;
             GUIOwnship.WeightOnWheels = true;
             while (GUIOwnship.IasKts > 0)
             {
@@ -793,12 +830,12 @@ namespace Aero390Spoilers
             {
                 case ("TAXI"):
                     {
-                        if (GUIOwnship.LThrottlePosition > 5 && GUIOwnship.RThrottlePosition > 5) GUIOwnship.PhaseOfFlight = "TAKEOFF";
+                        if (GUIOwnship.LThrottlePosition > 100 && GUIOwnship.RThrottlePosition > 100) GUIOwnship.PhaseOfFlight = "TAKEOFF";
                         break;
                     }
                 case ("TAKEOFF"):
                     {
-                        if(GUIOwnship.LThrottlePosition < 9 && GUIOwnship.RThrottlePosition < 9) GUIOwnship.PhaseOfFlight = "RTO";
+                        if(GUIOwnship.LThrottlePosition < 100 && GUIOwnship.RThrottlePosition < 100) GUIOwnship.PhaseOfFlight = "RTO";
                         else if (GUIOwnship.GlobalGearStatus() == "UP") GUIOwnship.PhaseOfFlight = "CLIMB";
                         break;
                     }
@@ -1009,6 +1046,11 @@ namespace Aero390Spoilers
         #endregion
 
         private void RENGThrottle_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void VerticalSpeedIndicatorInstrumentControl1_Click(object sender, EventArgs e)
         {
 
         }

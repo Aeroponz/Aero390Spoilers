@@ -14,7 +14,6 @@ namespace Joystick_Input
         static Guid joystickGuid = new Guid("5f939150-07ab-11ea-8001-444553540000");
         Joystick joystick = new Joystick(directInput, joystickGuid);
 
-
         //static void Main()
         public JS_Input()
         {
