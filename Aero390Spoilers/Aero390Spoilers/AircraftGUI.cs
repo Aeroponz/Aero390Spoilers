@@ -730,8 +730,10 @@ namespace Aero390Spoilers
 
 
             //Vertical Speed (Climb Indicator)
-            if (GUIOwnship.VS < GUIOwnship.AoA * 200) GUIOwnship.VS += 100 * (GUIOwnship.AoA / 30 * GUIOwnship.IasKts / 500);
-            if (GUIOwnship.VS > GUIOwnship.AoA * 200) GUIOwnship.VS -= 100 * (GUIOwnship.AoA / -30 * GUIOwnship.IasKts / 500);
+            if (GUIOwnship.VS < GUIOwnship.AoA * 200 && GUIOwnship.VS > -3500) GUIOwnship.VS += 100 * (GUIOwnship.AoA / 30 * GUIOwnship.IasKts / 500);
+            if (GUIOwnship.VS > GUIOwnship.AoA * 200 && GUIOwnship.VS < 3500) GUIOwnship.VS -= 100 * (GUIOwnship.AoA / -30 * GUIOwnship.IasKts / 500);
+            if (GUIOwnship.VS >= 3500) GUIOwnship.VS -= 100;
+            if (GUIOwnship.VS <= -3500) GUIOwnship.VS += 100;
 
             //Altitude
             GUIOwnship.AltitudeASL += GUIOwnship.VS / 600;
@@ -865,7 +867,7 @@ namespace Aero390Spoilers
                     }
                 case ("CLIMB"):
                     {
-                        if (GUIOwnship.AoA < 1.25 && GUIOwnship.AoA >= 0) GUIOwnship.PhaseOfFlight = "CRUISE";
+                        if (GUIOwnship.VS < 100) GUIOwnship.PhaseOfFlight = "CRUISE";
                         break;
                     }
                 case ("CRUISE"):
