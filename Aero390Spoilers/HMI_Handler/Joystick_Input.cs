@@ -17,7 +17,7 @@ namespace Joystick_Input
         bool first_check = true;
         int sound_delayer = 0;
 
-        SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
+        SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\SeatBeltChime.wav");
 
         //static void Main()
         public JS_Input()
