@@ -20,7 +20,8 @@ namespace Aero390Spoilers
         bool SpoilerThreadRunning = false;
         int AltCalloutTimeout = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
-        
+        SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
+
         //Constructor
         public AircraftGUI()
         {
@@ -298,7 +299,7 @@ namespace Aero390Spoilers
             GUIOwnship.RThrottlePosition = RENGThrottle.Value;
 
             //Options Button
-            HOTAS.JS_Options_button();
+            if(HOTAS.JS_Options_button()) ding.Play();
         }
         private void ReadDataPipe(string PipeName)
         {
