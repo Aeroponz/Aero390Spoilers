@@ -296,6 +296,9 @@ namespace Aero390Spoilers
             RENGThrottle.Value = LENGThrottle.Value;
             GUIOwnship.LThrottlePosition = LENGThrottle.Value;
             GUIOwnship.RThrottlePosition = RENGThrottle.Value;
+
+            //Options Button
+            HOTAS.JS_Options_button();
         }
         private void ReadDataPipe(string PipeName)
         {
