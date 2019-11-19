@@ -126,6 +126,7 @@
             this.Spoiler3PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler2PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler1PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
+            this.PitchBar = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).BeginInit();
@@ -151,6 +152,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PitchBar)).BeginInit();
             this.SuspendLayout();
             // 
             // WowButton
@@ -1367,6 +1369,17 @@
             this.Spoiler1PGB.TabIndex = 9;
             this.Spoiler1PGB.Value = 60;
             // 
+            // PitchBar
+            // 
+            this.PitchBar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PitchBar.Location = new System.Drawing.Point(587, 223);
+            this.PitchBar.Minimum = -10;
+            this.PitchBar.Name = "PitchBar";
+            this.PitchBar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.PitchBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.PitchBar.Size = new System.Drawing.Size(45, 300);
+            this.PitchBar.TabIndex = 108;
+            // 
             // AircraftGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1473,6 +1486,7 @@
             this.Controls.Add(this.Spoiler3PGB);
             this.Controls.Add(this.Spoiler2PGB);
             this.Controls.Add(this.Spoiler1PGB);
+            this.Controls.Add(this.PitchBar);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -1503,6 +1517,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PitchBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1606,6 +1621,7 @@
         private System.Windows.Forms.PictureBox SplrLoss6;
         private System.Windows.Forms.PictureBox SplrLoss7;
         private System.Windows.Forms.PictureBox SplrLoss8;
+        private System.Windows.Forms.TrackBar PitchBar;
     }
 }
 

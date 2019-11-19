@@ -281,12 +281,15 @@ namespace Aero390Spoilers
 
 
             //PITCH CTRL
-            GUIOwnship.AoA = (int)(HOTAS.get_JS_Y() * (30));
+            PitchBar.Value = (int)(HOTAS.get_JS_Y() * (-10));
 
-            //CONTROL WHEEL REFRESH
+
+            //CONTROL WHEEL
             ControlWheelBar.Value = (int)(HOTAS.get_JS_X() * 10);
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
-            GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
+
+
+            
 
             //THROTTLES
             LENGThrottle.Value = HOTAS.get_JS_Throttle();
@@ -693,34 +696,57 @@ namespace Aero390Spoilers
         }
         private void RefreshAttitude()
         {
-            if (GUIOwnship.IasKts < 375 * LENGThrottle.Value / 100) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
-            else if (GUIOwnship.IasKts > 375 * LENGThrottle.Value / 100)
+            //Indicated Airspeed
+            if (GUIOwnship.IasKts < 500 * LENGThrottle.Value / 100) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
+            else if (GUIOwnship.IasKts > 500 * LENGThrottle.Value / 100)
             {
-                if (!HOTAS.JS_Triangle_button()) GUIOwnship.IasKts -= 0.1;
-                else GUIOwnship.IasKts--;
+                if (HOTAS.JS_Triangle_button()) GUIOwnship.IasKts--;
+                else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
+                else GUIOwnship.IasKts -= 0.1;
             }
-            GUIOwnship.
 
-            ////GUIOwnship.VS = 175 * GUIOwnship.AoA*2/3*GUIOwnship.IasKts
+            //Bank Angle
+            if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.BankAngle) < 30)
+            {
+                GUIOwnship.BankAngle += GUIOwnship.SWControlWheelPosition / 10;
+            }
+            else if (GUIOwnship.BankAngle >= 30) GUIOwnship.BankAngle -= 0.1;
+            else if (GUIOwnship.BankAngle <= -30) GUIOwnship.BankAngle += 0.1;
+
+            //Angle of Attack
+            if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.AoA = PitchBar.Value * (-3) * GUIOwnship.IasKts / 500;
+            else
+            {
+                if (PitchBar.Value <= 0 && GUIOwnship.IasKts >= 100) GUIOwnship.AoA = PitchBar.Value * (-3) * GUIOwnship.IasKts / 500;
+                else
+                {
+                    GUIOwnship.AoA = 0;
+                    GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
+                }
+
+            }
+
+
+            //Vertical Speed (Climb Indicator)
+            if (GUIOwnship.VS < GUIOwnship.AoA * 200) GUIOwnship.VS += 100 * (GUIOwnship.AoA / 30 * GUIOwnship.IasKts / 500);
+            if (GUIOwnship.VS > GUIOwnship.AoA * 200) GUIOwnship.VS -= 100 * (GUIOwnship.AoA / -30 * GUIOwnship.IasKts / 500);
+
+            //GUIOwnship.VS = GUIOwnship.AoA*200;
+
+
+
+
             //if (GUIOwnship.PhaseOfFlight == "APPROACH" && GUIOwnship.WeightOnWheels) GUIOwnship.VS = 0;
             //else if (GUIOwnship.PhaseOfFlight == "APPROACH")
             //{
             //    if (GUIOwnship.VS > 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS -= 50;
             //    else if (GUIOwnship.VS < 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS += 50;
             //}
-            //else if (GUIOwnship.IasKts >= 140 && GUIOwnship.VS > 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS -= 50;
-            //else if (GUIOwnship.IasKts >= 140 && GUIOwnship.VS < 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS += 50;
-
-            ////if (GUIOwnship.GlobalGearStatus() == "DOWN" && !GUIOwnship.WeightOnWheels)
-            ////{
-            ////    GUIOwnship.VS -= 675;
-            ////}
-            //GUIOwnship.AltitudeASL += GUIOwnship.VS / 600.0;
+            //else if (GUIOwnship.IasKts >= 100 && GUIOwnship.VS > 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS -= 50 * GUIOwnship.IasKts / 1000;
+            //else if (GUIOwnship.IasKts >= 100 && GUIOwnship.VS < 0.05 * GUIOwnship.AoA * 10.9 * GUIOwnship.IasKts) GUIOwnship.VS += 50 * GUIOwnship.IasKts / 1000;
 
 
-
-            ////GUIOwnship.IasKts = (375 * LENGThrottle.Value)/200;
-
+            GUIOwnship.AltitudeASL += GUIOwnship.VS / 600;
         }
         private void RepositionTo(string Reposition)
         {
