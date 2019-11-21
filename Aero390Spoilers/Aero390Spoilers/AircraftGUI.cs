@@ -289,6 +289,17 @@ namespace Aero390Spoilers
             ControlWheelBar.Value = (int)(HOTAS.get_JS_X() * 10);
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
 
+            if ((HOTAS.get_JS_X() >= 0))
+            {
+                Spoiler7PGB.Value = 100 - (int)(HOTAS.get_JS_X() * 100);
+                Spoiler8PGB.Value = Spoiler7PGB.Value;
+            }
+            
+            if ((HOTAS.get_JS_X() <= 0))
+            {
+                Spoiler1PGB.Value = 100 + (int)(HOTAS.get_JS_X() * 100);
+                Spoiler2PGB.Value = Spoiler1PGB.Value;
+            }
 
             
 
@@ -578,9 +589,9 @@ namespace Aero390Spoilers
         }
         private void RefreshFCSynoptic()
         {
-            Spoiler1PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[0];
+            //Spoiler1PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[0];
             Spoiler1PGB.Refresh();
-            Spoiler2PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[1];
+            //Spoiler2PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[1];
             Spoiler2PGB.Refresh();
             Spoiler3PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[2];
             Spoiler3PGB.Refresh();
@@ -590,9 +601,9 @@ namespace Aero390Spoilers
             Spoiler5PGB.Refresh();
             Spoiler6PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[5];
             Spoiler6PGB.Refresh();
-            Spoiler7PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[6];
+            //Spoiler7PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[6];
             Spoiler7PGB.Refresh();
-            Spoiler8PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[7];
+            //Spoiler8PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[7];
             Spoiler8PGB.Refresh();
         }
         private void RefreshGearPict()
