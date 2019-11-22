@@ -291,13 +291,13 @@ namespace Aero390Spoilers
 
             if ((HOTAS.get_JS_X() >= 0))
             {
-                Spoiler7PGB.Value = 100 - (int)(HOTAS.get_JS_X() * 100);
+                Spoiler7PGB.Value = 100 - (int)(HOTAS.get_JS_X() * 30);
                 Spoiler8PGB.Value = Spoiler7PGB.Value;
             }
             
             if ((HOTAS.get_JS_X() <= 0))
             {
-                Spoiler1PGB.Value = 100 + (int)(HOTAS.get_JS_X() * 100);
+                Spoiler1PGB.Value = 100 + (int)(HOTAS.get_JS_X() * 30);
                 Spoiler2PGB.Value = Spoiler1PGB.Value;
             }
 
