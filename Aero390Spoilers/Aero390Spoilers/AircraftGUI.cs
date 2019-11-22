@@ -720,36 +720,64 @@ namespace Aero390Spoilers
         private void RefreshAttitude()
         {
             //Indicated Airspeed
-            if (GUIOwnship.IasKts < 5 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
-            else if (GUIOwnship.IasKts > (5 * LENGThrottle.Value)+1 )
+            if (GUIOwnship.PhaseOfFlight != "CRUISE")
             {
-                if (HOTAS.JS_Triangle_button()) GUIOwnship.IasKts--;
-                else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
-                else GUIOwnship.IasKts -= 0.1;
+                if (GUIOwnship.IasKts < 1.9 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
+                else if (GUIOwnship.IasKts > (1.9 * LENGThrottle.Value) + 1)
+                {
+                    if (HOTAS.JS_Triangle_button()) GUIOwnship.IasKts--;
+                    else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
+                    else GUIOwnship.IasKts -= 0.1;
+                }
+            }
+            else
+            {
+                if (GUIOwnship.IasKts < 4.2 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
+                else if (GUIOwnship.IasKts > (4.2 * LENGThrottle.Value) + 1)
+                {
+                    if (HOTAS.JS_Triangle_button()) GUIOwnship.IasKts--;
+                    else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
+                    else GUIOwnship.IasKts -= 0.1;
+                }
             }
 
             //Bank Angle
-            if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.BankAngle) < 30)
-            {
-                GUIOwnship.BankAngle += GUIOwnship.SWControlWheelPosition / 10;
+            if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.BankAngle) <= 30)
+            { 
+                GUIOwnship.BankAngle -= GUIOwnship.SWControlWheelPosition / 2;
             }
-            else if (GUIOwnship.BankAngle >= 30) GUIOwnship.BankAngle -= 0.1;
-            else if (GUIOwnship.BankAngle <= -30) GUIOwnship.BankAngle += 0.1;
+
+            if ((GUIOwnship.BankAngle > 30) || ((GUIOwnship.BankAngle + GUIOwnship.SWControlWheelPosition / 2) > 30)) GUIOwnship.BankAngle = 30;
+            else if ((GUIOwnship.BankAngle < -30) || (GUIOwnship.BankAngle + GUIOwnship.SWControlWheelPosition / 2) < -30) GUIOwnship.BankAngle = -30;
+
+            if (GUIOwnship.SWControlWheelPosition == 0 && GUIOwnship.BankAngle > 0) GUIOwnship.BankAngle -= 1;
+            else if (GUIOwnship.SWControlWheelPosition == 0 && GUIOwnship.BankAngle < 0) GUIOwnship.BankAngle += 1;
+            if (Math.Abs(GUIOwnship.BankAngle) < 1) GUIOwnship.BankAngle = 0;
 
 
             //Angle of Attack
-            if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.AoA = PitchBar.Value * (-3) * GUIOwnship.IasKts / 500;
-            else
+            if ((GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.AoA) <= 25))
             {
-                if (PitchBar.Value <= 0 && GUIOwnship.IasKts >= 100) GUIOwnship.AoA = PitchBar.Value * (-3) * GUIOwnship.IasKts / 500;
-                else
+                
+                GUIOwnship.AoA -= PitchBar.Value / 2;
+            }
+            else //ON GROUND
+            {
+                if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && GUIOwnship.IasKts > 100) /*GUIOwnship.AoA = PitchBar.Value * (-2.5) * GUIOwnship.IasKts / 420;*/
                 {
                     GUIOwnship.AoA = 0;
                     GUIOwnship.VS = 0;
                     GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
                 }
-
             }
+
+            if (GUIOwnship.AoA > 25) GUIOwnship.AoA = 25;
+            else if (GUIOwnship.AoA < -25) GUIOwnship.AoA = -25;
+
+            if (PitchBar.Value == 0 && GUIOwnship.AoA > 0) GUIOwnship.AoA -= 1;
+            else if (PitchBar.Value == 0 && GUIOwnship.AoA < 0) GUIOwnship.AoA += 1;
+            if (Math.Abs(GUIOwnship.AoA) < 1) GUIOwnship.AoA = 0;
+            
 
 
             //Vertical Speed (Climb Indicator)
@@ -879,7 +907,7 @@ namespace Aero390Spoilers
             {
                 case ("TAXI"):
                     {
-                        if (GUIOwnship.LThrottlePosition > 70 && GUIOwnship.RThrottlePosition > 70) GUIOwnship.PhaseOfFlight = "TAKEOFF";
+                        if (GUIOwnship.LThrottlePosition > 70 && GUIOwnship.RThrottlePosition > 70 && GUIOwnship.IasKts > 60) GUIOwnship.PhaseOfFlight = "TAKEOFF";
                         break;
                     }
                 case ("TAKEOFF"):
@@ -905,7 +933,7 @@ namespace Aero390Spoilers
                     }
                 case ("LANDING"):
                     {
-                        if (GUIOwnship.IasKts <= 50) GUIOwnship.PhaseOfFlight = "TAXI";
+                        if (GUIOwnship.IasKts <= 60) GUIOwnship.PhaseOfFlight = "TAXI";
                         break;
                     }
             }
