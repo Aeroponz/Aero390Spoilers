@@ -21,6 +21,8 @@ namespace Aero390Spoilers
         int AltCalloutTimeout = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
+        SoundPlayer missile = new SoundPlayer("..\\..\\Resources\\Misc\\missile_fox.wav");
+        SoundPlayer cannon = new SoundPlayer("..\\..\\Resources\\Misc\\cannon.wav");
 
         //Constructor
         public AircraftGUI()
@@ -311,6 +313,12 @@ namespace Aero390Spoilers
 
             //Options Button
             if(HOTAS.JS_Options_button()) ding.Play();
+
+            //Missile
+            if (HOTAS.JS_L1_button()) missile.Play();
+
+            //Brrrt
+            if (HOTAS.JS_Trigger_button()) cannon.Play();
         }
         private void ReadDataPipe(string PipeName)
         {

@@ -15,7 +15,7 @@ namespace Joystick_Input
         static Guid joystickGuid = new Guid("5f939150-07ab-11ea-8001-444553540000");
         Joystick joystick = new Joystick(directInput, joystickGuid);
         bool first_check = true;
-        int options_delay = 0;
+        int options_delay = 0, L1_delay = 0;
 
         public JS_Input()
         {
@@ -28,13 +28,11 @@ namespace Joystick_Input
 
         public double get_JS_X()
         {
-            joystick.Poll();
             return Math.Round((joystick.GetCurrentState().X - 32767.0) / 32767.0, 2);
         }
 
         public double get_JS_Y()
         {
-            joystick.Poll();
             return Math.Round((joystick.GetCurrentState().Y - 32767.0) / 32767.0, 2);
         }
 
@@ -49,20 +47,16 @@ namespace Joystick_Input
                 first_check = false;
             }
 
-
-            joystick.Poll();
             return (int)((joystick.GetCurrentState().Z - 65535) / (-655.35));
         }
 
         public bool JS_Triangle_button()
         {
-            joystick.Poll();
             return joystick.GetCurrentState().Buttons[7];
         }
 
         public bool JS_Options_button()
         {
-            joystick.Poll();
             if (joystick.GetCurrentState().Buttons[11] && options_delay == 0)
             {
                 options_delay++;
@@ -73,5 +67,25 @@ namespace Joystick_Input
             if (options_delay >= 30) options_delay = 0;
             return false;
         }
+
+        public bool JS_L1_button()
+        {
+            if (joystick.GetCurrentState().Buttons[1] && L1_delay == 0)
+            {
+                L1_delay++;
+                return true;
+            }
+
+            if (L1_delay > 0) L1_delay++;
+            if (L1_delay >= 50) L1_delay = 0;
+            return false;
+        }
+
+        public bool JS_Trigger_button()
+        {
+            return joystick.GetCurrentState().Buttons[0];
+        }
+        
+
     }
 }
