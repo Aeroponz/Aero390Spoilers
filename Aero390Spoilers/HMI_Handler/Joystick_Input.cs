@@ -26,17 +26,17 @@ namespace Joystick_Input
             joystick.Acquire();
         }
 
-        public double get_JS_X()
+        public double X_axis()
         {
             return Math.Round((joystick.GetCurrentState().X - 32767.0) / 32767.0, 2);
         }
 
-        public double get_JS_Y()
+        public double Y_axis()
         {
             return Math.Round((joystick.GetCurrentState().Y - 32767.0) / 32767.0, 2);
         }
 
-        public int get_JS_Throttle()
+        public int Throttle()
         {
             if (first_check && joystick.GetCurrentState().Z == 32767)
             {
@@ -50,12 +50,12 @@ namespace Joystick_Input
             return (int)((joystick.GetCurrentState().Z - 65535) / (-655.35));
         }
 
-        public bool JS_Triangle_button()
+        public bool Triangle_button()
         {
             return joystick.GetCurrentState().Buttons[7];
         }
 
-        public bool JS_Options_button()
+        public bool Options_button()
         {
             if (joystick.GetCurrentState().Buttons[11] && options_delay == 0)
             {
@@ -68,7 +68,7 @@ namespace Joystick_Input
             return false;
         }
 
-        public bool JS_L1_button()
+        public bool L1_button()
         {
             if (joystick.GetCurrentState().Buttons[1] && L1_delay == 0)
             {
@@ -81,9 +81,22 @@ namespace Joystick_Input
             return false;
         }
 
-        public bool JS_Trigger_button()
+        public bool Trigger_button()
         {
             return joystick.GetCurrentState().Buttons[0];
+        }
+
+        public int POV_Hat()
+        {
+            switch (joystick.GetCurrentState().PointOfViewControllers[0])
+            {
+                case 27000 :  return 0;
+                case 31500 : return 1;
+                case 0 : return 2;
+                case 4500 : return 3;
+                case 9000 : return 4;
+                default :  return -1;
+            }
         }
         
 

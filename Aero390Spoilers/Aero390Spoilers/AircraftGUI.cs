@@ -281,28 +281,26 @@ namespace Aero390Spoilers
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
 
 
-
-
             //PITCH CTRL
-            PitchBar.Value = (int)(HOTAS.get_JS_Y() * (-10));
+            PitchBar.Value = (int)(HOTAS.Y_axis() * (-10));
 
 
             //CONTROL WHEEL
-            ControlWheelBar.Value = (int)(HOTAS.get_JS_X() * 10);
+            ControlWheelBar.Value = (int)(HOTAS.X_axis() * 10);
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
 
-            if ((HOTAS.get_JS_X() >= 0))
+            if ((HOTAS.X_axis() >= 0))
             {
-                Spoiler7PGB.Value = 100 - (int)(HOTAS.get_JS_X() * 30);
+                Spoiler7PGB.Value = 100 - (int)(HOTAS.X_axis() * 30);
                 Spoiler8PGB.Value = Spoiler7PGB.Value;
 
                 Spoiler1PGB.Value = 100;
                 Spoiler2PGB.Value = 100;
             }
             
-            if ((HOTAS.get_JS_X() <= 0))
+            if ((HOTAS.X_axis() <= 0))
             {
-                Spoiler1PGB.Value = 100 + (int)(HOTAS.get_JS_X() * 30);
+                Spoiler1PGB.Value = 100 + (int)(HOTAS.X_axis() * 30);
                 Spoiler2PGB.Value = Spoiler1PGB.Value;
 
                 Spoiler7PGB.Value = 100;
@@ -310,21 +308,26 @@ namespace Aero390Spoilers
             }
 
             
-
             //THROTTLES
-            LENGThrottle.Value = HOTAS.get_JS_Throttle();
+            LENGThrottle.Value = HOTAS.Throttle();
             RENGThrottle.Value = LENGThrottle.Value;
             GUIOwnship.LThrottlePosition = LENGThrottle.Value;
             GUIOwnship.RThrottlePosition = RENGThrottle.Value;
 
+            //Autobrake Position
+            if(HOTAS.POV_Hat() >= 0 && HOTAS.POV_Hat() <= 4)
+            {
+                GUIOwnship.AutoBrakeSelectorPosition = HOTAS.POV_Hat();
+            }
+
             //Options Button
-            if(HOTAS.JS_Options_button()) ding.Play();
+            if(HOTAS.Options_button()) ding.Play();
 
             //Missile
-            if (HOTAS.JS_L1_button()) missile.Play();
+            if (HOTAS.L1_button()) missile.Play();
 
             //Brrrt
-            if (HOTAS.JS_Trigger_button()) cannon.Play();
+            if (HOTAS.Trigger_button()) cannon.Play();
         }
         private void ReadDataPipe(string PipeName)
         {
@@ -731,7 +734,7 @@ namespace Aero390Spoilers
                 if (GUIOwnship.IasKts < 1.9 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
                 else if (GUIOwnship.IasKts > (1.9 * LENGThrottle.Value) + 1)
                 {
-                    if (HOTAS.JS_Triangle_button()) GUIOwnship.IasKts--;
+                    if (HOTAS.Triangle_button()) GUIOwnship.IasKts--;
                     else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
                     else GUIOwnship.IasKts -= 0.1;
                 }
@@ -741,7 +744,7 @@ namespace Aero390Spoilers
                 if (GUIOwnship.IasKts < 4.2 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
                 else if (GUIOwnship.IasKts > (4.2 * LENGThrottle.Value) + 1)
                 {
-                    if (HOTAS.JS_Triangle_button()) GUIOwnship.IasKts--;
+                    if (HOTAS.Triangle_button()) GUIOwnship.IasKts--;
                     else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
                     else GUIOwnship.IasKts -= 0.1;
                 }
