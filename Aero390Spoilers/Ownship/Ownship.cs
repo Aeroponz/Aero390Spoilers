@@ -35,6 +35,7 @@ namespace Ownship
             BaroSettingmmHg = 29.92;
             GrossWeightLbs = 35000;
             VS = 0;
+            InducedLift = 0;
             BankAngle = 0;
             AoA = 0;
             SpoilerLeverPosition = 0;
@@ -210,6 +211,7 @@ namespace Ownship
         public double BankAngle { get; set; }
         public double AoA { get; set; }
         public double VS { get; set; }
+        public int InducedLift { get; set; }
         public string PhaseOfFlight { get; set; }
 
         //COCKPIT CONTROLS

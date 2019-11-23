@@ -112,6 +112,7 @@
             this.SplrLoss6 = new System.Windows.Forms.PictureBox();
             this.SplrLoss7 = new System.Windows.Forms.PictureBox();
             this.SplrLoss8 = new System.Windows.Forms.PictureBox();
+            this.PitchBar = new System.Windows.Forms.TrackBar();
             this.EIEngine2Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.EIEngine1Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
@@ -126,7 +127,6 @@
             this.Spoiler3PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler2PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
             this.Spoiler1PGB = new QuantumConcepts.Common.Forms.UI.Controls.NewProgressBar();
-            this.PitchBar = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.ControlWheelBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpoilerLever)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlapLever)).BeginInit();
@@ -1241,6 +1241,17 @@
             this.SplrLoss8.TabIndex = 107;
             this.SplrLoss8.TabStop = false;
             // 
+            // PitchBar
+            // 
+            this.PitchBar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PitchBar.Location = new System.Drawing.Point(587, 223);
+            this.PitchBar.Minimum = -10;
+            this.PitchBar.Name = "PitchBar";
+            this.PitchBar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.PitchBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.PitchBar.Size = new System.Drawing.Size(45, 300);
+            this.PitchBar.TabIndex = 108;
+            // 
             // EIEngine2Control
             // 
             this.EIEngine2Control.BackColor = System.Drawing.Color.Black;
@@ -1368,17 +1379,6 @@
             this.Spoiler1PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler1PGB.TabIndex = 9;
             this.Spoiler1PGB.Value = 60;
-            // 
-            // PitchBar
-            // 
-            this.PitchBar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PitchBar.Location = new System.Drawing.Point(587, 223);
-            this.PitchBar.Minimum = -10;
-            this.PitchBar.Name = "PitchBar";
-            this.PitchBar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.PitchBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.PitchBar.Size = new System.Drawing.Size(45, 300);
-            this.PitchBar.TabIndex = 108;
             // 
             // AircraftGUI
             // 

@@ -720,7 +720,7 @@ namespace Aero390Spoilers
         private void RefreshAttitude()
         {
             //Indicated Airspeed
-            if (GUIOwnship.PhaseOfFlight != "CRUISE")
+            if (GUIOwnship.PhaseOfFlight != "CRUISE" && GUIOwnship.PhaseOfFlight != "APPROACH")
             {
                 if (GUIOwnship.IasKts < 1.9 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
                 else if (GUIOwnship.IasKts > (1.9 * LENGThrottle.Value) + 1)
@@ -756,35 +756,59 @@ namespace Aero390Spoilers
 
 
             //Angle of Attack
-            if ((GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.AoA) <= 25))
+            if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.AoA) <= 25)
             {
-                
-                GUIOwnship.AoA -= PitchBar.Value / 2;
+                if (GUIOwnship.AoA < -PitchBar.Value*2) GUIOwnship.AoA += 1-PitchBar.Value/10;
+                else if (GUIOwnship.AoA > -PitchBar.Value*2) GUIOwnship.AoA -= 1+PitchBar.Value/10;
             }
-            else //ON GROUND
+            else
             {
-                if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && GUIOwnship.IasKts > 100) /*GUIOwnship.AoA = PitchBar.Value * (-2.5) * GUIOwnship.IasKts / 420;*/
+                if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && GUIOwnship.IasKts > 100)
+                {
+                    if (PitchBar.Value < 0) GUIOwnship.AoA -= (double)PitchBar.Value;
+                    else GUIOwnship.AoA = 0;
+
+                    if (GUIOwnship.AltitudeASL < GUIOwnship.RunwayAltASL)
+                    {
+                        GUIOwnship.AoA = 0;
+                        GUIOwnship.VS = 0;
+                    }
+                }
+                else
                 {
                     GUIOwnship.AoA = 0;
                     GUIOwnship.VS = 0;
-                    GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
                 }
             }
+
+            if (GUIOwnship.AltitudeASL < GUIOwnship.RunwayAltASL) GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
 
             if (GUIOwnship.AoA > 25) GUIOwnship.AoA = 25;
             else if (GUIOwnship.AoA < -25) GUIOwnship.AoA = -25;
 
-            if (PitchBar.Value == 0 && GUIOwnship.AoA > 0) GUIOwnship.AoA -= 1;
-            else if (PitchBar.Value == 0 && GUIOwnship.AoA < 0) GUIOwnship.AoA += 1;
-            if (Math.Abs(GUIOwnship.AoA) < 1) GUIOwnship.AoA = 0;
-            
+            if (PitchBar.Value == 0 && GUIOwnship.AoA > 0) GUIOwnship.AoA -= 0.5;
+            else if (PitchBar.Value == 0 && GUIOwnship.AoA < 0) GUIOwnship.AoA += 0.5;
+            if (Math.Abs(GUIOwnship.AoA) < 0.25) GUIOwnship.AoA = 0;
+
 
 
             //Vertical Speed (Climb Indicator)
-            if (GUIOwnship.VS < GUIOwnship.AoA * 200 && GUIOwnship.VS > -3500) GUIOwnship.VS += 100 * (GUIOwnship.AoA / 30 * GUIOwnship.IasKts / 500);
-            if (GUIOwnship.VS > GUIOwnship.AoA * 200 && GUIOwnship.VS < 3500) GUIOwnship.VS -= 100 * (GUIOwnship.AoA / -30 * GUIOwnship.IasKts / 500);
-            if (GUIOwnship.VS >= 3500) GUIOwnship.VS -= 100;
-            if (GUIOwnship.VS <= -3500) GUIOwnship.VS += 100;
+            if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && GUIOwnship.IasKts >= 100 && GUIOwnship.InducedLift < 200) GUIOwnship.InducedLift += 5;
+            else if (GUIOwnship.PhaseOfFlight == "APPROACH" && GUIOwnship.InducedLift > -200) GUIOwnship.InducedLift -= 5;
+            else
+            {
+                if (GUIOwnship.InducedLift < 0) GUIOwnship.InducedLift += 5;
+                else if (GUIOwnship.InducedLift > 0) GUIOwnship.InducedLift -= 5;
+            }
+
+            if (Math.Abs(GUIOwnship.VS) <= 2500)
+            {
+                /*if (GUIOwnship.VS < (GUIOwnship.InducedLift + 100 * GUIOwnship.AoA))*/ GUIOwnship.VS = GUIOwnship.InducedLift + 100 * GUIOwnship.AoA;
+                //else if (GUIOwnship.VS > (GUIOwnship.InducedLift + 100 * GUIOwnship.AoA - 50)) GUIOwnship.VS = GUIOwnship.InducedLift + 100 * GUIOwnship.AoA;
+            }
+            else if (GUIOwnship.VS > 2500) GUIOwnship.VS = 2500;
+            else if (GUIOwnship.VS < -2500) GUIOwnship.VS = -2500;
+
 
             //Altitude
             GUIOwnship.AltitudeASL += GUIOwnship.VS / 600;
