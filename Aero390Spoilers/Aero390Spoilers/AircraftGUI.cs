@@ -767,12 +767,6 @@ namespace Aero390Spoilers
                 {
                     if (PitchBar.Value < 0) GUIOwnship.AoA -= (double)PitchBar.Value;
                     else GUIOwnship.AoA = 0;
-
-                    if (GUIOwnship.AltitudeASL < GUIOwnship.RunwayAltASL)
-                    {
-                        GUIOwnship.AoA = 0;
-                        GUIOwnship.VS = 0;
-                    }
                 }
                 else
                 {
@@ -780,9 +774,6 @@ namespace Aero390Spoilers
                     GUIOwnship.VS = 0;
                 }
             }
-
-            if (GUIOwnship.AltitudeASL < GUIOwnship.RunwayAltASL) GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
-
             if (GUIOwnship.AoA > 25) GUIOwnship.AoA = 25;
             else if (GUIOwnship.AoA < -25) GUIOwnship.AoA = -25;
 
@@ -793,8 +784,8 @@ namespace Aero390Spoilers
 
 
             //Vertical Speed (Climb Indicator)
-            if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && GUIOwnship.IasKts >= 100 && GUIOwnship.InducedLift < 200) GUIOwnship.InducedLift += 5;
-            else if (GUIOwnship.PhaseOfFlight == "APPROACH" && GUIOwnship.InducedLift > -200) GUIOwnship.InducedLift -= 5;
+            if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && GUIOwnship.IasKts >= 100 && GUIOwnship.InducedLift < 400) GUIOwnship.InducedLift += 5;
+            else if (GUIOwnship.PhaseOfFlight == "APPROACH" && GUIOwnship.InducedLift > -400) GUIOwnship.InducedLift -= 5;
             else
             {
                 if (GUIOwnship.InducedLift < 0) GUIOwnship.InducedLift += 5;
@@ -803,8 +794,7 @@ namespace Aero390Spoilers
 
             if (Math.Abs(GUIOwnship.VS) <= 2500)
             {
-                /*if (GUIOwnship.VS < (GUIOwnship.InducedLift + 100 * GUIOwnship.AoA))*/ GUIOwnship.VS = GUIOwnship.InducedLift + 100 * GUIOwnship.AoA;
-                //else if (GUIOwnship.VS > (GUIOwnship.InducedLift + 100 * GUIOwnship.AoA - 50)) GUIOwnship.VS = GUIOwnship.InducedLift + 100 * GUIOwnship.AoA;
+                GUIOwnship.VS = GUIOwnship.InducedLift + 100 * GUIOwnship.AoA;
             }
             else if (GUIOwnship.VS > 2500) GUIOwnship.VS = 2500;
             else if (GUIOwnship.VS < -2500) GUIOwnship.VS = -2500;
@@ -812,6 +802,12 @@ namespace Aero390Spoilers
 
             //Altitude
             GUIOwnship.AltitudeASL += GUIOwnship.VS / 600;
+            if (GUIOwnship.AltitudeASL <= GUIOwnship.RunwayAltASL)
+            {
+                GUIOwnship.AoA = 0;
+                GUIOwnship.VS = 0;
+                GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
+            }
         }
         private void RepositionTo(string Reposition)
         {
