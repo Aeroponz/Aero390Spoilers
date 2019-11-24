@@ -1321,6 +1321,7 @@
             this.Spoiler7PGB.Name = "Spoiler7PGB";
             this.Spoiler7PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler7PGB.TabIndex = 15;
+            this.Spoiler7PGB.Value = 100;
             // 
             // Spoiler6PGB
             // 
@@ -1330,6 +1331,7 @@
             this.Spoiler6PGB.Name = "Spoiler6PGB";
             this.Spoiler6PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler6PGB.TabIndex = 14;
+            this.Spoiler6PGB.Value = 100;
             // 
             // Spoiler5PGB
             // 
@@ -1339,6 +1341,7 @@
             this.Spoiler5PGB.Name = "Spoiler5PGB";
             this.Spoiler5PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler5PGB.TabIndex = 13;
+            this.Spoiler5PGB.Value = 100;
             // 
             // Spoiler4PGB
             // 
@@ -1348,7 +1351,7 @@
             this.Spoiler4PGB.Name = "Spoiler4PGB";
             this.Spoiler4PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler4PGB.TabIndex = 12;
-            this.Spoiler4PGB.Value = 60;
+            this.Spoiler4PGB.Value = 100;
             // 
             // Spoiler3PGB
             // 
@@ -1358,7 +1361,7 @@
             this.Spoiler3PGB.Name = "Spoiler3PGB";
             this.Spoiler3PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler3PGB.TabIndex = 11;
-            this.Spoiler3PGB.Value = 60;
+            this.Spoiler3PGB.Value = 100;
             // 
             // Spoiler2PGB
             // 
@@ -1368,7 +1371,7 @@
             this.Spoiler2PGB.Name = "Spoiler2PGB";
             this.Spoiler2PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler2PGB.TabIndex = 10;
-            this.Spoiler2PGB.Value = 60;
+            this.Spoiler2PGB.Value = 100;
             // 
             // Spoiler1PGB
             // 
@@ -1378,7 +1381,7 @@
             this.Spoiler1PGB.Name = "Spoiler1PGB";
             this.Spoiler1PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler1PGB.TabIndex = 9;
-            this.Spoiler1PGB.Value = 60;
+            this.Spoiler1PGB.Value = 100;
             // 
             // AircraftGUI
             // 
