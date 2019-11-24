@@ -336,11 +336,11 @@
             this.SpoilerUPLabel.Cursor = System.Windows.Forms.Cursors.Default;
             this.SpoilerUPLabel.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpoilerUPLabel.ForeColor = System.Drawing.Color.White;
-            this.SpoilerUPLabel.Location = new System.Drawing.Point(686, 439);
+            this.SpoilerUPLabel.Location = new System.Drawing.Point(685, 439);
             this.SpoilerUPLabel.Name = "SpoilerUPLabel";
-            this.SpoilerUPLabel.Size = new System.Drawing.Size(18, 18);
+            this.SpoilerUPLabel.Size = new System.Drawing.Size(45, 18);
             this.SpoilerUPLabel.TabIndex = 32;
-            this.SpoilerUPLabel.Text = "UP";
+            this.SpoilerUPLabel.Text = "DOWN";
             // 
             // SpoilersARMLabel
             // 
@@ -351,7 +351,7 @@
             this.SpoilersARMLabel.ForeColor = System.Drawing.Color.White;
             this.SpoilersARMLabel.Location = new System.Drawing.Point(685, 474);
             this.SpoilersARMLabel.Name = "SpoilersARMLabel";
-            this.SpoilersARMLabel.Size = new System.Drawing.Size(27, 18);
+            this.SpoilersARMLabel.Size = new System.Drawing.Size(33, 18);
             this.SpoilersARMLabel.TabIndex = 33;
             this.SpoilersARMLabel.Text = "ARM";
             // 
@@ -362,11 +362,11 @@
             this.SpoilersDOWNLabel.Cursor = System.Windows.Forms.Cursors.Default;
             this.SpoilersDOWNLabel.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpoilersDOWNLabel.ForeColor = System.Drawing.Color.White;
-            this.SpoilersDOWNLabel.Location = new System.Drawing.Point(686, 652);
+            this.SpoilersDOWNLabel.Location = new System.Drawing.Point(690, 652);
             this.SpoilersDOWNLabel.Name = "SpoilersDOWNLabel";
-            this.SpoilersDOWNLabel.Size = new System.Drawing.Size(40, 18);
+            this.SpoilersDOWNLabel.Size = new System.Drawing.Size(22, 18);
             this.SpoilersDOWNLabel.TabIndex = 34;
-            this.SpoilersDOWNLabel.Text = "DOWN";
+            this.SpoilersDOWNLabel.Text = "UP";
             // 
             // FlapLever
             // 

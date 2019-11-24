@@ -278,6 +278,10 @@ namespace Aero390Spoilers
                 }
             }
 
+            //SPOILER LEVER
+            if (SpoilerLever.Value > -10 && HOTAS.X_button()) SpoilerLever.Value -= 2;
+            if (SpoilerLever.Value < 2 && HOTAS.Square_button()) SpoilerLever.Value += 2;
+
             //FLAP LEVER REFRESH
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
 
