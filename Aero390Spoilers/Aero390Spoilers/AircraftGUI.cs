@@ -18,11 +18,12 @@ namespace Aero390Spoilers
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         bool SpoilerThreadRunning = false;
-        int AltCalloutTimeout = 0;
+        int AltCalloutTimeout = 0, speed_alert = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
         SoundPlayer missile = new SoundPlayer("..\\..\\Resources\\Misc\\missile_fox.wav");
         SoundPlayer cannon = new SoundPlayer("..\\..\\Resources\\Misc\\cannon.wav");
+        SoundPlayer underspeed = new SoundPlayer("..\\..\\Resources\\Misc\\speed_alert.wav");
 
         //Constructor
         public AircraftGUI()
@@ -749,6 +750,18 @@ namespace Aero390Spoilers
                     else GUIOwnship.IasKts -= 0.1;
                 }
             }
+            if ((GUIOwnship.PhaseOfFlight == "CLIMB" || GUIOwnship.PhaseOfFlight == "CRUISE" || GUIOwnship.PhaseOfFlight == "APPROACH") && GUIOwnship.IasKts < 100)
+            {
+                if (speed_alert == 0)
+                {
+                    underspeed.Play();
+                    speed_alert++;
+                }
+                else speed_alert++;
+
+                if (speed_alert >= 2) speed_alert = 0;
+            }
+
 
             //Bank Angle
             if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.BankAngle) <= 30)
