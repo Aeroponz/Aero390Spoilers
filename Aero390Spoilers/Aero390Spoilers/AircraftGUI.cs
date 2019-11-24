@@ -875,7 +875,7 @@ namespace Aero390Spoilers
                 case ("Approach"):
                     {
                         GUIOwnship.AltitudeASL = 1073 + GUIOwnship.RunwayAltASL;
-                        GUIOwnship.AoA = -3;
+                        //GUIOwnship.AoA = -3;
                         GUIOwnship.AutoBrakeSelectorPosition = 3;
                         GUIOwnship.BankAngle = 0;
                         GUIOwnship.BaroSettingmmHg = 29.92;
@@ -895,8 +895,8 @@ namespace Aero390Spoilers
                         if (GUIOwnship.GlobalGearStatus() != "DOWN") GUIOwnship.GearPositionChange();
                         GUIOwnship.WeightOnWheels = false;
                         GUIOwnship.PhaseOfFlight = "APPROACH";
-                        Thread ApproachScenario = new Thread(() => RADALTStub());
-                        ApproachScenario.Start();
+                        //Thread ApproachScenario = new Thread(() => RADALTStub());
+                        //ApproachScenario.Start();
                         break;
                     
 }
