@@ -299,6 +299,9 @@ namespace Aero390Spoilers
             }
 
             //FLAP LEVER REFRESH
+            if (FlapLever.Value < 0 && HOTAS.R2_button()) FlapLever.Value++;
+            if (FlapLever.Value > -3 && HOTAS.L2_button()) FlapLever.Value--;
+
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
 
 

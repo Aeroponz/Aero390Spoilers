@@ -15,7 +15,7 @@ namespace Joystick_Input
         static Guid joystickGuid = new Guid("5f939150-07ab-11ea-8001-444553540000");
         Joystick joystick = new Joystick(directInput, joystickGuid);
         bool first_check = true;
-        int options_delay = 0, L1_delay = 0, square_delay = 0, X_delay;
+        int options_delay = 0, L1_delay = 0, square_delay = 0, X_delay = 0, l2_delay = 0, r2_delay = 0;
 
         public JS_Input()
         {
@@ -104,6 +104,32 @@ namespace Joystick_Input
 
             if (L1_delay > 0) L1_delay++;
             if (L1_delay >= 50) L1_delay = 0;
+            return false;
+        }
+
+        public bool R2_button()
+        {
+            if (joystick.GetCurrentState().Buttons[8] && r2_delay == 0)
+            {
+                r2_delay++;
+                return true;
+            }
+
+            if (r2_delay > 0) r2_delay++;
+            if (r2_delay >= 2) r2_delay = 0;
+            return false;
+        }
+
+        public bool L2_button()
+        {
+            if (joystick.GetCurrentState().Buttons[9] && l2_delay == 0)
+            {
+                l2_delay++;
+                return true;
+            }
+
+            if (l2_delay > 0) l2_delay++;
+            if (l2_delay >= 2) l2_delay = 0;
             return false;
         }
 
