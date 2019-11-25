@@ -64,7 +64,7 @@ namespace Joystick_Input
             }
 
             if (square_delay > 0) square_delay++;
-            if (square_delay >= 5) square_delay = 0;
+            if (square_delay >= 2) square_delay = 0;
             return false;
         }
 
@@ -77,7 +77,7 @@ namespace Joystick_Input
             }
 
             if (X_delay > 0) X_delay++;
-            if (X_delay >= 5) X_delay = 0;
+            if (X_delay >= 2) X_delay = 0;
             return false;
         }
 

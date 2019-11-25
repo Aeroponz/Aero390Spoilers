@@ -53,7 +53,6 @@ namespace Ownship
             {
                 SpoilerDeflectionPercentage[i] = 0;
             }
-
         }
 
 
@@ -224,6 +223,9 @@ namespace Ownship
 
         //DISPLAYS
         public int[] SpoilerDeflectionPercentage = new int[8];
+        public int MFS_Right = 0;
+        public int MFS_Left = 0;
+        public int MFS_as_brake = 0;
         public Stack<EICASMessage> EICASMessages = new Stack<EICASMessage>(); //Lines 1 to 8 for CW Messages, 9 to 11 for status
 
         //WARNING SYSTEM

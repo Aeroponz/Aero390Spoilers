@@ -17,7 +17,7 @@ namespace Aero390Spoilers
         JS_Input HOTAS = new JS_Input();
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
-        bool SpoilerThreadRunning = false;
+        //bool SpoilerThreadRunning = false;
         int AltCalloutTimeout = 0, speed_alert = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
@@ -256,31 +256,47 @@ namespace Aero390Spoilers
         private void ReadCockpitControls()
         {
             //SPOILER LEVER REFRESH
-            int temp = GUIOwnship.SpoilerLeverPosition;
-            GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
-            if (temp != GUIOwnship.SpoilerLeverPosition)//Spoiler Lever Position has changed.
-            {
-                //TEMP WORK-AROUND
-                if (!SpoilerThreadRunning)
-                {
-                    if (GUIOwnship.SpoilerLeverPosition == -1)
-                    {
-                        SpoilerLever.Value = 0;
-                        GUIOwnship.SpoilerLeverPosition = 0;
-                    }
-                    double DeflectionPercent = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
-                    double FromDeflection = GUIOwnship.SpoilerDeflectionPercentage[0];
-                    if (GUIOwnship.SpoilerLeverPosition <= 0) DeflectionPercent = 0;
-                    if (temp <= 0) FromDeflection = 0;
-                    Thread IncrementSpoilers = new Thread(() => RefreshSpoilerActuation((int)FromDeflection, (int)DeflectionPercent, !GUIOwnship.WeightOnWheels));
-                    SpoilerThreadRunning = true;
-                    IncrementSpoilers.Start();
-                }
-            }
+            //int temp = GUIOwnship.SpoilerLeverPosition;
+            //GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
+            //if (temp != GUIOwnship.SpoilerLeverPosition)//Spoiler Lever Position has changed.
+            //{
+            //    //TEMP WORK-AROUND
+            //    if (!SpoilerThreadRunning)
+            //    {
+            //        if (GUIOwnship.SpoilerLeverPosition == -1)
+            //        {
+            //            SpoilerLever.Value = 0;
+            //            GUIOwnship.SpoilerLeverPosition = 0;
+            //        }
+            //        double DeflectionPercent = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
+            //        double FromDeflection = GUIOwnship.SpoilerDeflectionPercentage[0];
+            //        if (GUIOwnship.SpoilerLeverPosition <= 0) DeflectionPercent = 0;
+            //        if (temp <= 0) FromDeflection = 0;
+            //        Thread IncrementSpoilers = new Thread(() => RefreshSpoilerActuation((int)FromDeflection, (int)DeflectionPercent, !GUIOwnship.WeightOnWheels));
+            //        SpoilerThreadRunning = true;
+            //        IncrementSpoilers.Start();
+            //    }
+            //}
+
+            
 
             //SPOILER LEVER
             if (SpoilerLever.Value > -10 && HOTAS.X_button()) SpoilerLever.Value -= 2;
             if (SpoilerLever.Value < 2 && HOTAS.Square_button()) SpoilerLever.Value += 2;
+            if (SpoilerLever.Value <= 0)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    GUIOwnship.SpoilerDeflectionPercentage[i] = -SpoilerLever.Value * 10;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    GUIOwnship.SpoilerDeflectionPercentage[i] = 0;
+                }
+            }
 
             //FLAP LEVER REFRESH
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
@@ -294,22 +310,15 @@ namespace Aero390Spoilers
             ControlWheelBar.Value = (int)(HOTAS.X_axis() * 10);
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
 
-            if ((HOTAS.X_axis() >= 0))
+            if (HOTAS.X_axis() >= 0)
             {
-                Spoiler7PGB.Value = 100 - (int)(HOTAS.X_axis() * 30);
-                Spoiler8PGB.Value = Spoiler7PGB.Value;
-
-                Spoiler1PGB.Value = 100;
-                Spoiler2PGB.Value = 100;
+                GUIOwnship.MFS_Right = 100 - (int)(HOTAS.X_axis() * 30);
+                GUIOwnship.MFS_Left = 100;
             }
-            
-            if ((HOTAS.X_axis() <= 0))
+            else if (HOTAS.X_axis() <= 0)
             {
-                Spoiler1PGB.Value = 100 + (int)(HOTAS.X_axis() * 30);
-                Spoiler2PGB.Value = Spoiler1PGB.Value;
-
-                Spoiler7PGB.Value = 100;
-                Spoiler8PGB.Value = 100;
+                GUIOwnship.MFS_Left = 100 + (int)(HOTAS.X_axis() * 30);
+                GUIOwnship.MFS_Right = 100;
             }
 
             
@@ -615,13 +624,13 @@ namespace Aero390Spoilers
             Spoiler1PGB.Refresh();
             //Spoiler2PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[1];
             Spoiler2PGB.Refresh();
-            Spoiler3PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[2];
+            //Spoiler3PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[2];
             Spoiler3PGB.Refresh();
-            Spoiler4PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[3];
+            //Spoiler4PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[3];
             Spoiler4PGB.Refresh();
-            Spoiler5PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[4];
+            //Spoiler5PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[4];
             Spoiler5PGB.Refresh();
-            Spoiler6PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[5];
+            //Spoiler6PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[5];
             Spoiler6PGB.Refresh();
             //Spoiler7PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[6];
             Spoiler7PGB.Refresh();
@@ -728,7 +737,7 @@ namespace Aero390Spoilers
                 CurrentDeflection += increment;
                 Thread.Sleep(30);
             }
-            SpoilerThreadRunning = false;
+            //SpoilerThreadRunning = false;
             return;
         }
         private void RefreshAttitude()
@@ -834,6 +843,34 @@ namespace Aero390Spoilers
                 GUIOwnship.VS = 0;
                 GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
             }
+
+            //GND Spoilers
+            if (Spoiler3PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[2]) Spoiler3PGB.Value += 10;
+            else if (Spoiler3PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[2]) Spoiler3PGB.Value -= 10;
+
+            if (Spoiler4PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[3]) Spoiler4PGB.Value += 10;
+            else if (Spoiler4PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[3]) Spoiler4PGB.Value -= 10;
+
+            if (Spoiler5PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[4]) Spoiler5PGB.Value += 10;
+            else if (Spoiler5PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[4]) Spoiler5PGB.Value -= 10;
+
+            if (Spoiler6PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[5]) Spoiler6PGB.Value += 10;
+            else if (Spoiler6PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[5]) Spoiler6PGB.Value -= 10;
+
+            //MFS Spoilers
+            if (GUIOwnship.MFS_as_brake < GUIOwnship.SpoilerDeflectionPercentage[1]) GUIOwnship.MFS_as_brake += 10;
+            else if (GUIOwnship.MFS_as_brake > GUIOwnship.SpoilerDeflectionPercentage[1]) GUIOwnship.MFS_as_brake -= 10;
+
+            if (GUIOwnship.MFS_Left - GUIOwnship.MFS_as_brake <= 0) Spoiler2PGB.Value = 0;
+            else Spoiler2PGB.Value = GUIOwnship.MFS_Left - GUIOwnship.MFS_as_brake;
+            Spoiler1PGB.Value = Spoiler2PGB.Value;
+
+            if (GUIOwnship.MFS_as_brake < GUIOwnship.SpoilerDeflectionPercentage[6]) GUIOwnship.MFS_as_brake += 10;
+            else if (GUIOwnship.MFS_as_brake > GUIOwnship.SpoilerDeflectionPercentage[6]) GUIOwnship.MFS_as_brake -= 10;
+
+            if (GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake <= 0) Spoiler7PGB.Value = 0;
+            else Spoiler7PGB.Value = GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake;
+            Spoiler8PGB.Value = Spoiler7PGB.Value;            
         }
         private void RepositionTo(string Reposition)
         {
