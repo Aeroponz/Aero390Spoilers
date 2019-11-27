@@ -18,7 +18,7 @@ namespace Aero390Spoilers
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         //bool SpoilerThreadRunning = false;
-        bool underspeed_warning = false, underspeed_shown = false, avionics_start = false;
+        bool underspeed_warning, underspeed_shown, avionics_start, armed_trigger;
         int AltCalloutTimeout = 0, speed_alert = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
@@ -805,6 +805,7 @@ namespace Aero390Spoilers
                 if (speed_alert >= 2) speed_alert = 0;
                 underspeed_warning = true;
             }
+            if (GUIOwnship.IasKts > 0 && SpoilerLever.Value < 0) GUIOwnship.IasKts -= (double)SpoilerLever.Value/-10;
             else underspeed_warning = false;
             UnderspeedWarning();
 
@@ -877,7 +878,15 @@ namespace Aero390Spoilers
                 GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
             }
 
-            //GND Spoilers
+            //GND Spoilers (Auto)
+            if (GUIOwnship.WeightOnWheels && SpoilerLever.Value == 0 && GUIOwnship.PhaseOfFlight == "LANDING") armed_trigger = true; ;
+            if(armed_trigger && SpoilerLever.Value > -10)
+            {
+                SpoilerLever.Value--;
+                if (SpoilerLever.Value == -10) armed_trigger = false;
+            }
+
+            //GND Spoilers (Manual)
             if (Spoiler3PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[2]) Spoiler3PGB.Value += 10;
             else if (Spoiler3PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[2]) Spoiler3PGB.Value -= 10;
 
@@ -890,7 +899,7 @@ namespace Aero390Spoilers
             if (Spoiler6PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[5]) Spoiler6PGB.Value += 10;
             else if (Spoiler6PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[5]) Spoiler6PGB.Value -= 10;
 
-            //MFS Spoilers
+            //MFS Spoilers (Manual)
             if (GUIOwnship.MFS_as_brake < GUIOwnship.SpoilerDeflectionPercentage[1]) GUIOwnship.MFS_as_brake += 10;
             else if (GUIOwnship.MFS_as_brake > GUIOwnship.SpoilerDeflectionPercentage[1]) GUIOwnship.MFS_as_brake -= 10;
 
@@ -905,6 +914,7 @@ namespace Aero390Spoilers
             else Spoiler7PGB.Value = GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake;
             Spoiler8PGB.Value = Spoiler7PGB.Value;            
         }
+
         private void RepositionTo(string Reposition)
         {
             switch (Reposition)
