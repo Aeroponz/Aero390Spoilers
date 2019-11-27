@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ARINC;
 using Hydraulics;
-using LandingGear;
-using ARINC;
+using System.Collections.Generic;
 
 namespace Ownship
 {
@@ -61,10 +59,10 @@ namespace Ownship
         {
             //Landing Gear Update
             string GearUpdate = ArincGearStatus();
-            if(GearUpdate != wArincMessages[0]) wArincMessages[0] = ArincGearStatus();
+            if (GearUpdate != wArincMessages[0]) wArincMessages[0] = ArincGearStatus();
 
 
-            return wArincMessages;  
+            return wArincMessages;
         }
 
 
@@ -146,7 +144,7 @@ namespace Ownship
         {
             Stack<EICASMessage> TempMsgs = new Stack<EICASMessage>();
             //Check for higher priority message
-            for (int i=0; i < EICASMessages.Count; i++)
+            for (int i = 0; i < EICASMessages.Count; i++)
             {
                 if (EICASMessages.Peek().Importance > iMsg.Importance)
                 {
@@ -165,7 +163,7 @@ namespace Ownship
         public void RemoveEicasMessage(EICASMessage iMsg)
         {
             Stack<EICASMessage> TempMsgs = new Stack<EICASMessage>();
-            while(EICASMessages.Count>0)
+            while (EICASMessages.Count > 0)
             {
                 if (EICASMessages.Peek().MessageText == iMsg.MessageText && EICASMessages.Peek().Importance == iMsg.Importance)
                 {

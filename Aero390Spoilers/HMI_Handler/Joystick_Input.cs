@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpDX.DirectInput;
-using System.Threading;
-using System.Media;
+﻿using SharpDX.DirectInput;
+using System;
 
 namespace Joystick_Input
 {
@@ -83,12 +77,12 @@ namespace Joystick_Input
 
         public bool O_button()
         {
-            if(!O_toggle && joystick.GetCurrentState().Buttons[6])
+            if (!O_toggle && joystick.GetCurrentState().Buttons[6])
             {
                 O_toggle = true;
                 return true;
             }
-            else if(!joystick.GetCurrentState().Buttons[6])
+            else if (!joystick.GetCurrentState().Buttons[6])
             {
                 O_toggle = false;
             }
@@ -156,12 +150,12 @@ namespace Joystick_Input
         {
             switch (joystick.GetCurrentState().PointOfViewControllers[0])
             {
-                case 27000 :  return 0;
-                case 31500 : return 1;
-                case 0 : return 2;
-                case 4500 : return 3;
-                case 9000 : return 4;
-                default :  return -1;
+                case 27000: return 0;
+                case 31500: return 1;
+                case 0: return 2;
+                case 4500: return 3;
+                case 9000: return 4;
+                default: return -1;
             }
         }
 

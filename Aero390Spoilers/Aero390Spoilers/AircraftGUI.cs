@@ -1,12 +1,11 @@
 ﻿using Aero390Spoilers.Properties;
+using Joystick_Input;
 using Ownship;
 using System;
 using System.Drawing;
+using System.Media;
 using System.Threading;
 using System.Windows.Forms;
-using System.Media;
-using System.IO;
-using Joystick_Input;
 
 namespace Aero390Spoilers
 {
@@ -26,7 +25,7 @@ namespace Aero390Spoilers
         SoundPlayer cannon = new SoundPlayer("..\\..\\Resources\\Misc\\cannon.wav");
         SoundPlayer underspeed = new SoundPlayer("..\\..\\Resources\\Misc\\speed_alert.wav");
         SoundPlayer avionics = new SoundPlayer("..\\..\\Resources\\Misc\\avionics_switch.wav");
-        
+
         //Constructor
         public AircraftGUI()
         {
@@ -67,7 +66,7 @@ namespace Aero390Spoilers
 
         private void AltitudeCheck()
         {
-            if(GUIOwnship.AltitudeASL <= GUIOwnship.RunwayAltASL + 0.49 && GUIOwnship.AltitudeASL >= GUIOwnship.RunwayAltASL - 0.49 )
+            if (GUIOwnship.AltitudeASL <= GUIOwnship.RunwayAltASL + 0.49 && GUIOwnship.AltitudeASL >= GUIOwnship.RunwayAltASL - 0.49)
             {
                 GUIOwnship.WeightOnWheels = true;
                 GUIOwnship.VS = 0;
@@ -246,7 +245,7 @@ namespace Aero390Spoilers
 
         private void UnderspeedWarning()
         {
-            if(underspeed_warning && !underspeed_shown)
+            if (underspeed_warning && !underspeed_shown)
             {
                 EICASMessage UnderSpeed = new EICASMessage();
                 UnderSpeed.Importance = 1;
@@ -266,7 +265,7 @@ namespace Aero390Spoilers
 
         private void PowerLossMalfunction(bool MalfStatus)
         {
-            if(MalfStatus)
+            if (MalfStatus)
             {
                 EICASDISPLAY1OFF.Show();
                 EICASDISPLAY2OFF.Show();
@@ -302,7 +301,7 @@ namespace Aero390Spoilers
             //    }
             //}
 
-            
+
 
             //SPOILER LEVER
             if (SpoilerLever.Value > -10 && HOTAS.X_button()) SpoilerLever.Value -= 2;
@@ -348,7 +347,7 @@ namespace Aero390Spoilers
                 GUIOwnship.MFS_Right = 100;
             }
 
-            
+
             //THROTTLES
             LENGThrottle.Value = HOTAS.Throttle();
             RENGThrottle.Value = LENGThrottle.Value;
@@ -359,13 +358,13 @@ namespace Aero390Spoilers
             if (HOTAS.O_button()) GUIOwnship.GearPositionChange();
 
             //Autobrake Position
-            if(HOTAS.POV_Hat() >= 0 && HOTAS.POV_Hat() <= 4)
+            if (HOTAS.POV_Hat() >= 0 && HOTAS.POV_Hat() <= 4)
             {
                 GUIOwnship.AutoBrakeSelectorPosition = HOTAS.POV_Hat();
             }
 
             //Options Button
-            if(HOTAS.Options_button()) ding.Play();
+            if (HOTAS.Options_button()) ding.Play();
 
             //Missile
             if (HOTAS.L1_button()) missile.Play();
@@ -379,7 +378,7 @@ namespace Aero390Spoilers
         }
         private void RefreshAutoBrakeSelector()
         {
-            switch(GUIOwnship.AutoBrakeSelectorPosition)
+            switch (GUIOwnship.AutoBrakeSelectorPosition)
             {
                 case 0: ABSelectorPB.BackgroundImage = Resources.SelectorT_270deg; break;
                 case 1: ABSelectorPB.BackgroundImage = Resources.SelectorT_315deg; break;
@@ -406,13 +405,13 @@ namespace Aero390Spoilers
         {
             EICASMessage[] ArEICASMsgs = GUIOwnship.EICASMessages.ToArray();
             int count = ArEICASMsgs.Length;
-            for( int i=0; i<11; i++ )
+            for (int i = 0; i < 11; i++)
             {
-                switch(i)
+                switch (i)
                 {
                     case (0):
                         {
-                            if(i>=count)
+                            if (i >= count)
                             {
                                 EicasMsgLine1.Text = "";
                                 break;
@@ -628,7 +627,7 @@ namespace Aero390Spoilers
             }
             else
             {
-                FlapPos = Convert.ToString(GUIOwnship.FlapLeverPosition*10);
+                FlapPos = Convert.ToString(GUIOwnship.FlapLeverPosition * 10);
             }
             EicasFlapsMessage.Text = "FLAPS..........." + FlapPos;
 
@@ -638,7 +637,7 @@ namespace Aero390Spoilers
 
 
             //AUTOBRAKES
-            switch(GUIOwnship.AutoBrakeSelectorPosition)
+            switch (GUIOwnship.AutoBrakeSelectorPosition)
             {
                 case 0: EICASAutoBrakesMessage.Text = "AUTOBRAKES OFF"; break;
                 case 1: EICASAutoBrakesMessage.Text = "AUTOBRAKES RTO"; break;
@@ -720,7 +719,7 @@ namespace Aero390Spoilers
             IASPrintOut.Text = ((int)GUIOwnship.IasKts).ToString();
             PhaseOfFlightTB.Text = GUIOwnship.PhaseOfFlight;
         }
-        private void RefreshSpoilerActuation(int CurrentDeflection, int TargetDeflection,  bool InFlight = true, bool SymDeploy = true)
+        private void RefreshSpoilerActuation(int CurrentDeflection, int TargetDeflection, bool InFlight = true, bool SymDeploy = true)
         {
             if (InFlight)
             {
@@ -735,13 +734,13 @@ namespace Aero390Spoilers
                     CurrentDeflection = (int)((double)CurrentDeflection * GUIOwnship.SpoilerFlightDeflection);
                 }
             }
-            
+
             while (CurrentDeflection != TargetDeflection)
             {
                 int increment = TargetDeflection >= CurrentDeflection ? 1 : -1;
                 if (SymDeploy)
                 {
-                    for(int j = 0; j < GUIOwnship.NbofSpoilers; j++)
+                    for (int j = 0; j < GUIOwnship.NbofSpoilers; j++)
                     {
                         GUIOwnship.SpoilerDeflectionPercentage[j] += increment;
                     }
@@ -805,14 +804,14 @@ namespace Aero390Spoilers
                 if (speed_alert >= 2) speed_alert = 0;
                 underspeed_warning = true;
             }
-            else underspeed_warning = false;          
+            else underspeed_warning = false;
             UnderspeedWarning();
             if (GUIOwnship.IasKts > 0 && SpoilerLever.Value < 0) GUIOwnship.IasKts -= (double)SpoilerLever.Value / -10;
 
 
             //Bank Angle
             if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.BankAngle) <= 30)
-            { 
+            {
                 GUIOwnship.BankAngle -= GUIOwnship.SWControlWheelPosition / 2;
             }
 
@@ -827,8 +826,8 @@ namespace Aero390Spoilers
             //Angle of Attack
             if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.AoA) <= 25)
             {
-                if (GUIOwnship.AoA < -PitchBar.Value*2) GUIOwnship.AoA += 1-PitchBar.Value/10;
-                else if (GUIOwnship.AoA > -PitchBar.Value*2) GUIOwnship.AoA -= 1+PitchBar.Value/10;
+                if (GUIOwnship.AoA < -PitchBar.Value * 2) GUIOwnship.AoA += 1 - PitchBar.Value / 10;
+                else if (GUIOwnship.AoA > -PitchBar.Value * 2) GUIOwnship.AoA -= 1 + PitchBar.Value / 10;
             }
             else
             {
@@ -880,7 +879,7 @@ namespace Aero390Spoilers
 
             //GND Spoilers (Auto)
             if (GUIOwnship.WeightOnWheels && SpoilerLever.Value == 0 && GUIOwnship.PhaseOfFlight == "LANDING") armed_trigger = true; ;
-            if(armed_trigger && SpoilerLever.Value > -10)
+            if (armed_trigger && SpoilerLever.Value > -10)
             {
                 SpoilerLever.Value--;
                 if (SpoilerLever.Value == -10) armed_trigger = false;
@@ -912,7 +911,7 @@ namespace Aero390Spoilers
 
             if (GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake <= 0) Spoiler7PGB.Value = 0;
             else Spoiler7PGB.Value = GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake;
-            Spoiler8PGB.Value = Spoiler7PGB.Value;            
+            Spoiler8PGB.Value = Spoiler7PGB.Value;
         }
 
         private void RepositionTo(string Reposition)
@@ -995,8 +994,8 @@ namespace Aero390Spoilers
                         //Thread ApproachScenario = new Thread(() => RADALTStub());
                         //ApproachScenario.Start();
                         break;
-                    
-}
+
+                    }
             }
         }
         private void RADALTStub()
@@ -1020,7 +1019,7 @@ namespace Aero390Spoilers
             GUIOwnship.WeightOnWheels = true;
             while (GUIOwnship.IasKts > 0)
             {
-                if(GUIOwnship.AoA > 0) GUIOwnship.AoA -= 0.05;
+                if (GUIOwnship.AoA > 0) GUIOwnship.AoA -= 0.05;
                 GUIOwnship.IasKts -= 1;
                 if (GUIOwnship.IasKts < 0) GUIOwnship.IasKts = 0;
                 Thread.Sleep(100);
@@ -1029,7 +1028,7 @@ namespace Aero390Spoilers
         }
         private void UpdatePhaseOfFlight()
         {
-            switch(GUIOwnship.PhaseOfFlight)
+            switch (GUIOwnship.PhaseOfFlight)
             {
                 case ("TAXI"):
                     {
@@ -1038,7 +1037,7 @@ namespace Aero390Spoilers
                     }
                 case ("TAKEOFF"):
                     {
-                        if(GUIOwnship.LThrottlePosition < 50 && GUIOwnship.RThrottlePosition < 50) GUIOwnship.PhaseOfFlight = "RTO";
+                        if (GUIOwnship.LThrottlePosition < 50 && GUIOwnship.RThrottlePosition < 50) GUIOwnship.PhaseOfFlight = "RTO";
                         else if (GUIOwnship.GlobalGearStatus() == "UP") GUIOwnship.PhaseOfFlight = "CLIMB";
                         break;
                     }
@@ -1075,7 +1074,7 @@ namespace Aero390Spoilers
         }
         private void GWButton_Click(object sender, EventArgs e)
         {
-            if(IntegerInput.Text == "Enter Value Here")
+            if (IntegerInput.Text == "Enter Value Here")
             {
                 //Do Nothing
             }
@@ -1091,7 +1090,7 @@ namespace Aero390Spoilers
                 {
                     IntegerInput.Text = "Invalid Input : Out of Range";
                 }
-                
+
             }
         }
         private void Barometer_Click(object sender, EventArgs e)
