@@ -14,7 +14,7 @@ namespace Joystick_Input
         static DirectInput directInput = new DirectInput();
         static Guid joystickGuid = new Guid("5f939150-07ab-11ea-8001-444553540000");
         Joystick joystick = new Joystick(directInput, joystickGuid);
-        bool first_check = true;
+        bool first_check = true, O_toggle = false;
         int options_delay = 0, L1_delay = 0, square_delay = 0, X_delay = 0, l2_delay = 0, r2_delay = 0;
 
         public JS_Input()
@@ -78,6 +78,20 @@ namespace Joystick_Input
 
             if (X_delay > 0) X_delay++;
             if (X_delay >= 2) X_delay = 0;
+            return false;
+        }
+
+        public bool O_button()
+        {
+            if(!O_toggle && joystick.GetCurrentState().Buttons[6])
+            {
+                O_toggle = true;
+                return true;
+            }
+            else if(!joystick.GetCurrentState().Buttons[6])
+            {
+                O_toggle = false;
+            }
             return false;
         }
 

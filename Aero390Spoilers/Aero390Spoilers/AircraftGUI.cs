@@ -355,6 +355,9 @@ namespace Aero390Spoilers
             GUIOwnship.LThrottlePosition = LENGThrottle.Value;
             GUIOwnship.RThrottlePosition = RENGThrottle.Value;
 
+            //LANDING GEAR
+            if (HOTAS.O_button()) GUIOwnship.GearPositionChange();
+
             //Autobrake Position
             if(HOTAS.POV_Hat() >= 0 && HOTAS.POV_Hat() <= 4)
             {
