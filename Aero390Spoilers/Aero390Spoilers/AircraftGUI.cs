@@ -805,8 +805,9 @@ namespace Aero390Spoilers
                 if (speed_alert >= 2) speed_alert = 0;
                 underspeed_warning = true;
             }
-            if (GUIOwnship.IasKts > 0 && SpoilerLever.Value < 0) GUIOwnship.IasKts -= (double)SpoilerLever.Value/-10;
             else underspeed_warning = false;
+            if (GUIOwnship.IasKts > 0 && SpoilerLever.Value < 0) GUIOwnship.IasKts -= (double)SpoilerLever.Value/-10;
+            
             UnderspeedWarning();
 
 
