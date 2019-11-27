@@ -1139,9 +1139,9 @@
             this.EICASDISPLAY2OFF.BackColor = System.Drawing.Color.Black;
             this.EICASDISPLAY2OFF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.EICASDISPLAY2OFF.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EICASDISPLAY2OFF.Location = new System.Drawing.Point(229, 439);
+            this.EICASDISPLAY2OFF.Location = new System.Drawing.Point(224, 431);
             this.EICASDISPLAY2OFF.Name = "EICASDISPLAY2OFF";
-            this.EICASDISPLAY2OFF.Size = new System.Drawing.Size(345, 249);
+            this.EICASDISPLAY2OFF.Size = new System.Drawing.Size(347, 266);
             this.EICASDISPLAY2OFF.TabIndex = 99;
             this.EICASDISPLAY2OFF.TabStop = false;
             // 
@@ -1392,8 +1392,8 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1265, 734);
-            this.Controls.Add(this.EICASDISPLAY1OFF);
             this.Controls.Add(this.EICASDISPLAY2OFF);
+            this.Controls.Add(this.EICASDISPLAY1OFF);
             this.Controls.Add(this.SplrLoss8);
             this.Controls.Add(this.SplrLoss7);
             this.Controls.Add(this.SplrLoss6);

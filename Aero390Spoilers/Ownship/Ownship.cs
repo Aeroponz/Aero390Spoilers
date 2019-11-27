@@ -233,13 +233,13 @@ namespace Ownship
         public bool CautionActive { get; set; }
 
         //MALFUNCTIONS AND SWITCHES
-        public bool Switch1On { get; set; }
+        public bool Switch1On { get; set; } = true;
         public bool Switch2On { get; set; }
         public bool Switch3On { get; set; }
         public bool Switch4On { get; set; }
         public bool Switch5On { get; set; }
         public bool Switch6On { get; set; }
-        public bool MalfPwrLoss { get; set; }
+        public bool MalfPwrLoss { get; set; } = true;
         public bool MalfFcc1 { get; set; }
         public bool MalfFcc2 { get; set; }
         public bool MalfHyd1 { get; set; }

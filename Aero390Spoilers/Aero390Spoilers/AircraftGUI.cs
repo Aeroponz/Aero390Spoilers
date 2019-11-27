@@ -18,19 +18,21 @@ namespace Aero390Spoilers
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         //bool SpoilerThreadRunning = false;
+        bool underspeed_warning = false, underspeed_shown = false;
         int AltCalloutTimeout = 0, speed_alert = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
         SoundPlayer missile = new SoundPlayer("..\\..\\Resources\\Misc\\missile_fox.wav");
         SoundPlayer cannon = new SoundPlayer("..\\..\\Resources\\Misc\\cannon.wav");
         SoundPlayer underspeed = new SoundPlayer("..\\..\\Resources\\Misc\\speed_alert.wav");
-
+        
         //Constructor
         public AircraftGUI()
         {
             InitializeComponent();
             AircraftGUI_Tick();
             HideMalfunctionComponents();
+            PowerLossMalfunction(true);
         }
 
         #region GUI Tick
@@ -240,6 +242,27 @@ namespace Aero390Spoilers
             }
             return;
         }
+
+        private void UnderspeedWarning()
+        {
+            if(underspeed_warning && !underspeed_shown)
+            {
+                EICASMessage UnderSpeed = new EICASMessage();
+                UnderSpeed.Importance = 1;
+                UnderSpeed.MessageText = "UNDERSPEED";
+                GUIOwnship.AddEicasMessage(UnderSpeed);
+                underspeed_shown = true;
+            }
+            else if (!underspeed_warning && underspeed_shown)
+            {
+                EICASMessage UnderSpeed = new EICASMessage();
+                UnderSpeed.Importance = 1;
+                UnderSpeed.MessageText = "UNDERSPEED";
+                GUIOwnship.RemoveEicasMessage(UnderSpeed);
+                underspeed_shown = false;
+            }
+        }
+
         private void PowerLossMalfunction(bool MalfStatus)
         {
             if(MalfStatus)
@@ -776,7 +799,10 @@ namespace Aero390Spoilers
                 else speed_alert++;
 
                 if (speed_alert >= 2) speed_alert = 0;
+                underspeed_warning = true;
             }
+            else underspeed_warning = false;
+            UnderspeedWarning();
 
 
             //Bank Angle
@@ -1152,7 +1178,7 @@ namespace Aero390Spoilers
             GUIOwnship.Switch1On = !GUIOwnship.Switch1On;
             GUIOwnship.MalfPwrLoss = !GUIOwnship.MalfPwrLoss;
             PowerLossMalfunction(GUIOwnship.MalfPwrLoss);
-            if (GUIOwnship.Switch1On) SW1PB.BackgroundImage = Resources.Switch_ON;
+            if (!GUIOwnship.Switch1On) SW1PB.BackgroundImage = Resources.Switch_ON;
             else SW1PB.BackgroundImage = Resources.Switch_OFF;
         }
         private void SW2PB_Click(object sender, EventArgs e)
