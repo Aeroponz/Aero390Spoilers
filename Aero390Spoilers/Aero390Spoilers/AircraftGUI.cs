@@ -18,13 +18,14 @@ namespace Aero390Spoilers
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         //bool SpoilerThreadRunning = false;
-        bool underspeed_warning = false, underspeed_shown = false;
+        bool underspeed_warning = false, underspeed_shown = false, avionics_start = false;
         int AltCalloutTimeout = 0, speed_alert = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
         SoundPlayer missile = new SoundPlayer("..\\..\\Resources\\Misc\\missile_fox.wav");
         SoundPlayer cannon = new SoundPlayer("..\\..\\Resources\\Misc\\cannon.wav");
         SoundPlayer underspeed = new SoundPlayer("..\\..\\Resources\\Misc\\speed_alert.wav");
+        SoundPlayer avionics = new SoundPlayer("..\\..\\Resources\\Misc\\avionics_switch.wav");
         
         //Constructor
         public AircraftGUI()
@@ -1180,6 +1181,11 @@ namespace Aero390Spoilers
             PowerLossMalfunction(GUIOwnship.MalfPwrLoss);
             if (!GUIOwnship.Switch1On) SW1PB.BackgroundImage = Resources.Switch_ON;
             else SW1PB.BackgroundImage = Resources.Switch_OFF;
+            if (!avionics_start)
+            {
+                avionics.Play();
+                avionics_start = true;
+            }
         }
         private void SW2PB_Click(object sender, EventArgs e)
         {
