@@ -1,11 +1,11 @@
 ﻿using Aero390Spoilers.Properties;
+using Joystick_Input;
 using Ownship;
 using System;
 using System.Drawing;
+using System.Media;
 using System.Threading;
 using System.Windows.Forms;
-using System.Media;
-using System.IO;
 
 namespace Aero390Spoilers
 {
@@ -13,16 +13,25 @@ namespace Aero390Spoilers
     public partial class AircraftGUI : Form
     {
 
+        JS_Input HOTAS = new JS_Input();
+
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
-        bool SpoilerThreadRunning = false;
-        int AltCalloutTimeout = 0;
+        bool underspeed_warning, underspeed_shown, avionics_start, armed_trigger;
+        int AltCalloutTimeout = 0, speed_alert = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
+        SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
+        SoundPlayer missile = new SoundPlayer("..\\..\\Resources\\Misc\\missile_fox.wav");
+        SoundPlayer cannon = new SoundPlayer("..\\..\\Resources\\Misc\\cannon.wav");
+        SoundPlayer underspeed = new SoundPlayer("..\\..\\Resources\\Misc\\speed_alert.wav");
+        SoundPlayer avionics = new SoundPlayer("..\\..\\Resources\\Misc\\avionics_switch.wav");
+
         //Constructor
         public AircraftGUI()
         {
             InitializeComponent();
             AircraftGUI_Tick();
             HideMalfunctionComponents();
+            PowerLossMalfunction(true);
         }
 
         #region GUI Tick
@@ -46,9 +55,22 @@ namespace Aero390Spoilers
             RefreshMasterLights();
             RefreshPrintOuts();
             UpdatePhaseOfFlight();
-            if (GUIOwnship.PhaseOfFlight == "APPROACH") AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
+            RefreshAttitude();
+            if (GUIOwnship.PhaseOfFlight == "APPROACH")
+            {
+                AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
+                AltitudeCheck();
+            }
         }
 
+        private void AltitudeCheck()
+        {
+            if (GUIOwnship.AltitudeASL <= GUIOwnship.RunwayAltASL + 0.49 && GUIOwnship.AltitudeASL >= GUIOwnship.RunwayAltASL - 0.49)
+            {
+                GUIOwnship.WeightOnWheels = true;
+                GUIOwnship.VS = 0;
+            }
+        }
         private void AltitudeCallouts(double ACRadioAltitude)
         {
 
@@ -219,9 +241,30 @@ namespace Aero390Spoilers
             }
             return;
         }
+
+        private void UnderspeedWarning()
+        {
+            if (underspeed_warning && !underspeed_shown)
+            {
+                EICASMessage UnderSpeed = new EICASMessage();
+                UnderSpeed.Importance = 1;
+                UnderSpeed.MessageText = "UNDERSPEED";
+                GUIOwnship.AddEicasMessage(UnderSpeed);
+                underspeed_shown = true;
+            }
+            else if (!underspeed_warning && underspeed_shown)
+            {
+                EICASMessage UnderSpeed = new EICASMessage();
+                UnderSpeed.Importance = 1;
+                UnderSpeed.MessageText = "UNDERSPEED";
+                GUIOwnship.RemoveEicasMessage(UnderSpeed);
+                underspeed_shown = false;
+            }
+        }
+
         private void PowerLossMalfunction(bool MalfStatus)
         {
-            if(MalfStatus)
+            if (MalfStatus)
             {
                 EICASDISPLAY1OFF.Show();
                 EICASDISPLAY2OFF.Show();
@@ -234,39 +277,74 @@ namespace Aero390Spoilers
         }
         private void ReadCockpitControls()
         {
-            //SPOILER LEVER REFRESH
-            int temp = GUIOwnship.SpoilerLeverPosition;
-            GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
-            if (temp != GUIOwnship.SpoilerLeverPosition)//Spoiler Lever Position has changed.
+            //SPOILER LEVER
+            if (SpoilerLever.Value > -10 && HOTAS.X_button()) SpoilerLever.Value -= 2;
+            if (SpoilerLever.Value < 2 && HOTAS.Square_button()) SpoilerLever.Value += 2;
+            if (SpoilerLever.Value <= 0)
             {
-                //TEMP WORK-AROUND
-                if (!SpoilerThreadRunning)
+                for (int i = 0; i < 8; i++)
                 {
-                    if (GUIOwnship.SpoilerLeverPosition == -1)
-                    {
-                        SpoilerLever.Value = 0;
-                        GUIOwnship.SpoilerLeverPosition = 0;
-                    }
-                    double DeflectionPercent = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
-                    double FromDeflection = GUIOwnship.SpoilerDeflectionPercentage[0];
-                    if (GUIOwnship.SpoilerLeverPosition <= 0) DeflectionPercent = 0;
-                    if (temp <= 0) FromDeflection = 0;
-                    Thread IncrementSpoilers = new Thread(() => RefreshSpoilerActuation((int)FromDeflection, (int)DeflectionPercent, !GUIOwnship.WeightOnWheels));
-                    SpoilerThreadRunning = true;
-                    IncrementSpoilers.Start();
+                    GUIOwnship.SpoilerDeflectionPercentage[i] = -SpoilerLever.Value * 10;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    GUIOwnship.SpoilerDeflectionPercentage[i] = 0;
                 }
             }
 
             //FLAP LEVER REFRESH
+            if (FlapLever.Value < 0 && HOTAS.R2_button()) FlapLever.Value++;
+            if (FlapLever.Value > -3 && HOTAS.L2_button()) FlapLever.Value--;
+
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
 
-            //CONTROL WHEEL REFRESH
+
+            //PITCH CTRL
+            PitchBar.Value = (int)(HOTAS.Y_axis() * (-10));
+
+
+            //CONTROL WHEEL
+            ControlWheelBar.Value = (int)(HOTAS.X_axis() * 10);
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
-            GUIOwnship.BankAngle = GUIOwnship.SWControlWheelPosition * 3;
+
+            if (HOTAS.X_axis() >= 0)
+            {
+                GUIOwnship.MFS_Right = 100 - (int)(HOTAS.X_axis() * 30);
+                GUIOwnship.MFS_Left = 100;
+            }
+            else if (HOTAS.X_axis() <= 0)
+            {
+                GUIOwnship.MFS_Left = 100 + (int)(HOTAS.X_axis() * 30);
+                GUIOwnship.MFS_Right = 100;
+            }
+
 
             //THROTTLES
+            LENGThrottle.Value = HOTAS.Throttle();
+            RENGThrottle.Value = LENGThrottle.Value;
             GUIOwnship.LThrottlePosition = LENGThrottle.Value;
             GUIOwnship.RThrottlePosition = RENGThrottle.Value;
+
+            //LANDING GEAR
+            if (HOTAS.O_button()) GUIOwnship.GearPositionChange();
+
+            //Autobrake Position
+            if (HOTAS.POV_Hat() >= 0 && HOTAS.POV_Hat() <= 4)
+            {
+                GUIOwnship.AutoBrakeSelectorPosition = HOTAS.POV_Hat();
+            }
+
+            //Options Button
+            if (HOTAS.Options_button()) ding.Play();
+
+            //Missile
+           // if (HOTAS.L1_button()) missile.Play();
+
+            //Brrrt
+            //if (HOTAS.Trigger_button()) cannon.Play();
         }
         private void ReadDataPipe(string PipeName)
         {
@@ -274,7 +352,7 @@ namespace Aero390Spoilers
         }
         private void RefreshAutoBrakeSelector()
         {
-            switch(GUIOwnship.AutoBrakeSelectorPosition)
+            switch (GUIOwnship.AutoBrakeSelectorPosition)
             {
                 case 0: ABSelectorPB.BackgroundImage = Resources.SelectorT_270deg; break;
                 case 1: ABSelectorPB.BackgroundImage = Resources.SelectorT_315deg; break;
@@ -285,12 +363,12 @@ namespace Aero390Spoilers
         }
         private void RefreshCockpitInstruments()
         {
-            airSpeedIndicatorInstrumentControl1.SetAirSpeedIndicatorParameters(GUIOwnship.IasKts);
+            airSpeedIndicatorInstrumentControl1.SetAirSpeedIndicatorParameters((int)GUIOwnship.IasKts);
             attitudeIndicatorInstrumentControl1.SetAttitudeIndicatorParameters(GUIOwnship.AoA, GUIOwnship.BankAngle);
             altimeterInstrumentControl1.SetAlimeterParameters((int)GUIOwnship.AltitudeASL);
             verticalSpeedIndicatorInstrumentControl1.SetVerticalSpeedIndicatorParameters((int)GUIOwnship.VS);
-            EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value * 10);
-            EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value * 10);
+            EIEngine1Control.SetEngineIndicatorParameters(LENGThrottle.Value);
+            EIEngine2Control.SetEngineIndicatorParameters(RENGThrottle.Value);
         }
         private void RefreshEICAS()
         {
@@ -301,13 +379,13 @@ namespace Aero390Spoilers
         {
             EICASMessage[] ArEICASMsgs = GUIOwnship.EICASMessages.ToArray();
             int count = ArEICASMsgs.Length;
-            for( int i=0; i<11; i++ )
+            for (int i = 0; i < 11; i++)
             {
-                switch(i)
+                switch (i)
                 {
                     case (0):
                         {
-                            if(i>=count)
+                            if (i >= count)
                             {
                                 EicasMsgLine1.Text = "";
                                 break;
@@ -523,7 +601,7 @@ namespace Aero390Spoilers
             }
             else
             {
-                FlapPos = Convert.ToString(GUIOwnship.FlapLeverPosition*10);
+                FlapPos = Convert.ToString(GUIOwnship.FlapLeverPosition * 10);
             }
             EicasFlapsMessage.Text = "FLAPS..........." + FlapPos;
 
@@ -533,7 +611,7 @@ namespace Aero390Spoilers
 
 
             //AUTOBRAKES
-            switch(GUIOwnship.AutoBrakeSelectorPosition)
+            switch (GUIOwnship.AutoBrakeSelectorPosition)
             {
                 case 0: EICASAutoBrakesMessage.Text = "AUTOBRAKES OFF"; break;
                 case 1: EICASAutoBrakesMessage.Text = "AUTOBRAKES RTO"; break;
@@ -545,21 +623,13 @@ namespace Aero390Spoilers
         }
         private void RefreshFCSynoptic()
         {
-            Spoiler1PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[0];
-            Spoiler1PGB.Refresh();
-            Spoiler2PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[1];
-            Spoiler2PGB.Refresh();
-            Spoiler3PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[2];
-            Spoiler3PGB.Refresh();
-            Spoiler4PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[3];
-            Spoiler4PGB.Refresh();
-            Spoiler5PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[4];
-            Spoiler5PGB.Refresh();
-            Spoiler6PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[5];
-            Spoiler6PGB.Refresh();
-            Spoiler7PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[6];
-            Spoiler7PGB.Refresh();
-            Spoiler8PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[7];
+            Spoiler1PGB.Refresh();          
+            Spoiler2PGB.Refresh();           
+            Spoiler3PGB.Refresh();           
+            Spoiler4PGB.Refresh();           
+            Spoiler5PGB.Refresh();          
+            Spoiler6PGB.Refresh();           
+            Spoiler7PGB.Refresh();           
             Spoiler8PGB.Refresh();
         }
         private void RefreshGearPict()
@@ -615,7 +685,7 @@ namespace Aero390Spoilers
             IASPrintOut.Text = ((int)GUIOwnship.IasKts).ToString();
             PhaseOfFlightTB.Text = GUIOwnship.PhaseOfFlight;
         }
-        private void RefreshSpoilerActuation(int CurrentDeflection, int TargetDeflection,  bool InFlight = true, bool SymDeploy = true)
+        private void RefreshSpoilerActuation(int CurrentDeflection, int TargetDeflection, bool InFlight = true, bool SymDeploy = true)
         {
             if (InFlight)
             {
@@ -630,13 +700,13 @@ namespace Aero390Spoilers
                     CurrentDeflection = (int)((double)CurrentDeflection * GUIOwnship.SpoilerFlightDeflection);
                 }
             }
-            
+
             while (CurrentDeflection != TargetDeflection)
             {
                 int increment = TargetDeflection >= CurrentDeflection ? 1 : -1;
                 if (SymDeploy)
                 {
-                    for(int j = 0; j < GUIOwnship.NbofSpoilers; j++)
+                    for (int j = 0; j < GUIOwnship.NbofSpoilers; j++)
                     {
                         GUIOwnship.SpoilerDeflectionPercentage[j] += increment;
                     }
@@ -662,9 +732,153 @@ namespace Aero390Spoilers
                 CurrentDeflection += increment;
                 Thread.Sleep(30);
             }
-            SpoilerThreadRunning = false;
             return;
         }
+        private void RefreshAttitude()
+        {
+            //Indicated Airspeed
+            if (GUIOwnship.PhaseOfFlight != "CRUISE" && GUIOwnship.PhaseOfFlight != "APPROACH")
+            {
+                if (GUIOwnship.IasKts < 1.9 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
+                else if (GUIOwnship.IasKts > (1.9 * LENGThrottle.Value) + 1)
+                {
+                    if (HOTAS.Triangle_button()) GUIOwnship.IasKts--;
+                    else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
+                    else GUIOwnship.IasKts -= 0.1;
+                }
+            }
+            else
+            {
+                if (GUIOwnship.IasKts < 4.2 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
+                else if (GUIOwnship.IasKts > (4.2 * LENGThrottle.Value) + 1)
+                {
+                    if (HOTAS.Triangle_button()) GUIOwnship.IasKts--;
+                    else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
+                    else GUIOwnship.IasKts -= 0.1;
+                }
+            }
+            if ((GUIOwnship.PhaseOfFlight == "CLIMB" || GUIOwnship.PhaseOfFlight == "CRUISE" || GUIOwnship.PhaseOfFlight == "APPROACH") && GUIOwnship.IasKts < 100)
+            {
+                if (speed_alert == 0)
+                {
+                    underspeed.Play();
+                    speed_alert++;
+                }
+                else speed_alert++;
+
+                if (speed_alert >= 2) speed_alert = 0;
+                underspeed_warning = true;
+            }
+            else underspeed_warning = false;
+            UnderspeedWarning();
+            if (GUIOwnship.IasKts > 0 && SpoilerLever.Value < 0) GUIOwnship.IasKts -= (double)SpoilerLever.Value / -10;
+
+
+            //Bank Angle
+            if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.BankAngle) <= 30)
+            {
+                GUIOwnship.BankAngle -= GUIOwnship.SWControlWheelPosition / 2;
+            }
+
+            if ((GUIOwnship.BankAngle > 30) || ((GUIOwnship.BankAngle + GUIOwnship.SWControlWheelPosition / 2) > 30)) GUIOwnship.BankAngle = 30;
+            else if ((GUIOwnship.BankAngle < -30) || (GUIOwnship.BankAngle + GUIOwnship.SWControlWheelPosition / 2) < -30) GUIOwnship.BankAngle = -30;
+
+            if (GUIOwnship.SWControlWheelPosition == 0 && GUIOwnship.BankAngle > 0) GUIOwnship.BankAngle -= 1;
+            else if (GUIOwnship.SWControlWheelPosition == 0 && GUIOwnship.BankAngle < 0) GUIOwnship.BankAngle += 1;
+            if (Math.Abs(GUIOwnship.BankAngle) < 1) GUIOwnship.BankAngle = 0;
+
+
+            //Angle of Attack
+            if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL && Math.Abs(GUIOwnship.AoA) <= 25)
+            {
+                if (GUIOwnship.AoA < -PitchBar.Value * 2) GUIOwnship.AoA += 1 - PitchBar.Value / 10;
+                else if (GUIOwnship.AoA > -PitchBar.Value * 2) GUIOwnship.AoA -= 1 + PitchBar.Value / 10;
+            }
+            else
+            {
+                if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && GUIOwnship.IasKts > 100)
+                {
+                    if (PitchBar.Value < 0) GUIOwnship.AoA -= (double)PitchBar.Value;
+                    else GUIOwnship.AoA = 0;
+                }
+                else
+                {
+                    GUIOwnship.AoA = 0;
+                    GUIOwnship.VS = 0;
+                }
+            }
+            if (GUIOwnship.AoA > 25) GUIOwnship.AoA = 25;
+            else if (GUIOwnship.AoA < -25) GUIOwnship.AoA = -25;
+
+            if (PitchBar.Value == 0 && GUIOwnship.AoA > 0) GUIOwnship.AoA -= 0.5;
+            else if (PitchBar.Value == 0 && GUIOwnship.AoA < 0) GUIOwnship.AoA += 0.5;
+            if (Math.Abs(GUIOwnship.AoA) < 0.25) GUIOwnship.AoA = 0;
+
+
+
+            //Vertical Speed (Climb Indicator)
+            if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && GUIOwnship.IasKts >= 100 && GUIOwnship.InducedLift < 400) GUIOwnship.InducedLift += 5;
+            else if (GUIOwnship.PhaseOfFlight == "APPROACH" && GUIOwnship.InducedLift > -400) GUIOwnship.InducedLift -= 5;
+            else
+            {
+                if (GUIOwnship.InducedLift < 0) GUIOwnship.InducedLift += 5;
+                else if (GUIOwnship.InducedLift > 0) GUIOwnship.InducedLift -= 5;
+            }
+
+            if (Math.Abs(GUIOwnship.VS) <= 2500)
+            {
+                GUIOwnship.VS = GUIOwnship.InducedLift + 100 * GUIOwnship.AoA;
+            }
+            else if (GUIOwnship.VS > 2500) GUIOwnship.VS = 2500;
+            else if (GUIOwnship.VS < -2500) GUIOwnship.VS = -2500;
+
+
+            //Altitude
+            GUIOwnship.AltitudeASL += GUIOwnship.VS / 600;
+            if (GUIOwnship.AltitudeASL <= GUIOwnship.RunwayAltASL)
+            {
+                GUIOwnship.AoA = 0;
+                GUIOwnship.VS = 0;
+                GUIOwnship.AltitudeASL = GUIOwnship.RunwayAltASL;
+            }
+
+            //GND Spoilers (Auto)
+            if (GUIOwnship.WeightOnWheels && SpoilerLever.Value == 0 && GUIOwnship.PhaseOfFlight == "LANDING") armed_trigger = true; ;
+            if (armed_trigger && SpoilerLever.Value > -10)
+            {
+                SpoilerLever.Value--;
+                if (SpoilerLever.Value == -10) armed_trigger = false;
+            }
+
+            //GND Spoilers (Manual)
+            if (Spoiler3PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[2]) Spoiler3PGB.Value += 10;
+            else if (Spoiler3PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[2]) Spoiler3PGB.Value -= 10;
+
+            if (Spoiler4PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[3]) Spoiler4PGB.Value += 10;
+            else if (Spoiler4PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[3]) Spoiler4PGB.Value -= 10;
+
+            if (Spoiler5PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[4]) Spoiler5PGB.Value += 10;
+            else if (Spoiler5PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[4]) Spoiler5PGB.Value -= 10;
+
+            if (Spoiler6PGB.Value < 100 - GUIOwnship.SpoilerDeflectionPercentage[5]) Spoiler6PGB.Value += 10;
+            else if (Spoiler6PGB.Value > 100 - GUIOwnship.SpoilerDeflectionPercentage[5]) Spoiler6PGB.Value -= 10;
+
+            //MFS Spoilers (Manual)
+            if (GUIOwnship.MFS_as_brake < GUIOwnship.SpoilerDeflectionPercentage[1]) GUIOwnship.MFS_as_brake += 10;
+            else if (GUIOwnship.MFS_as_brake > GUIOwnship.SpoilerDeflectionPercentage[1]) GUIOwnship.MFS_as_brake -= 10;
+
+            if (GUIOwnship.MFS_Left - GUIOwnship.MFS_as_brake <= 0) Spoiler2PGB.Value = 0;
+            else Spoiler2PGB.Value = GUIOwnship.MFS_Left - GUIOwnship.MFS_as_brake;
+            Spoiler1PGB.Value = Spoiler2PGB.Value;
+
+            if (GUIOwnship.MFS_as_brake < GUIOwnship.SpoilerDeflectionPercentage[6]) GUIOwnship.MFS_as_brake += 10;
+            else if (GUIOwnship.MFS_as_brake > GUIOwnship.SpoilerDeflectionPercentage[6]) GUIOwnship.MFS_as_brake -= 10;
+
+            if (GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake <= 0) Spoiler7PGB.Value = 0;
+            else Spoiler7PGB.Value = GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake;
+            Spoiler8PGB.Value = Spoiler7PGB.Value;
+        }
+
         private void RepositionTo(string Reposition)
         {
             switch (Reposition)
@@ -704,8 +918,6 @@ namespace Aero390Spoilers
                         FlapLever.Value = 0;
                         GUIOwnship.FlapLeverPosition = 0;
                         GUIOwnship.GrossWeightLbs = 30000;
-                        LENGThrottle.Value = 8;
-                        RENGThrottle.Value = 8;
                         GUIOwnship.LThrottlePosition = 8;
                         GUIOwnship.RThrottlePosition = 8;
                         SpoilerLever.Value = 2;
@@ -722,7 +934,6 @@ namespace Aero390Spoilers
                 case ("Approach"):
                     {
                         GUIOwnship.AltitudeASL = 1073 + GUIOwnship.RunwayAltASL;
-                        GUIOwnship.AoA = -3;
                         GUIOwnship.AutoBrakeSelectorPosition = 3;
                         GUIOwnship.BankAngle = 0;
                         GUIOwnship.BaroSettingmmHg = 29.92;
@@ -735,18 +946,13 @@ namespace Aero390Spoilers
                         GUIOwnship.RThrottlePosition = 4;
                         SpoilerLever.Value = 0;
                         GUIOwnship.SpoilerLeverPosition = 0;
-                        ControlWheelBar.Value = 0;
-                        GUIOwnship.SWControlWheelPosition = 0;
-                        GUIOwnship.VS = -600;
                         GUIOwnship.IasKts = 154;
                         if (GUIOwnship.GlobalGearStatus() != "DOWN") GUIOwnship.GearPositionChange();
                         GUIOwnship.WeightOnWheels = false;
                         GUIOwnship.PhaseOfFlight = "APPROACH";
-                        Thread ApproachScenario = new Thread(() => RADALTStub());
-                        ApproachScenario.Start();
                         break;
-                    
-}
+
+                    }
             }
         }
         private void RADALTStub()
@@ -766,11 +972,11 @@ namespace Aero390Spoilers
                 }
                 Thread.Sleep(100);
             }
-            GUIOwnship.VS = 0;
+            //GUIOwnship.VS = 0;
             GUIOwnship.WeightOnWheels = true;
             while (GUIOwnship.IasKts > 0)
             {
-                if(GUIOwnship.AoA > 0) GUIOwnship.AoA -= 0.05;
+                if (GUIOwnship.AoA > 0) GUIOwnship.AoA -= 0.05;
                 GUIOwnship.IasKts -= 1;
                 if (GUIOwnship.IasKts < 0) GUIOwnship.IasKts = 0;
                 Thread.Sleep(100);
@@ -779,22 +985,22 @@ namespace Aero390Spoilers
         }
         private void UpdatePhaseOfFlight()
         {
-            switch(GUIOwnship.PhaseOfFlight)
+            switch (GUIOwnship.PhaseOfFlight)
             {
                 case ("TAXI"):
                     {
-                        if (GUIOwnship.LThrottlePosition > 5 && GUIOwnship.RThrottlePosition > 5) GUIOwnship.PhaseOfFlight = "TAKEOFF";
+                        if (GUIOwnship.LThrottlePosition > 70 && GUIOwnship.RThrottlePosition > 70 && GUIOwnship.IasKts > 60) GUIOwnship.PhaseOfFlight = "TAKEOFF";
                         break;
                     }
                 case ("TAKEOFF"):
                     {
-                        if(GUIOwnship.LThrottlePosition < 9 && GUIOwnship.RThrottlePosition < 9) GUIOwnship.PhaseOfFlight = "RTO";
+                        if (GUIOwnship.LThrottlePosition < 50 && GUIOwnship.RThrottlePosition < 50) GUIOwnship.PhaseOfFlight = "RTO";
                         else if (GUIOwnship.GlobalGearStatus() == "UP") GUIOwnship.PhaseOfFlight = "CLIMB";
                         break;
                     }
                 case ("CLIMB"):
                     {
-                        if (GUIOwnship.AoA < 1.25 && GUIOwnship.AoA >= 0) GUIOwnship.PhaseOfFlight = "CRUISE";
+                        if (GUIOwnship.VS < 100) GUIOwnship.PhaseOfFlight = "CRUISE";
                         break;
                     }
                 case ("CRUISE"):
@@ -809,7 +1015,7 @@ namespace Aero390Spoilers
                     }
                 case ("LANDING"):
                     {
-                        if (GUIOwnship.IasKts <= 50) GUIOwnship.PhaseOfFlight = "TAXI";
+                        if (GUIOwnship.IasKts <= 60) GUIOwnship.PhaseOfFlight = "TAXI";
                         break;
                     }
             }
@@ -825,7 +1031,7 @@ namespace Aero390Spoilers
         }
         private void GWButton_Click(object sender, EventArgs e)
         {
-            if(IntegerInput.Text == "Enter Value Here")
+            if (IntegerInput.Text == "Enter Value Here")
             {
                 //Do Nothing
             }
@@ -841,7 +1047,7 @@ namespace Aero390Spoilers
                 {
                     IntegerInput.Text = "Invalid Input : Out of Range";
                 }
-                
+
             }
         }
         private void Barometer_Click(object sender, EventArgs e)
@@ -942,8 +1148,13 @@ namespace Aero390Spoilers
             GUIOwnship.Switch1On = !GUIOwnship.Switch1On;
             GUIOwnship.MalfPwrLoss = !GUIOwnship.MalfPwrLoss;
             PowerLossMalfunction(GUIOwnship.MalfPwrLoss);
-            if (GUIOwnship.Switch1On) SW1PB.BackgroundImage = Resources.Switch_ON;
+            if (!GUIOwnship.Switch1On) SW1PB.BackgroundImage = Resources.Switch_ON;
             else SW1PB.BackgroundImage = Resources.Switch_OFF;
+            if (!avionics_start)
+            {
+                avionics.Play();
+                avionics_start = true;
+            }
         }
         private void SW2PB_Click(object sender, EventArgs e)
         {
@@ -998,5 +1209,14 @@ namespace Aero390Spoilers
         }
         #endregion
 
+        private void RENGThrottle_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void VerticalSpeedIndicatorInstrumentControl1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

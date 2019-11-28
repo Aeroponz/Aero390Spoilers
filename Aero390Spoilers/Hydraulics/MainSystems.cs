@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hydraulics
+﻿namespace Hydraulics
 {
     public class HydraulicSys
     {

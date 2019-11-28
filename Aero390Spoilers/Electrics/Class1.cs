@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Electrics
+﻿namespace Electrics
 {
     public class Class1
     {

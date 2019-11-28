@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ARINC;
 using Hydraulics;
-using LandingGear;
-using ARINC;
+using System.Collections.Generic;
 
 namespace Ownship
 {
@@ -35,6 +33,7 @@ namespace Ownship
             BaroSettingmmHg = 29.92;
             GrossWeightLbs = 35000;
             VS = 0;
+            InducedLift = 0;
             BankAngle = 0;
             AoA = 0;
             SpoilerLeverPosition = 0;
@@ -42,6 +41,10 @@ namespace Ownship
             AutoBrakeSelectorPosition = 0;
             LThrottlePosition = 0;
             RThrottlePosition = 0;
+
+            //Switches
+            Switch1On = true;
+            MalfPwrLoss = true;
 
             for (int i = 0; i < wArincMessages.Length; i++)
             {
@@ -52,7 +55,6 @@ namespace Ownship
             {
                 SpoilerDeflectionPercentage[i] = 0;
             }
-
         }
 
 
@@ -61,10 +63,10 @@ namespace Ownship
         {
             //Landing Gear Update
             string GearUpdate = ArincGearStatus();
-            if(GearUpdate != wArincMessages[0]) wArincMessages[0] = ArincGearStatus();
+            if (GearUpdate != wArincMessages[0]) wArincMessages[0] = ArincGearStatus();
 
 
-            return wArincMessages;  
+            return wArincMessages;
         }
 
 
@@ -146,7 +148,7 @@ namespace Ownship
         {
             Stack<EICASMessage> TempMsgs = new Stack<EICASMessage>();
             //Check for higher priority message
-            for (int i=0; i < EICASMessages.Count; i++)
+            for (int i = 0; i < EICASMessages.Count; i++)
             {
                 if (EICASMessages.Peek().Importance > iMsg.Importance)
                 {
@@ -165,7 +167,7 @@ namespace Ownship
         public void RemoveEicasMessage(EICASMessage iMsg)
         {
             Stack<EICASMessage> TempMsgs = new Stack<EICASMessage>();
-            while(EICASMessages.Count>0)
+            while (EICASMessages.Count > 0)
             {
                 if (EICASMessages.Peek().MessageText == iMsg.MessageText && EICASMessages.Peek().Importance == iMsg.Importance)
                 {
@@ -203,25 +205,29 @@ namespace Ownship
         public double GrossWeightLbs { get; set; }
         public double BaroSettingmmHg { get; set; }
         public double AltitudeASL { get; set; }
-        public int IasKts { get; set; }
+        public double IasKts { get; set; }
         public int IasOverspeed { get; set; }
         public int IasNES { get; set; }
         public int IasStall { get; set; }
         public double BankAngle { get; set; }
         public double AoA { get; set; }
         public double VS { get; set; }
+        public int InducedLift { get; set; }
         public string PhaseOfFlight { get; set; }
 
         //COCKPIT CONTROLS
         public int SpoilerLeverPosition { get; set; }
         public int FlapLeverPosition { get; set; }
-        public int SWControlWheelPosition { get; set; }
+        public double SWControlWheelPosition { get; set; }
         public int AutoBrakeSelectorPosition { get; set; }
-        public int LThrottlePosition { get; set; }
-        public int RThrottlePosition { get; set; }
+        public double LThrottlePosition { get; set; }
+        public double RThrottlePosition { get; set; }
 
         //DISPLAYS
         public int[] SpoilerDeflectionPercentage = new int[8];
+        public int MFS_Right = 0;
+        public int MFS_Left = 0;
+        public int MFS_as_brake = 0;
         public Stack<EICASMessage> EICASMessages = new Stack<EICASMessage>(); //Lines 1 to 8 for CW Messages, 9 to 11 for status
 
         //WARNING SYSTEM

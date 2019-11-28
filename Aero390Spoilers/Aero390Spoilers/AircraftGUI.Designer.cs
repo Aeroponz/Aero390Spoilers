@@ -112,6 +112,7 @@
             this.SplrLoss6 = new System.Windows.Forms.PictureBox();
             this.SplrLoss7 = new System.Windows.Forms.PictureBox();
             this.SplrLoss8 = new System.Windows.Forms.PictureBox();
+            this.PitchBar = new System.Windows.Forms.TrackBar();
             this.EIEngine2Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.EIEngine1Control = new AvionicsInstrumentControlDemo.EngineIndicatorControl();
             this.attitudeIndicatorInstrumentControl1 = new AvionicsInstrumentControlDemo.AttitudeIndicatorInstrumentControl();
@@ -151,6 +152,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PitchBar)).BeginInit();
             this.SuspendLayout();
             // 
             // WowButton
@@ -334,11 +336,11 @@
             this.SpoilerUPLabel.Cursor = System.Windows.Forms.Cursors.Default;
             this.SpoilerUPLabel.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpoilerUPLabel.ForeColor = System.Drawing.Color.White;
-            this.SpoilerUPLabel.Location = new System.Drawing.Point(686, 439);
+            this.SpoilerUPLabel.Location = new System.Drawing.Point(685, 439);
             this.SpoilerUPLabel.Name = "SpoilerUPLabel";
-            this.SpoilerUPLabel.Size = new System.Drawing.Size(18, 18);
+            this.SpoilerUPLabel.Size = new System.Drawing.Size(45, 18);
             this.SpoilerUPLabel.TabIndex = 32;
-            this.SpoilerUPLabel.Text = "UP";
+            this.SpoilerUPLabel.Text = "DOWN";
             // 
             // SpoilersARMLabel
             // 
@@ -349,7 +351,7 @@
             this.SpoilersARMLabel.ForeColor = System.Drawing.Color.White;
             this.SpoilersARMLabel.Location = new System.Drawing.Point(685, 474);
             this.SpoilersARMLabel.Name = "SpoilersARMLabel";
-            this.SpoilersARMLabel.Size = new System.Drawing.Size(27, 18);
+            this.SpoilersARMLabel.Size = new System.Drawing.Size(33, 18);
             this.SpoilersARMLabel.TabIndex = 33;
             this.SpoilersARMLabel.Text = "ARM";
             // 
@@ -360,11 +362,11 @@
             this.SpoilersDOWNLabel.Cursor = System.Windows.Forms.Cursors.Default;
             this.SpoilersDOWNLabel.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpoilersDOWNLabel.ForeColor = System.Drawing.Color.White;
-            this.SpoilersDOWNLabel.Location = new System.Drawing.Point(686, 652);
+            this.SpoilersDOWNLabel.Location = new System.Drawing.Point(690, 652);
             this.SpoilersDOWNLabel.Name = "SpoilersDOWNLabel";
-            this.SpoilersDOWNLabel.Size = new System.Drawing.Size(40, 18);
+            this.SpoilersDOWNLabel.Size = new System.Drawing.Size(22, 18);
             this.SpoilersDOWNLabel.TabIndex = 34;
-            this.SpoilersDOWNLabel.Text = "DOWN";
+            this.SpoilersDOWNLabel.Text = "UP";
             // 
             // FlapLever
             // 
@@ -551,7 +553,7 @@
             this.EicasSMTitle.BackColor = System.Drawing.Color.Black;
             this.EicasSMTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasSMTitle.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasSMTitle.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasSMTitle.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasSMTitle.ForeColor = System.Drawing.Color.Aqua;
             this.EicasSMTitle.Location = new System.Drawing.Point(440, 249);
             this.EicasSMTitle.Name = "EicasSMTitle";
@@ -564,7 +566,7 @@
             this.EicasMsgLine9.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine9.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine9.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine9.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine9.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine9.ForeColor = System.Drawing.Color.White;
             this.EicasMsgLine9.Location = new System.Drawing.Point(440, 270);
             this.EicasMsgLine9.Name = "EicasMsgLine9";
@@ -577,7 +579,7 @@
             this.EicasGearMessage.BackColor = System.Drawing.Color.Black;
             this.EicasGearMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasGearMessage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasGearMessage.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasGearMessage.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasGearMessage.ForeColor = System.Drawing.Color.Lime;
             this.EicasGearMessage.Location = new System.Drawing.Point(249, 270);
             this.EicasGearMessage.Name = "EicasGearMessage";
@@ -590,7 +592,7 @@
             this.EicasFlapsMessage.BackColor = System.Drawing.Color.Black;
             this.EicasFlapsMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasFlapsMessage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasFlapsMessage.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasFlapsMessage.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasFlapsMessage.ForeColor = System.Drawing.Color.Lime;
             this.EicasFlapsMessage.Location = new System.Drawing.Point(249, 284);
             this.EicasFlapsMessage.Name = "EicasFlapsMessage";
@@ -603,7 +605,7 @@
             this.EicasSpoilerMessage.BackColor = System.Drawing.Color.Black;
             this.EicasSpoilerMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasSpoilerMessage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasSpoilerMessage.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasSpoilerMessage.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasSpoilerMessage.ForeColor = System.Drawing.Color.Lime;
             this.EicasSpoilerMessage.Location = new System.Drawing.Point(249, 312);
             this.EicasSpoilerMessage.Name = "EicasSpoilerMessage";
@@ -615,7 +617,7 @@
             this.EicasMsgLine1.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine1.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine1.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine1.ForeColor = System.Drawing.Color.Red;
             this.EicasMsgLine1.Location = new System.Drawing.Point(440, 53);
             this.EicasMsgLine1.Name = "EicasMsgLine1";
@@ -628,7 +630,7 @@
             this.EicasMsgLine2.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine2.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine2.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine2.ForeColor = System.Drawing.Color.Orange;
             this.EicasMsgLine2.Location = new System.Drawing.Point(440, 67);
             this.EicasMsgLine2.Name = "EicasMsgLine2";
@@ -641,7 +643,7 @@
             this.EicasMsgLine3.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine3.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine3.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine3.ForeColor = System.Drawing.Color.Orange;
             this.EicasMsgLine3.Location = new System.Drawing.Point(440, 81);
             this.EicasMsgLine3.Name = "EicasMsgLine3";
@@ -654,7 +656,7 @@
             this.EicasMsgLine10.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine10.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine10.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine10.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine10.ForeColor = System.Drawing.Color.White;
             this.EicasMsgLine10.Location = new System.Drawing.Point(440, 284);
             this.EicasMsgLine10.Name = "EicasMsgLine10";
@@ -667,7 +669,7 @@
             this.EicasMsgLine11.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine11.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine11.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine11.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine11.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine11.ForeColor = System.Drawing.Color.White;
             this.EicasMsgLine11.Location = new System.Drawing.Point(440, 298);
             this.EicasMsgLine11.Name = "EicasMsgLine11";
@@ -680,7 +682,7 @@
             this.EicasMsgLine4.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine4.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine4.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine4.ForeColor = System.Drawing.Color.Orange;
             this.EicasMsgLine4.Location = new System.Drawing.Point(440, 95);
             this.EicasMsgLine4.Name = "EicasMsgLine4";
@@ -693,7 +695,7 @@
             this.EicasMsgLine5.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine5.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine5.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine5.ForeColor = System.Drawing.Color.Orange;
             this.EicasMsgLine5.Location = new System.Drawing.Point(440, 110);
             this.EicasMsgLine5.Name = "EicasMsgLine5";
@@ -706,7 +708,7 @@
             this.EicasMsgLine6.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine6.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine6.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine6.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine6.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine6.ForeColor = System.Drawing.Color.Orange;
             this.EicasMsgLine6.Location = new System.Drawing.Point(440, 124);
             this.EicasMsgLine6.Name = "EicasMsgLine6";
@@ -719,7 +721,7 @@
             this.EicasMsgLine7.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine7.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine7.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine7.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine7.ForeColor = System.Drawing.Color.Orange;
             this.EicasMsgLine7.Location = new System.Drawing.Point(440, 138);
             this.EicasMsgLine7.Name = "EicasMsgLine7";
@@ -732,7 +734,7 @@
             this.EicasMsgLine8.BackColor = System.Drawing.Color.Black;
             this.EicasMsgLine8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EicasMsgLine8.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EicasMsgLine8.Font = new System.Drawing.Font("B612", 8F);
+            this.EicasMsgLine8.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EicasMsgLine8.ForeColor = System.Drawing.Color.Orange;
             this.EicasMsgLine8.Location = new System.Drawing.Point(440, 152);
             this.EicasMsgLine8.Name = "EicasMsgLine8";
@@ -757,7 +759,7 @@
             this.EICASAutoBrakesMessage.BackColor = System.Drawing.Color.Black;
             this.EICASAutoBrakesMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EICASAutoBrakesMessage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EICASAutoBrakesMessage.Font = new System.Drawing.Font("B612", 8F);
+            this.EICASAutoBrakesMessage.Font = new System.Drawing.Font("B612", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EICASAutoBrakesMessage.ForeColor = System.Drawing.Color.Lime;
             this.EICASAutoBrakesMessage.Location = new System.Drawing.Point(249, 298);
             this.EICASAutoBrakesMessage.Name = "EICASAutoBrakesMessage";
@@ -827,11 +829,13 @@
             this.RENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.RENGThrottle.LargeChange = 1;
             this.RENGThrottle.Location = new System.Drawing.Point(804, 433);
+            this.RENGThrottle.Maximum = 100;
             this.RENGThrottle.Name = "RENGThrottle";
             this.RENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.RENGThrottle.Size = new System.Drawing.Size(45, 240);
             this.RENGThrottle.TabIndex = 73;
-            this.RENGThrottle.TickFrequency = 2;
+            this.RENGThrottle.TickFrequency = 10;
+            this.RENGThrottle.Scroll += new System.EventHandler(this.RENGThrottle_Scroll);
             // 
             // LENGThrottle
             // 
@@ -839,12 +843,13 @@
             this.LENGThrottle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LENGThrottle.LargeChange = 1;
             this.LENGThrottle.Location = new System.Drawing.Point(774, 433);
+            this.LENGThrottle.Maximum = 100;
             this.LENGThrottle.Name = "LENGThrottle";
             this.LENGThrottle.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.LENGThrottle.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.LENGThrottle.Size = new System.Drawing.Size(45, 240);
             this.LENGThrottle.TabIndex = 74;
-            this.LENGThrottle.TickFrequency = 2;
+            this.LENGThrottle.TickFrequency = 10;
             this.LENGThrottle.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             // 
             // IdleTB
@@ -1134,9 +1139,9 @@
             this.EICASDISPLAY2OFF.BackColor = System.Drawing.Color.Black;
             this.EICASDISPLAY2OFF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.EICASDISPLAY2OFF.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EICASDISPLAY2OFF.Location = new System.Drawing.Point(229, 439);
+            this.EICASDISPLAY2OFF.Location = new System.Drawing.Point(224, 431);
             this.EICASDISPLAY2OFF.Name = "EICASDISPLAY2OFF";
-            this.EICASDISPLAY2OFF.Size = new System.Drawing.Size(345, 249);
+            this.EICASDISPLAY2OFF.Size = new System.Drawing.Size(347, 266);
             this.EICASDISPLAY2OFF.TabIndex = 99;
             this.EICASDISPLAY2OFF.TabStop = false;
             // 
@@ -1236,6 +1241,17 @@
             this.SplrLoss8.TabIndex = 107;
             this.SplrLoss8.TabStop = false;
             // 
+            // PitchBar
+            // 
+            this.PitchBar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PitchBar.Location = new System.Drawing.Point(587, 223);
+            this.PitchBar.Minimum = -10;
+            this.PitchBar.Name = "PitchBar";
+            this.PitchBar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.PitchBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.PitchBar.Size = new System.Drawing.Size(45, 300);
+            this.PitchBar.TabIndex = 108;
+            // 
             // EIEngine2Control
             // 
             this.EIEngine2Control.BackColor = System.Drawing.Color.Black;
@@ -1285,6 +1301,7 @@
             this.verticalSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
             this.verticalSpeedIndicatorInstrumentControl1.TabIndex = 40;
             this.verticalSpeedIndicatorInstrumentControl1.Text = "verticalSpeedIndicatorInstrumentControl1";
+            this.verticalSpeedIndicatorInstrumentControl1.Click += new System.EventHandler(this.VerticalSpeedIndicatorInstrumentControl1_Click);
             // 
             // Spoiler8PGB
             // 
@@ -1304,6 +1321,7 @@
             this.Spoiler7PGB.Name = "Spoiler7PGB";
             this.Spoiler7PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler7PGB.TabIndex = 15;
+            this.Spoiler7PGB.Value = 100;
             // 
             // Spoiler6PGB
             // 
@@ -1313,6 +1331,7 @@
             this.Spoiler6PGB.Name = "Spoiler6PGB";
             this.Spoiler6PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler6PGB.TabIndex = 14;
+            this.Spoiler6PGB.Value = 100;
             // 
             // Spoiler5PGB
             // 
@@ -1322,6 +1341,7 @@
             this.Spoiler5PGB.Name = "Spoiler5PGB";
             this.Spoiler5PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler5PGB.TabIndex = 13;
+            this.Spoiler5PGB.Value = 100;
             // 
             // Spoiler4PGB
             // 
@@ -1331,7 +1351,7 @@
             this.Spoiler4PGB.Name = "Spoiler4PGB";
             this.Spoiler4PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler4PGB.TabIndex = 12;
-            this.Spoiler4PGB.Value = 60;
+            this.Spoiler4PGB.Value = 100;
             // 
             // Spoiler3PGB
             // 
@@ -1341,7 +1361,7 @@
             this.Spoiler3PGB.Name = "Spoiler3PGB";
             this.Spoiler3PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler3PGB.TabIndex = 11;
-            this.Spoiler3PGB.Value = 60;
+            this.Spoiler3PGB.Value = 100;
             // 
             // Spoiler2PGB
             // 
@@ -1351,7 +1371,7 @@
             this.Spoiler2PGB.Name = "Spoiler2PGB";
             this.Spoiler2PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler2PGB.TabIndex = 10;
-            this.Spoiler2PGB.Value = 60;
+            this.Spoiler2PGB.Value = 100;
             // 
             // Spoiler1PGB
             // 
@@ -1361,7 +1381,7 @@
             this.Spoiler1PGB.Name = "Spoiler1PGB";
             this.Spoiler1PGB.Size = new System.Drawing.Size(10, 50);
             this.Spoiler1PGB.TabIndex = 9;
-            this.Spoiler1PGB.Value = 60;
+            this.Spoiler1PGB.Value = 100;
             // 
             // AircraftGUI
             // 
@@ -1469,6 +1489,7 @@
             this.Controls.Add(this.Spoiler3PGB);
             this.Controls.Add(this.Spoiler2PGB);
             this.Controls.Add(this.Spoiler1PGB);
+            this.Controls.Add(this.PitchBar);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -1499,6 +1520,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplrLoss8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PitchBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1602,6 +1624,7 @@
         private System.Windows.Forms.PictureBox SplrLoss6;
         private System.Windows.Forms.PictureBox SplrLoss7;
         private System.Windows.Forms.PictureBox SplrLoss8;
+        private System.Windows.Forms.TrackBar PitchBar;
     }
 }
 
