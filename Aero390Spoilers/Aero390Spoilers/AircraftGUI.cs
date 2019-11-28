@@ -843,7 +843,7 @@ namespace Aero390Spoilers
             }
 
             //GND Spoilers (Auto)
-            if (GUIOwnship.WeightOnWheels && SpoilerLever.Value == 0 && GUIOwnship.PhaseOfFlight == "LANDING") armed_trigger = true; ;
+            if (GUIOwnship.WeightOnWheels && SpoilerLever.Value == 0 && (GUIOwnship.PhaseOfFlight == "LANDING" || GUIOwnship.PhaseOfFlight == "RTO")) armed_trigger = true;
             if (armed_trigger && SpoilerLever.Value > -10)
             {
                 SpoilerLever.Value--;
@@ -1016,6 +1016,11 @@ namespace Aero390Spoilers
                 case ("LANDING"):
                     {
                         if (GUIOwnship.IasKts <= 60) GUIOwnship.PhaseOfFlight = "TAXI";
+                        break;
+                    }
+                case ("RTO"):
+                    {
+                        if (GUIOwnship.IasKts <= 1) GUIOwnship.PhaseOfFlight = "TAXI";
                         break;
                     }
             }
