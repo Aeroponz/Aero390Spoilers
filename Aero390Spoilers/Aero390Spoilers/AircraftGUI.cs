@@ -16,7 +16,6 @@ namespace Aero390Spoilers
         JS_Input HOTAS = new JS_Input();
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
-        //bool SpoilerThreadRunning = false;
         bool underspeed_warning, underspeed_shown, avionics_start, armed_trigger;
         int AltCalloutTimeout = 0, speed_alert = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
@@ -278,31 +277,6 @@ namespace Aero390Spoilers
         }
         private void ReadCockpitControls()
         {
-            //SPOILER LEVER REFRESH
-            //int temp = GUIOwnship.SpoilerLeverPosition;
-            //GUIOwnship.SpoilerLeverPosition = -1 * SpoilerLever.Value;
-            //if (temp != GUIOwnship.SpoilerLeverPosition)//Spoiler Lever Position has changed.
-            //{
-            //    //TEMP WORK-AROUND
-            //    if (!SpoilerThreadRunning)
-            //    {
-            //        if (GUIOwnship.SpoilerLeverPosition == -1)
-            //        {
-            //            SpoilerLever.Value = 0;
-            //            GUIOwnship.SpoilerLeverPosition = 0;
-            //        }
-            //        double DeflectionPercent = ((double)(GUIOwnship.SpoilerLeverPosition) / 10.0) * 100;
-            //        double FromDeflection = GUIOwnship.SpoilerDeflectionPercentage[0];
-            //        if (GUIOwnship.SpoilerLeverPosition <= 0) DeflectionPercent = 0;
-            //        if (temp <= 0) FromDeflection = 0;
-            //        Thread IncrementSpoilers = new Thread(() => RefreshSpoilerActuation((int)FromDeflection, (int)DeflectionPercent, !GUIOwnship.WeightOnWheels));
-            //        SpoilerThreadRunning = true;
-            //        IncrementSpoilers.Start();
-            //    }
-            //}
-
-
-
             //SPOILER LEVER
             if (SpoilerLever.Value > -10 && HOTAS.X_button()) SpoilerLever.Value -= 2;
             if (SpoilerLever.Value < 2 && HOTAS.Square_button()) SpoilerLever.Value += 2;
@@ -367,10 +341,10 @@ namespace Aero390Spoilers
             if (HOTAS.Options_button()) ding.Play();
 
             //Missile
-            if (HOTAS.L1_button()) missile.Play();
+           // if (HOTAS.L1_button()) missile.Play();
 
             //Brrrt
-            if (HOTAS.Trigger_button()) cannon.Play();
+            //if (HOTAS.Trigger_button()) cannon.Play();
         }
         private void ReadDataPipe(string PipeName)
         {
@@ -649,21 +623,13 @@ namespace Aero390Spoilers
         }
         private void RefreshFCSynoptic()
         {
-            //Spoiler1PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[0];
-            Spoiler1PGB.Refresh();
-            //Spoiler2PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[1];
-            Spoiler2PGB.Refresh();
-            //Spoiler3PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[2];
-            Spoiler3PGB.Refresh();
-            //Spoiler4PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[3];
-            Spoiler4PGB.Refresh();
-            //Spoiler5PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[4];
-            Spoiler5PGB.Refresh();
-            //Spoiler6PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[5];
-            Spoiler6PGB.Refresh();
-            //Spoiler7PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[6];
-            Spoiler7PGB.Refresh();
-            //Spoiler8PGB.Value = 100 - GUIOwnship.SpoilerDeflectionPercentage[7];
+            Spoiler1PGB.Refresh();          
+            Spoiler2PGB.Refresh();           
+            Spoiler3PGB.Refresh();           
+            Spoiler4PGB.Refresh();           
+            Spoiler5PGB.Refresh();          
+            Spoiler6PGB.Refresh();           
+            Spoiler7PGB.Refresh();           
             Spoiler8PGB.Refresh();
         }
         private void RefreshGearPict()
@@ -766,7 +732,6 @@ namespace Aero390Spoilers
                 CurrentDeflection += increment;
                 Thread.Sleep(30);
             }
-            //SpoilerThreadRunning = false;
             return;
         }
         private void RefreshAttitude()
@@ -953,8 +918,6 @@ namespace Aero390Spoilers
                         FlapLever.Value = 0;
                         GUIOwnship.FlapLeverPosition = 0;
                         GUIOwnship.GrossWeightLbs = 30000;
-                        //LENGThrottle.Value = 8;
-                        //RENGThrottle.Value = 8;
                         GUIOwnship.LThrottlePosition = 8;
                         GUIOwnship.RThrottlePosition = 8;
                         SpoilerLever.Value = 2;
@@ -971,7 +934,6 @@ namespace Aero390Spoilers
                 case ("Approach"):
                     {
                         GUIOwnship.AltitudeASL = 1073 + GUIOwnship.RunwayAltASL;
-                        //GUIOwnship.AoA = -3;
                         GUIOwnship.AutoBrakeSelectorPosition = 3;
                         GUIOwnship.BankAngle = 0;
                         GUIOwnship.BaroSettingmmHg = 29.92;
@@ -984,15 +946,10 @@ namespace Aero390Spoilers
                         GUIOwnship.RThrottlePosition = 4;
                         SpoilerLever.Value = 0;
                         GUIOwnship.SpoilerLeverPosition = 0;
-                        //ControlWheelBar.Value = 0;
-                        //GUIOwnship.SWControlWheelPosition = 0;
-                        //GUIOwnship.VS = -600;
                         GUIOwnship.IasKts = 154;
                         if (GUIOwnship.GlobalGearStatus() != "DOWN") GUIOwnship.GearPositionChange();
                         GUIOwnship.WeightOnWheels = false;
                         GUIOwnship.PhaseOfFlight = "APPROACH";
-                        //Thread ApproachScenario = new Thread(() => RADALTStub());
-                        //ApproachScenario.Start();
                         break;
 
                     }

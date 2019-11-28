@@ -165,7 +165,7 @@
             this.WowButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.WowButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.WowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WowButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WowButton.Font = new System.Drawing.Font("B612", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WowButton.ForeColor = System.Drawing.Color.Transparent;
             this.WowButton.Location = new System.Drawing.Point(739, 101);
             this.WowButton.Name = "WowButton";
