@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Media;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Aero390Spoilers
@@ -18,6 +19,7 @@ namespace Aero390Spoilers
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
         bool underspeed_warning, underspeed_shown, avionics_start, armed_trigger;
         int AltCalloutTimeout = 0, speed_alert = 0;
+        int splrmismatchactive = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
         SoundPlayer missile = new SoundPlayer("..\\..\\Resources\\Misc\\missile_fox.wav");
@@ -983,6 +985,82 @@ namespace Aero390Spoilers
             }
             return;
         }
+        private void SpoilerMismatchMalf()
+        {
+
+            int killsplr = 0;
+            if (GUIOwnship.MalfSplrs && splrmismatchactive ==0)
+            {
+                Random rnd = new Random();
+                killsplr = rnd.Next(5, 9); // creates a number between 1 and 12
+                splrmismatchactive = killsplr;
+
+                switch (killsplr)
+                {
+                    case (5):
+                        {
+                            SplrLoss5.Show();
+                            SplrLoss4.Show();
+                            break;
+                        }
+                    case (6):
+                        {
+                            SplrLoss6.Show();
+                            SplrLoss3.Show();
+                            break;
+                        }
+                    case (7):
+                        {
+                            SplrLoss7.Show();
+                            SplrLoss2.Show();
+                            break;
+                        }
+                    case (8):
+                        {
+                            SplrLoss8.Show();
+                            SplrLoss1.Show();
+                            break;
+                        }
+                    default: break;
+                }
+            }
+            else if(!GUIOwnship.MalfSplrs && splrmismatchactive !=0)
+            {
+                switch (splrmismatchactive)
+                {
+                    case (5):
+                        {
+                            SplrLoss5.Hide();
+                            SplrLoss4.Hide();
+                            splrmismatchactive = 0;
+                            break;
+                        }
+                    case (6):
+                        {
+                            SplrLoss6.Hide();
+                            SplrLoss3.Hide();
+                            splrmismatchactive = 0;
+                            break;
+                        }
+                    case (7):
+                        {
+                            SplrLoss7.Hide();
+                            SplrLoss2.Hide();
+                            splrmismatchactive = 0;
+                            break;
+                        }
+                    case (8):
+                        {
+                            SplrLoss8.Hide();
+                            SplrLoss1.Hide();
+                            splrmismatchactive = 0;
+                            break;
+                        }
+                    default: break;
+                }
+            }
+        }
+
         private void UpdatePhaseOfFlight()
         {
             switch (GUIOwnship.PhaseOfFlight)
@@ -1214,14 +1292,5 @@ namespace Aero390Spoilers
         }
         #endregion
 
-        private void RENGThrottle_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void VerticalSpeedIndicatorInstrumentControl1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
