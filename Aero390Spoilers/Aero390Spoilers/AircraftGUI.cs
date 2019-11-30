@@ -17,7 +17,7 @@ namespace Aero390Spoilers
         JS_Input HOTAS = new JS_Input();
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
-        bool underspeed_warning, underspeed_shown, avionics_start, armed_trigger;
+        bool underspeed_warning, underspeed_shown, avionics_start, armed_trigger, config_warning, config_wrng_shown;
         int AltCalloutTimeout = 0, speed_alert = 0;
         int splrmismatchactive = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
@@ -58,6 +58,7 @@ namespace Aero390Spoilers
             RefreshPrintOuts();
             UpdatePhaseOfFlight();
             RefreshAttitude();
+            SpoilerMismatchMalf();
             if (GUIOwnship.PhaseOfFlight == "APPROACH")
             {
                 AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
@@ -244,7 +245,7 @@ namespace Aero390Spoilers
             return;
         }
 
-        private void UnderspeedWarning()
+        private void UnderspeedCaution()
         {
             if (underspeed_warning && !underspeed_shown)
             {
@@ -252,6 +253,7 @@ namespace Aero390Spoilers
                 UnderSpeed.Importance = 1;
                 UnderSpeed.MessageText = "UNDERSPEED";
                 GUIOwnship.AddEicasMessage(UnderSpeed);
+                GUIOwnship.CautionActive = true;
                 underspeed_shown = true;
             }
             else if (!underspeed_warning && underspeed_shown)
@@ -260,7 +262,32 @@ namespace Aero390Spoilers
                 UnderSpeed.Importance = 1;
                 UnderSpeed.MessageText = "UNDERSPEED";
                 GUIOwnship.RemoveEicasMessage(UnderSpeed);
+                GUIOwnship.CautionActive = false;
                 underspeed_shown = false;
+            }
+        }
+
+        private void ConfigWarning()
+        {
+            if (config_warning && !config_wrng_shown)
+            {
+                EICASMessage Config_Wrng = new EICASMessage();
+                Config_Wrng.Importance = 2;
+                Config_Wrng.MessageText = "AIRCRAFT CONFIG";
+                GUIOwnship.AddEicasMessage(Config_Wrng);
+                config_wrng_shown = true;
+                GUIOwnship.WarningActive = true;
+                WarningSound.PlayLooping();
+            }
+            else if (!config_warning && config_wrng_shown)
+            {
+                EICASMessage Config_Wrng = new EICASMessage();
+                Config_Wrng.Importance = 2;
+                Config_Wrng.MessageText = "AIRCRAFT CONFIG";
+                GUIOwnship.RemoveEicasMessage(Config_Wrng);
+                config_wrng_shown = false;
+                GUIOwnship.WarningActive = false;
+                WarningSound.Stop();
             }
         }
 
@@ -343,10 +370,10 @@ namespace Aero390Spoilers
             if (HOTAS.Options_button()) ding.Play();
 
             //Missile
-           // if (HOTAS.L1_button()) missile.Play();
+            if (HOTAS.L1_button()) missile.Play();
 
             //Brrrt
-            //if (HOTAS.Trigger_button()) cannon.Play();
+            if (HOTAS.Trigger_button()) cannon.Play();
         }
         private void ReadDataPipe(string PipeName)
         {
@@ -772,7 +799,7 @@ namespace Aero390Spoilers
                 underspeed_warning = true;
             }
             else underspeed_warning = false;
-            UnderspeedWarning();
+            UnderspeedCaution();
             if (GUIOwnship.IasKts > 0 && SpoilerLever.Value < 0) GUIOwnship.IasKts -= (double)SpoilerLever.Value / -10;
 
 
@@ -879,6 +906,18 @@ namespace Aero390Spoilers
             if (GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake <= 0) Spoiler7PGB.Value = 0;
             else Spoiler7PGB.Value = GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake;
             Spoiler8PGB.Value = Spoiler7PGB.Value;
+
+            //Acft Configuration
+            if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && (FlapLever.Value != -1 || SpoilerLever.Value < 0))
+            {
+                config_warning = true;
+                ConfigWarning();
+            }
+            else
+            {
+                config_warning = false;
+                ConfigWarning();
+            }
         }
 
         private void RepositionTo(string Reposition)
