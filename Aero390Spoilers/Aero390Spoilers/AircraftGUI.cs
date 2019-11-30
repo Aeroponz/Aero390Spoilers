@@ -1034,6 +1034,12 @@ namespace Aero390Spoilers
                 killsplr = rnd.Next(5, 9); // creates a number between 1 and 12
                 splrmismatchactive = killsplr;
 
+                EICASMessage SplrMM = new EICASMessage();
+                SplrMM.Importance = 1;
+                SplrMM.MessageText = "SPOILERS";
+                GUIOwnship.AddEicasMessage(SplrMM);
+                GUIOwnship.CautionActive = true;
+
                 switch (killsplr)
                 {
                     case (5):
@@ -1065,6 +1071,13 @@ namespace Aero390Spoilers
             }
             else if(!GUIOwnship.MalfSplrs && splrmismatchactive !=0)
             {
+                EICASMessage SplrMM = new EICASMessage();
+                SplrMM.Importance = 1;
+                SplrMM.MessageText = "SPOILERS";
+                GUIOwnship.RemoveEicasMessage(SplrMM);
+                GUIOwnship.CautionActive = false;
+
+
                 switch (splrmismatchactive)
                 {
                     case (5):
