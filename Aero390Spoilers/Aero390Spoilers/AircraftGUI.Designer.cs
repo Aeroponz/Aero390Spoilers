@@ -835,7 +835,6 @@
             this.RENGThrottle.Size = new System.Drawing.Size(45, 240);
             this.RENGThrottle.TabIndex = 73;
             this.RENGThrottle.TickFrequency = 10;
-            this.RENGThrottle.Scroll += new System.EventHandler(this.RENGThrottle_Scroll);
             // 
             // LENGThrottle
             // 
@@ -1301,7 +1300,6 @@
             this.verticalSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(150, 150);
             this.verticalSpeedIndicatorInstrumentControl1.TabIndex = 40;
             this.verticalSpeedIndicatorInstrumentControl1.Text = "verticalSpeedIndicatorInstrumentControl1";
-            this.verticalSpeedIndicatorInstrumentControl1.Click += new System.EventHandler(this.VerticalSpeedIndicatorInstrumentControl1_Click);
             // 
             // Spoiler8PGB
             // 

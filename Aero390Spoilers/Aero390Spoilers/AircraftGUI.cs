@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Media;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Aero390Spoilers
@@ -16,8 +17,9 @@ namespace Aero390Spoilers
         JS_Input HOTAS = new JS_Input();
 
         Ownship.Aircraft GUIOwnship = new Ownship.Aircraft();
-        bool underspeed_warning, underspeed_shown, avionics_start, armed_trigger;
+        bool underspeed_warning, underspeed_shown, avionics_start, armed_trigger, config_warning, config_wrng_shown;
         int AltCalloutTimeout = 0, speed_alert = 0;
+        int splrmismatchactive = 0;
         SoundPlayer WarningSound = new SoundPlayer("..\\..\\Resources\\AltitudeCallouts\\Boeing_MC_Single.wav");
         SoundPlayer ding = new SoundPlayer("..\\..\\Resources\\Misc\\acft_chime.wav");
         SoundPlayer missile = new SoundPlayer("..\\..\\Resources\\Misc\\missile_fox.wav");
@@ -56,6 +58,7 @@ namespace Aero390Spoilers
             RefreshPrintOuts();
             UpdatePhaseOfFlight();
             RefreshAttitude();
+            SpoilerMismatchMalf();
             if (GUIOwnship.PhaseOfFlight == "APPROACH")
             {
                 AltitudeCallouts(GUIOwnship.AltitudeASL - GUIOwnship.RunwayAltASL);
@@ -242,7 +245,7 @@ namespace Aero390Spoilers
             return;
         }
 
-        private void UnderspeedWarning()
+        private void UnderspeedCaution()
         {
             if (underspeed_warning && !underspeed_shown)
             {
@@ -250,6 +253,7 @@ namespace Aero390Spoilers
                 UnderSpeed.Importance = 1;
                 UnderSpeed.MessageText = "UNDERSPEED";
                 GUIOwnship.AddEicasMessage(UnderSpeed);
+                GUIOwnship.CautionActive = true;
                 underspeed_shown = true;
             }
             else if (!underspeed_warning && underspeed_shown)
@@ -258,7 +262,32 @@ namespace Aero390Spoilers
                 UnderSpeed.Importance = 1;
                 UnderSpeed.MessageText = "UNDERSPEED";
                 GUIOwnship.RemoveEicasMessage(UnderSpeed);
+                GUIOwnship.CautionActive = false;
                 underspeed_shown = false;
+            }
+        }
+
+        private void ConfigWarning()
+        {
+            if (config_warning && !config_wrng_shown)
+            {
+                EICASMessage Config_Wrng = new EICASMessage();
+                Config_Wrng.Importance = 2;
+                Config_Wrng.MessageText = "AIRCRAFT CONFIG";
+                GUIOwnship.AddEicasMessage(Config_Wrng);
+                config_wrng_shown = true;
+                GUIOwnship.WarningActive = true;
+                WarningSound.PlayLooping();
+            }
+            else if (!config_warning && config_wrng_shown)
+            {
+                EICASMessage Config_Wrng = new EICASMessage();
+                Config_Wrng.Importance = 2;
+                Config_Wrng.MessageText = "AIRCRAFT CONFIG";
+                GUIOwnship.RemoveEicasMessage(Config_Wrng);
+                config_wrng_shown = false;
+                GUIOwnship.WarningActive = false;
+                WarningSound.Stop();
             }
         }
 
@@ -341,10 +370,10 @@ namespace Aero390Spoilers
             if (HOTAS.Options_button()) ding.Play();
 
             //Missile
-           // if (HOTAS.L1_button()) missile.Play();
+            if (HOTAS.L1_button()) missile.Play();
 
             //Brrrt
-            //if (HOTAS.Trigger_button()) cannon.Play();
+            if (HOTAS.Trigger_button()) cannon.Play();
         }
         private void ReadDataPipe(string PipeName)
         {
@@ -770,7 +799,7 @@ namespace Aero390Spoilers
                 underspeed_warning = true;
             }
             else underspeed_warning = false;
-            UnderspeedWarning();
+            UnderspeedCaution();
             if (GUIOwnship.IasKts > 0 && SpoilerLever.Value < 0) GUIOwnship.IasKts -= (double)SpoilerLever.Value / -10;
 
 
@@ -843,7 +872,7 @@ namespace Aero390Spoilers
             }
 
             //GND Spoilers (Auto)
-            if (GUIOwnship.WeightOnWheels && SpoilerLever.Value == 0 && GUIOwnship.PhaseOfFlight == "LANDING") armed_trigger = true; ;
+            if (GUIOwnship.WeightOnWheels && SpoilerLever.Value == 0 && (GUIOwnship.PhaseOfFlight == "LANDING" || GUIOwnship.PhaseOfFlight == "RTO")) armed_trigger = true;
             if (armed_trigger && SpoilerLever.Value > -10)
             {
                 SpoilerLever.Value--;
@@ -877,6 +906,18 @@ namespace Aero390Spoilers
             if (GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake <= 0) Spoiler7PGB.Value = 0;
             else Spoiler7PGB.Value = GUIOwnship.MFS_Right - GUIOwnship.MFS_as_brake;
             Spoiler8PGB.Value = Spoiler7PGB.Value;
+
+            //Acft Configuration
+            if (GUIOwnship.PhaseOfFlight == "TAKEOFF" && (FlapLever.Value != -1 || SpoilerLever.Value < 0))
+            {
+                config_warning = true;
+                ConfigWarning();
+            }
+            else
+            {
+                config_warning = false;
+                ConfigWarning();
+            }
         }
 
         private void RepositionTo(string Reposition)
@@ -983,6 +1024,95 @@ namespace Aero390Spoilers
             }
             return;
         }
+        private void SpoilerMismatchMalf()
+        {
+
+            int killsplr = 0;
+            if (GUIOwnship.MalfSplrs && splrmismatchactive ==0)
+            {
+                Random rnd = new Random();
+                killsplr = rnd.Next(5, 9); // creates a number between 1 and 12
+                splrmismatchactive = killsplr;
+
+                EICASMessage SplrMM = new EICASMessage();
+                SplrMM.Importance = 1;
+                SplrMM.MessageText = "SPOILERS";
+                GUIOwnship.AddEicasMessage(SplrMM);
+                GUIOwnship.CautionActive = true;
+
+                switch (killsplr)
+                {
+                    case (5):
+                        {
+                            SplrLoss5.Show();
+                            SplrLoss4.Show();
+                            break;
+                        }
+                    case (6):
+                        {
+                            SplrLoss6.Show();
+                            SplrLoss3.Show();
+                            break;
+                        }
+                    case (7):
+                        {
+                            SplrLoss7.Show();
+                            SplrLoss2.Show();
+                            break;
+                        }
+                    case (8):
+                        {
+                            SplrLoss8.Show();
+                            SplrLoss1.Show();
+                            break;
+                        }
+                    default: break;
+                }
+            }
+            else if(!GUIOwnship.MalfSplrs && splrmismatchactive !=0)
+            {
+                EICASMessage SplrMM = new EICASMessage();
+                SplrMM.Importance = 1;
+                SplrMM.MessageText = "SPOILERS";
+                GUIOwnship.RemoveEicasMessage(SplrMM);
+                GUIOwnship.CautionActive = false;
+
+
+                switch (splrmismatchactive)
+                {
+                    case (5):
+                        {
+                            SplrLoss5.Hide();
+                            SplrLoss4.Hide();
+                            splrmismatchactive = 0;
+                            break;
+                        }
+                    case (6):
+                        {
+                            SplrLoss6.Hide();
+                            SplrLoss3.Hide();
+                            splrmismatchactive = 0;
+                            break;
+                        }
+                    case (7):
+                        {
+                            SplrLoss7.Hide();
+                            SplrLoss2.Hide();
+                            splrmismatchactive = 0;
+                            break;
+                        }
+                    case (8):
+                        {
+                            SplrLoss8.Hide();
+                            SplrLoss1.Hide();
+                            splrmismatchactive = 0;
+                            break;
+                        }
+                    default: break;
+                }
+            }
+        }
+
         private void UpdatePhaseOfFlight()
         {
             switch (GUIOwnship.PhaseOfFlight)
@@ -1016,6 +1146,11 @@ namespace Aero390Spoilers
                 case ("LANDING"):
                     {
                         if (GUIOwnship.IasKts <= 60) GUIOwnship.PhaseOfFlight = "TAXI";
+                        break;
+                    }
+                case ("RTO"):
+                    {
+                        if (GUIOwnship.IasKts <= 1) GUIOwnship.PhaseOfFlight = "TAXI";
                         break;
                     }
             }
@@ -1209,14 +1344,5 @@ namespace Aero390Spoilers
         }
         #endregion
 
-        private void RENGThrottle_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void VerticalSpeedIndicatorInstrumentControl1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
