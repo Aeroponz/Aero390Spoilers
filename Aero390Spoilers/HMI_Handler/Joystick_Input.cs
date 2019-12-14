@@ -6,18 +6,27 @@ namespace Joystick_Input
     public class JS_Input
     {
         static DirectInput directInput = new DirectInput();
-        static Guid joystickGuid = new Guid("5f939150-07ab-11ea-8001-444553540000");
-        Joystick joystick = new Joystick(directInput, joystickGuid);
-        bool first_check = true, O_toggle = false;
+        static Guid joystickGuid;
+        Joystick joystick;
+        bool first_check = true, O_toggle = false, joystickConnected = false;
         int options_delay = 0, L1_delay = 0, square_delay = 0, X_delay = 0, l2_delay = 0, r2_delay = 0;
 
         public JS_Input()
         {
-            //Create buffer
-            joystick.Properties.BufferSize = 128;
-
-            // Acquire the joystick
-            joystick.Acquire();
+            joystickGuid = new Guid("5f939150-07ab-11ea-8001-444553540000");
+            if(directInput.IsDeviceAttached(joystickGuid))
+            {
+                joystickConnected = true;
+                joystick = new Joystick(directInput, joystickGuid);
+                //Create buffer
+                joystick.Properties.BufferSize = 128;
+                // Acquire the joystick
+                joystick.Acquire();
+            }
+        }
+        public bool DeviceStatus()
+        {
+            return joystickConnected;
         }
 
         public double X_axis()

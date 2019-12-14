@@ -306,9 +306,13 @@ namespace Aero390Spoilers
         }
         private void ReadCockpitControls()
         {
-            //SPOILER LEVER
-            if (SpoilerLever.Value > -10 && HOTAS.X_button()) SpoilerLever.Value -= 2;
-            if (SpoilerLever.Value < 2 && HOTAS.Square_button()) SpoilerLever.Value += 2;
+            //SPOILER LEVER VIA JOYSTICK
+            if (HOTAS.DeviceStatus())
+            {
+                if (SpoilerLever.Value > -10 && HOTAS.X_button()) SpoilerLever.Value -= 2;
+                if (SpoilerLever.Value < 2 && HOTAS.Square_button()) SpoilerLever.Value += 2;
+            }
+            //UPDATE SPOILERS
             if (SpoilerLever.Value <= 0)
             {
                 for (int i = 0; i < 8; i++)
@@ -324,56 +328,67 @@ namespace Aero390Spoilers
                 }
             }
 
-            //FLAP LEVER REFRESH
-            if (FlapLever.Value < 0 && HOTAS.R2_button()) FlapLever.Value++;
-            if (FlapLever.Value > -3 && HOTAS.L2_button()) FlapLever.Value--;
+            //REFRESH VIA JOYSTICK
+            if (HOTAS.DeviceStatus())
+            {
 
+                //PITCH CTRL VIA JOYSTICK
+                PitchBar.Value = (int)(HOTAS.Y_axis() * (-10));
+
+
+                //CONTROL WHEEL VIA JOYSTICK
+                ControlWheelBar.Value = (int)(HOTAS.X_axis() * 10);
+
+                //FLAP
+                if (FlapLever.Value < 0 && HOTAS.R2_button()) FlapLever.Value++;
+                if (FlapLever.Value > -3 && HOTAS.L2_button()) FlapLever.Value--;
+
+                //LANDING GEAR
+                if (HOTAS.O_button()) GUIOwnship.GearPositionChange();
+
+                //Options Button
+                if (HOTAS.Options_button()) ding.Play();
+
+                //Missile
+                if (HOTAS.L1_button()) missile.Play();
+
+                //Brrrt
+                if (HOTAS.Trigger_button()) cannon.Play();
+
+                //Autobrake Position
+                if (HOTAS.POV_Hat() >= 0 && HOTAS.POV_Hat() <= 4)
+                {
+                    GUIOwnship.AutoBrakeSelectorPosition = HOTAS.POV_Hat();
+                }
+
+                //THROTTLES
+                LENGThrottle.Value = HOTAS.Throttle();
+            }
+
+            //UPDATE FLAPS
             GUIOwnship.FlapLeverPosition = -1 * FlapLever.Value;
 
 
-            //PITCH CTRL
-            PitchBar.Value = (int)(HOTAS.Y_axis() * (-10));
-
-
             //CONTROL WHEEL
-            ControlWheelBar.Value = (int)(HOTAS.X_axis() * 10);
             GUIOwnship.SWControlWheelPosition = ControlWheelBar.Value;
 
-            if (HOTAS.X_axis() >= 0)
+            if (GUIOwnship.SWControlWheelPosition >= 0)
             {
-                GUIOwnship.MFS_Right = 100 - (int)(HOTAS.X_axis() * 30);
+                GUIOwnship.MFS_Right = 100 - (int)(GUIOwnship.SWControlWheelPosition * 3);
                 GUIOwnship.MFS_Left = 100;
             }
-            else if (HOTAS.X_axis() <= 0)
+            else
             {
-                GUIOwnship.MFS_Left = 100 + (int)(HOTAS.X_axis() * 30);
+                GUIOwnship.MFS_Left = 100 + (int)(GUIOwnship.SWControlWheelPosition * 3);
                 GUIOwnship.MFS_Right = 100;
             }
 
 
             //THROTTLES
-            LENGThrottle.Value = HOTAS.Throttle();
             RENGThrottle.Value = LENGThrottle.Value;
             GUIOwnship.LThrottlePosition = LENGThrottle.Value;
             GUIOwnship.RThrottlePosition = RENGThrottle.Value;
-
-            //LANDING GEAR
-            if (HOTAS.O_button()) GUIOwnship.GearPositionChange();
-
-            //Autobrake Position
-            if (HOTAS.POV_Hat() >= 0 && HOTAS.POV_Hat() <= 4)
-            {
-                GUIOwnship.AutoBrakeSelectorPosition = HOTAS.POV_Hat();
-            }
-
-            //Options Button
-            if (HOTAS.Options_button()) ding.Play();
-
-            //Missile
-            if (HOTAS.L1_button()) missile.Play();
-
-            //Brrrt
-            if (HOTAS.Trigger_button()) cannon.Play();
+            
         }
         private void ReadDataPipe(string PipeName)
         {
@@ -771,7 +786,10 @@ namespace Aero390Spoilers
                 if (GUIOwnship.IasKts < 1.9 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
                 else if (GUIOwnship.IasKts > (1.9 * LENGThrottle.Value) + 1)
                 {
-                    if (HOTAS.Triangle_button()) GUIOwnship.IasKts--;
+                    if (HOTAS.DeviceStatus())
+                    {
+                        if (HOTAS.Triangle_button()) GUIOwnship.IasKts--;
+                    }
                     else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
                     else GUIOwnship.IasKts -= 0.1;
                 }
@@ -781,7 +799,10 @@ namespace Aero390Spoilers
                 if (GUIOwnship.IasKts < 4.2 * LENGThrottle.Value) GUIOwnship.IasKts += 1 * (LENGThrottle.Value / 100.0);
                 else if (GUIOwnship.IasKts > (4.2 * LENGThrottle.Value) + 1)
                 {
-                    if (HOTAS.Triangle_button()) GUIOwnship.IasKts--;
+                    if (HOTAS.DeviceStatus())
+                    {
+                        if (HOTAS.Triangle_button()) GUIOwnship.IasKts--;
+                    }
                     else if (GUIOwnship.AltitudeASL > GUIOwnship.RunwayAltASL) GUIOwnship.IasKts -= 0.5;
                     else GUIOwnship.IasKts -= 0.1;
                 }
