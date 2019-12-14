@@ -3,10 +3,6 @@ using System.IO;
 using System.IO.Pipes;
 using System.Threading;
 using System.Timers;
-using System.Collections;
-using System.Text;
-
-using ARINC;
 
 namespace CSSimulationNode
 {
@@ -62,7 +58,6 @@ namespace CSSimulationNode
             Console.WriteLine("Simulation Loaded at {0:HH:mm:ss.fff}", DateTime.Now);
 
 
-
             //Stop Simulation and Clean Solution
             Console.WriteLine("\nPress the Enter key to exit the application...\n");
             Console.ReadLine();
@@ -73,7 +68,7 @@ namespace CSSimulationNode
             Console.WriteLine("End of Main(), time to selfdestruct!");
             Console.ReadLine();
         }
-        
+
 
         //This method is called at every second interval.
         public static void Simulation_Tick()
@@ -86,7 +81,7 @@ namespace CSSimulationNode
             string[] MessageQueue = MyOwnship.AircraftTick();
             for (int i = 0; i < MessageQueue.Length; i++)
             {
-                if(MessageQueue[i] != "")
+                if (MessageQueue[i] != "")
                 {
                     AddMessageToBuffer(MessageQueue[i]);
                 }
@@ -125,7 +120,7 @@ namespace CSSimulationNode
         //Tells timer what to do when delay is met
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            if(TotalTicks % 2 == 0)//Tick Simulation
+            if (TotalTicks % 2 == 0)//Tick Simulation
             {
                 //Console.WriteLine("Simulation Tick at {0:HH:mm:ss.fff}", e.SignalTime);
                 Simulation_Tick();

@@ -1,0 +1,22 @@
+[0] = trigger
+[1] = L1
+[2] = R3
+[3] = L3
+[4] = SQUARE
+[5] = X
+[6] = O
+[7] = TRIANGLE
+[8] = R2
+[9] = L2
+[10] = SHARE
+[11] = OPTIONS
+
+PointOfViewControllers[0] positions:
+CENTERED = -1
+RADIAL = ANGLE + 00 (eg. R = 9000, L = 27000)
+
+SLIDER[0]:
+FULL LEFT = 0
+CENTERED = 32767
+FULL RIGHT = 65535
+

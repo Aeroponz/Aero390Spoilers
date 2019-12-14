@@ -9,22 +9,17 @@
 /* History  :                                                                */
 /*****************************************************************************/
 
-using System;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Collections;
 using System.Drawing;
-using System.Text;
-using System.Data;
+using System.Windows.Forms;
 
 namespace AvionicsInstrumentControlDemo
 {
     class AirSpeedIndicatorInstrumentControl : InstrumentControl
     {
-         #region Fields
+        #region Fields
 
         // Parameters
-        int airSpeed; 
+        int airSpeed;
 
         // Images
         Bitmap bmpCadran = new Bitmap(AvionicsInstrumentControlDemo.AvionicsInstrumentsControls.AvionicsInstrumentsControlsRessources.AirSpeedIndicator_Background);
@@ -40,10 +35,10 @@ namespace AvionicsInstrumentControlDemo
 		private System.ComponentModel.Container components = null;
 
         public AirSpeedIndicatorInstrumentControl()
-		{
-			// Double bufferisation
-			SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
-				ControlStyles.AllPaintingInWmPaint, true);
+        {
+            // Double bufferisation
+            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint, true);
         }
 
         #endregion
@@ -68,12 +63,12 @@ namespace AvionicsInstrumentControlDemo
 
             // Pre Display computings
             Point ptRotation = new Point(150, 150);
-            Point ptimgNeedle = new Point(136,39);
+            Point ptimgNeedle = new Point(136, 39);
 
             bmpCadran.MakeTransparent(Color.Yellow);
             bmpNeedle.MakeTransparent(Color.Yellow);
 
-            double alphaNeedle = InterpolPhyToAngle(airSpeed,0,800,180,468);
+            double alphaNeedle = InterpolPhyToAngle(airSpeed, 0, 800, 180, 468);
 
             float scale = (float)this.Width / bmpCadran.Width;
 

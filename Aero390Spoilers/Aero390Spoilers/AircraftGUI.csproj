@@ -172,6 +172,10 @@
       <Project>{8c913e93-c239-4ba6-acb3-92d64223cdd9}</Project>
       <Name>CSSimulationNode</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HMI_Handler\HMI_Handler.csproj">
+      <Project>{5f98022b-ff4b-47cb-8b16-6a8ecf28f6b2}</Project>
+      <Name>HMI_Handler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ownship\Ownship.csproj">
       <Project>{7c9f84ca-bc59-4758-b62e-d361ba58f400}</Project>
       <Name>Ownship</Name>

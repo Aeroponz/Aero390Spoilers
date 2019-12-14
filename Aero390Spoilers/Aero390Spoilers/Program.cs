@@ -1,11 +1,10 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using ARINC;
+using System;
+using System.IO;
+using System.IO.Pipes;
 using System.Threading;
 using System.Timers;
-using System.IO.Pipes;
-using System.IO;
-
-using ARINC;
+using System.Windows.Forms;
 
 #if NET40Plus
 using System.Threading.Tasks;
@@ -118,10 +117,10 @@ namespace Aero390Spoilers
             //Spin.Turn();
             // Display the read text to the console
             string temp;
-            if((temp = srToGUI.ReadLine()) != null)
+            if ((temp = srToGUI.ReadLine()) != null)
             {
                 Console.WriteLine("Received from server: {0}", temp);
-                if(temp != "Connection Successful!")
+                if (temp != "Connection Successful!")
                 {
                     ARINCMessage received = new ARINCMessage();
                     //received.ToBitArray(temp);

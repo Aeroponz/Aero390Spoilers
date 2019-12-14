@@ -9,22 +9,17 @@
 /* History  :                                                                */
 /*****************************************************************************/
 
-using System;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Collections;
 using System.Drawing;
-using System.Text;
-using System.Data;
+using System.Windows.Forms;
 
 namespace AvionicsInstrumentControlDemo
 {
     class EngineIndicatorControl : InstrumentControl
     {
-         #region Fields
+        #region Fields
 
         // Parameters
-        int N2; 
+        int N2;
 
         // Images
         Bitmap bmpCadran = new Bitmap(AvionicsInstrumentControlDemo.AvionicsInstrumentsControls.AvionicsInstrumentsControlsRessources.EngineIndicator_Background);
@@ -40,10 +35,10 @@ namespace AvionicsInstrumentControlDemo
 		private System.ComponentModel.Container components = null;
 
         public EngineIndicatorControl()
-		{
-			// Double bufferisation
-			SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
-				ControlStyles.AllPaintingInWmPaint, true);
+        {
+            // Double bufferisation
+            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint, true);
         }
 
         #endregion
@@ -68,12 +63,12 @@ namespace AvionicsInstrumentControlDemo
 
             // Pre Display computings
             Point ptRotation = new Point(150, 150);
-            Point ptimgNeedle = new Point(136,39);
+            Point ptimgNeedle = new Point(136, 39);
 
             bmpCadran.MakeTransparent(Color.Yellow);
             bmpNeedle.MakeTransparent(Color.Yellow);
 
-            double alphaNeedle = InterpolPhyToAngle(N2,0,100,180,430);
+            double alphaNeedle = InterpolPhyToAngle(N2, 0, 100, 180, 430);
 
             float scale = (float)this.Width / bmpCadran.Width;
 

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ownship
+﻿namespace Ownship
 {
-     public class EICASMessage
+    public class EICASMessage
     {
         public EICASMessage()
         {
